@@ -1353,7 +1353,7 @@
           const target = document.getElementById(id);
           if (target) {
             e.preventDefault();
-            dst = Math.min(Math.max(target.offsetTop, 0), maxScroll());
+            dst = Math.min(Math.max(cur + target.getBoundingClientRect().top, 0), maxScroll());
           }
         });
       });
