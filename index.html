@@ -323,8 +323,20 @@
       letter-spacing: -0.03em;
       animation: fadeUp 0.75s 0.35s cubic-bezier(0.22,1,0.36,1) both;
     }
-    .hero-title .t-white { color: #ffffff; display: block; }
-    .hero-title .t-dim   { color: rgba(255,255,255,0.30); display: block; }
+    .hero-title .t-white {
+      display: block;
+      background: linear-gradient(90deg, #e8192c 0%, #ff6b6b 40%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title .t-dim {
+      display: block;
+      background: linear-gradient(90deg, #ff4455 0%, #ffffff 60%, rgba(255,255,255,0.5) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .hero-sub {
       font-family: 'Onest', sans-serif;
