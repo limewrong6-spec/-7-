@@ -1348,29 +1348,13 @@
         if (e.key === 'Home')  dst = 0;
       });
 
-      const sectionPos = {};
-      setTimeout(() => {
-        ['home','features','pricing'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) sectionPos[id] = el.getBoundingClientRect().top + cur;
-        });
-      }, 600);
-
-      const navLinks = document.querySelectorAll('nav a[href^="#"]');
-      function setActive(id) {
-        navLinks.forEach(a => {
-          const linkId = a.getAttribute('href').slice(1);
-          a.classList.toggle('active', linkId === id);
-        });
-      }
-
       document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
           e.preventDefault();
           const id = a.getAttribute('href').slice(1);
-          if (!id || sectionPos[id] === undefined) return;
-          dst = Math.min(Math.max(sectionPos[id], 0), maxScroll());
-          setActive(id);
+          if (!id) return;
+          const target = document.getElementById(id);
+          if (target) dst = Math.min(Math.max(target.offsetTop, 0), maxScroll());
         });
       });
 
