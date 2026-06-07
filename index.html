@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -1356,7 +1356,7 @@
     })();
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script>
     (function() {
       const canvas = document.getElementById('model-canvas');
@@ -1378,9 +1378,13 @@
       const d1 = new THREE.DirectionalLight(0xffffff, 1.5); d1.position.set(2, 4, 3); scene.add(d1);
       const d2 = new THREE.DirectionalLight(0xff2233, 0.6); d2.position.set(-2, -2, 2); scene.add(d2);
 
-      const tex = new THREE.TextureLoader().load('model.png');
+      const TEX_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAABCAYAAAAxWXB3AAAAAXNSR0IArs4c6QAAAERJREFUOI1j9Pb2/s8wCkbBKBiS4NtsE4b9V48zeE9gxSpv9fUIg0+6H8OXB08Zbl95yODVkMjAJ6zIwMrrycDMKsQIAI09EQLr7eKXAAAAAElFTkSuQmCC';
+      const tex = new THREE.TextureLoader().load(TEX_SRC);
       tex.magFilter = THREE.NearestFilter;
       tex.minFilter = THREE.NearestFilter;
+
+      const OBJ_B64 = 'IyBNYWdpY2FWb3hlbCBAIEVwaHRyYWN5DQoNCiMgZ3JvdXANCm8gDQoNCiMgbWF0ZXJpYWwNCm10bGxpYiDRgtC+0YLQtdC8INC90LXRgdC80LXRgNGC0LgubXRsDQp1c2VtdGwgcGFsZXR0ZQ0KDQojIG5vcm1hbHMNCnZuIC0xIDAgMA0Kdm4gMSAwIDANCnZuIDAgMCAxDQp2biAwIDAgLTENCnZuIDAgLTEgMA0Kdm4gMCAxIDANCg0KIyB0ZXhjb29yZHMNCnZ0IDAuOTM5NDUzIDAuNQ0KdnQgMC45NDMzNTkgMC41DQp2dCAwLjk3MDcwMyAwLjUNCnZ0IDAuOTc0NjA5IDAuNQ0KdnQgMC45Nzg1MTYgMC41DQp2dCAwLjk4MjQyMiAwLjUNCnZ0IDAuOTg2MzI4IDAuNQ0KdnQgMC45OTAyMzQgMC41DQp2dCAwLjk5NDE0MSAwLjUNCg0KIyB2ZXJ0cw0KdiAtMC43IDAuNiAwLjENCnYgLTAuNyAwLjYgLTAuMQ0KdiAtMC43IDAuNyAwLjENCnYgLTAuNyAwLjcgLTAuMQ0KdiAtMC43IDAuOCAwLjENCnYgLTAuNyAwLjggLTAuMQ0KdiAtMC42IDAuNSAwLjENCnYgLTAuNiAwLjUgLTAuMQ0KdiAtMC42IDAuNiAwLjENCnYgLTAuNiAwLjYgLTAuMQ0KdiAtMC40IDAuMyAwLjENCnYgLTAuNCAwLjMgLTAuMQ0KdiAtMC40IDAuNSAwLjENCnYgLTAuNCAwLjUgLTAuMQ0KdiAtMC40IDAuOCAwLjENCnYgLTAuNCAwLjggLTAuMQ0KdiAtMC40IDEuMyAwLjENCnYgLTAuNCAxLjMgLTAuMQ0KdiAtMC40IDEuNCAwLjENCnYgLTAuNCAxLjQgLTAuMQ0KdiAtMC4zIDAuMSAwLjENCnYgLTAuMyAwLjEgLTAuMQ0KdiAtMC4zIDAuMyAwLjENCnYgLTAuMyAwLjMgLTAuMQ0KdiAtMC4zIDEuNCAwLjENCnYgLTAuMyAxLjQgLTAuMQ0KdiAtMC4zIDEuNSAwLjENCnYgLTAuMyAxLjUgLTAuMQ0KdiAtMC4yIDAgMC4xDQp2IC0wLjIgMCAtMC4xDQp2IC0wLjIgMC4xIDAuMQ0KdiAtMC4yIDAuMSAtMC4xDQp2IC0wLjEgMC43IDAuMg0KdiAtMC4xIDAuNyAwLjENCnYgLTAuMSAwLjggMC4yDQp2IC0wLjEgMC44IDAuMQ0KdiAtMC4xIDAuOSAwLjINCnYgLTAuMSAwLjkgMC4xDQp2IC0wLjEgMSAwLjINCnYgLTAuMSAxIDAuMQ0KdiAwLjEgMC43IDAuMg0KdiAwLjEgMC43IDAuMQ0KdiAwLjEgMC44IDAuMQ0KdiAwLjEgMC45IDAuMg0KdiAwLjEgMC45IDAuMQ0KdiAwLjEgMSAwLjINCnYgMC4xIDEgMC4xDQp2IDAuMiAwIDAuMQ0KdiAwLjIgMCAtMC4xDQp2IDAuMiAwLjEgMC4xDQp2IDAuMiAwLjEgLTAuMQ0KdiAwLjMgMC4xIDAuMQ0KdiAwLjMgMC4xIC0wLjENCnYgMC4zIDAuMyAwLjENCnYgMC4zIDAuMyAtMC4xDQp2IDAuMyAxLjQgMC4xDQp2IDAuMyAxLjQgLTAuMQ0KdiAwLjMgMS41IDAuMQ0KdiAwLjMgMS41IC0wLjENCnYgMC40IDAuMyAwLjENCnYgMC40IDAuMyAtMC4xDQp2IDAuNCAwLjQgMC4xDQp2IDAuNCAwLjQgLTAuMQ0KdiAwLjQgMC41IDAuMQ0KdiAwLjQgMC41IC0wLjENCnYgMC40IDAuOCAwLjENCnYgMC40IDAuOCAtMC4xDQp2IDAuNCAxLjMgMC4xDQp2IDAuNCAxLjMgLTAuMQ0KdiAwLjQgMS40IDAuMQ0KdiAwLjQgMS40IC0wLjENCnYgMC42IDAuNSAwLjENCnYgMC42IDAuNSAtMC4xDQp2IDAuNiAwLjYgMC4xDQp2IDAuNiAwLjYgLTAuMQ0KdiAwLjcgMC42IDAuMQ0KdiAwLjcgMC42IC0wLjENCnYgMC43IDAuOCAwLjENCnYgMC43IDAuOCAtMC4xDQp2IC0wLjEgMC43IDAuMg0KdiAtMC4xIDAuOCAwLjINCnYgLTAuMSAwLjkgMC4yDQp2IC0wLjEgMSAwLjINCnYgMCAwLjggMC4yDQp2IDAgMC45IDAuMg0KdiAwIDEgMC4yDQp2IDAuMSAwLjcgMC4yDQp2IDAuMSAwLjkgMC4yDQp2IDAuMSAxIDAuMg0KdiAtMC43IDAuNiAwLjENCnYgLTAuNyAwLjcgMC4xDQp2IC0wLjcgMC44IDAuMQ0KdiAtMC42IDAuNSAwLjENCnYgLTAuNiAwLjYgMC4xDQp2IC0wLjYgMC43IDAuMQ0KdiAtMC41IDAuNiAwLjENCnYgLTAuNSAwLjcgMC4xDQp2IC0wLjQgMC4zIDAuMQ0KdiAtMC40IDAuNSAwLjENCnYgLTAuNCAwLjYgMC4xDQp2IC0wLjQgMC43IDAuMQ0KdiAtMC40IDAuOCAwLjENCnYgLTAuNCAxLjMgMC4xDQp2IC0wLjQgMS40IDAuMQ0KdiAtMC4zIDAuMSAwLjENCnYgLTAuMyAwLjMgMC4xDQp2IC0wLjMgMC40IDAuMQ0KdiAtMC4zIDAuNSAwLjENCnYgLTAuMyAwLjYgMC4xDQp2IC0wLjMgMC43IDAuMQ0KdiAtMC4zIDAuOCAwLjENCnYgLTAuMyAwLjkgMC4xDQp2IC0wLjMgMSAwLjENCnYgLTAuMyAxLjEgMC4xDQp2IC0wLjMgMS4yIDAuMQ0KdiAtMC4zIDEuMyAwLjENCnYgLTAuMyAxLjQgMC4xDQp2IC0wLjMgMS41IDAuMQ0KdiAtMC4yIDAgMC4xDQp2IC0wLjIgMC4xIDAuMQ0KdiAtMC4yIDAuMiAwLjENCnYgLTAuMiAwLjMgMC4xDQp2IC0wLjIgMC40IDAuMQ0KdiAtMC4yIDAuNSAwLjENCnYgLTAuMiAwLjYgMC4xDQp2IC0wLjIgMC43IDAuMQ0KdiAtMC4yIDAuOCAwLjENCnYgLTAuMiAwLjkgMC4xDQp2IC0wLjIgMSAwLjENCnYgLTAuMiAxLjEgMC4xDQp2IC0wLjIgMS4yIDAuMQ0KdiAtMC4yIDEuMyAwLjENCnYgLTAuMSAwLjEgMC4xDQp2IC0wLjEgMC4yIDAuMQ0KdiAtMC4xIDAuNiAwLjENCnYgLTAuMSAwLjcgMC4xDQp2IC0wLjEgMC44IDAuMQ0KdiAtMC4xIDAuOSAwLjENCnYgLTAuMSAxIDAuMQ0KdiAtMC4xIDEuMSAwLjENCnYgLTAuMSAxLjIgMC4xDQp2IDAgMC41IDAuMQ0KdiAwIDAuNiAwLjENCnYgMCAxIDAuMQ0KdiAwIDEuMSAwLjENCnYgMCAxLjIgMC4xDQp2IDAgMS4zIDAuMQ0KdiAwLjEgMC4xIDAuMQ0KdiAwLjEgMC4zIDAuMQ0KdiAwLjEgMC41IDAuMQ0KdiAwLjEgMC42IDAuMQ0KdiAwLjEgMC43IDAuMQ0KdiAwLjEgMC44IDAuMQ0KdiAwLjEgMC45IDAuMQ0KdiAwLjEgMSAwLjENCnYgMC4xIDEuMSAwLjENCnYgMC4xIDEuMiAwLjENCnYgMC4yIDAgMC4xDQp2IDAuMiAwLjEgMC4xDQp2IDAuMiAwLjMgMC4xDQp2IDAuMiAwLjQgMC4xDQp2IDAuMiAwLjUgMC4xDQp2IDAuMiAwLjYgMC4xDQp2IDAuMiAwLjcgMC4xDQp2IDAuMiAwLjggMC4xDQp2IDAuMiAwLjkgMC4xDQp2IDAuMiAxIDAuMQ0KdiAwLjIgMS4xIDAuMQ0KdiAwLjIgMS4yIDAuMQ0KdiAwLjIgMS4zIDAuMQ0KdiAwLjMgMC4xIDAuMQ0KdiAwLjMgMC4zIDAuMQ0KdiAwLjMgMC40IDAuMQ0KdiAwLjMgMC41IDAuMQ0KdiAwLjMgMC42IDAuMQ0KdiAwLjMgMC43IDAuMQ0KdiAwLjMgMC44IDAuMQ0KdiAwLjMgMC45IDAuMQ0KdiAwLjMgMSAwLjENCnYgMC4zIDEuMSAwLjENCnYgMC4zIDEuMiAwLjENCnYgMC4zIDEuMyAwLjENCnYgMC4zIDEuNCAwLjENCnYgMC4zIDEuNSAwLjENCnYgMC40IDAuMyAwLjENCnYgMC40IDAuNCAwLjENCnYgMC40IDAuNSAwLjENCnYgMC40IDAuNiAwLjENCnYgMC40IDAuNyAwLjENCnYgMC40IDAuOCAwLjENCnYgMC40IDEuMyAwLjENCnYgMC40IDEuNCAwLjENCnYgMC41IDAuNiAwLjENCnYgMC41IDAuNyAwLjENCnYgMC42IDAuNSAwLjENCnYgMC42IDAuNiAwLjENCnYgMC42IDAuNyAwLjENCnYgMC43IDAuNiAwLjENCnYgMC43IDAuOCAwLjENCnYgLTAuNyAwLjYgLTAuMQ0KdiAtMC43IDAuNyAtMC4xDQp2IC0wLjcgMC44IC0wLjENCnYgLTAuNiAwLjUgLTAuMQ0KdiAtMC42IDAuNiAtMC4xDQp2IC0wLjYgMC43IC0wLjENCnYgLTAuNSAwLjYgLTAuMQ0KdiAtMC41IDAuNyAtMC4xDQp2IC0wLjQgMC4zIC0wLjENCnYgLTAuNCAwLjUgLTAuMQ0KdiAtMC40IDAuNiAtMC4xDQp2IC0wLjQgMC43IC0wLjENCnYgLTAuNCAwLjggLTAuMQ0KdiAtMC40IDEuMyAtMC4xDQp2IC0wLjQgMS40IC0wLjENCnYgLTAuMyAwLjEgLTAuMQ0KdiAtMC4zIDAuMyAtMC4xDQp2IC0wLjMgMC40IC0wLjENCnYgLTAuMyAwLjUgLTAuMQ0KdiAtMC4zIDAuNiAtMC4xDQp2IC0wLjMgMC43IC0wLjENCnYgLTAuMyAwLjggLTAuMQ0KdiAtMC4zIDAuOSAtMC4xDQp2IC0wLjMgMSAtMC4xDQp2IC0wLjMgMS4zIC0wLjENCnYgLTAuMyAxLjQgLTAuMQ0KdiAtMC4zIDEuNSAtMC4xDQp2IC0wLjIgMCAtMC4xDQp2IC0wLjIgMC4xIC0wLjENCnYgLTAuMiAwLjIgLTAuMQ0KdiAtMC4yIDAuMyAtMC4xDQp2IC0wLjIgMC40IC0wLjENCnYgLTAuMiAwLjUgLTAuMQ0KdiAtMC4yIDAuNiAtMC4xDQp2IC0wLjIgMC43IC0wLjENCnYgLTAuMiAwLjggLTAuMQ0KdiAtMC4yIDAuOSAtMC4xDQp2IC0wLjIgMSAtMC4xDQp2IC0wLjIgMS4yIC0wLjENCnYgLTAuMiAxLjMgLTAuMQ0KdiAtMC4yIDEuNCAtMC4xDQp2IC0wLjEgMC4xIC0wLjENCnYgLTAuMSAwLjIgLTAuMQ0KdiAtMC4xIDAuNiAtMC4xDQp2IC0wLjEgMC43IC0wLjENCnYgLTAuMSAwLjggLTAuMQ0KdiAtMC4xIDAuOSAtMC4xDQp2IC0wLjEgMS4xIC0wLjENCnYgLTAuMSAxLjIgLTAuMQ0KdiAtMC4xIDEuMyAtMC4xDQp2IDAgMC41IC0wLjENCnYgMCAwLjYgLTAuMQ0KdiAwIDAuOSAtMC4xDQp2IDAgMSAtMC4xDQp2IDAuMSAwLjEgLTAuMQ0KdiAwLjEgMC4zIC0wLjENCnYgMC4xIDAuNSAtMC4xDQp2IDAuMSAwLjYgLTAuMQ0KdiAwLjEgMC43IC0wLjENCnYgMC4xIDAuOCAtMC4xDQp2IDAuMSAwLjkgLTAuMQ0KdiAwLjEgMSAtMC4xDQp2IDAuMSAxLjEgLTAuMQ0KdiAwLjEgMS4yIC0wLjENCnYgMC4xIDEuMyAtMC4xDQp2IDAuMiAwIC0wLjENCnYgMC4yIDAuMSAtMC4xDQp2IDAuMiAwLjMgLTAuMQ0KdiAwLjIgMC40IC0wLjENCnYgMC4yIDAuNSAtMC4xDQp2IDAuMiAwLjYgLTAuMQ0KdiAwLjIgMC43IC0wLjENCnYgMC4yIDAuOCAtMC4xDQp2IDAuMiAwLjkgLTAuMQ0KdiAwLjIgMSAtMC4xDQp2IDAuMiAxLjIgLTAuMQ0KdiAwLjIgMS4zIC0wLjENCnYgMC4yIDEuNCAtMC4xDQp2IDAuMyAwLjEgLTAuMQ0KdiAwLjMgMC4zIC0wLjENCnYgMC4zIDAuNCAtMC4xDQp2IDAuMyAwLjUgLTAuMQ0KdiAwLjMgMC42IC0wLjENCnYgMC4zIDAuNyAtMC4xDQp2IDAuMyAwLjggLTAuMQ0KdiAwLjMgMC45IC0wLjENCnYgMC4zIDEgLTAuMQ0KdiAwLjMgMS4zIC0wLjENCnYgMC4zIDEuNCAtMC4xDQp2IDAuMyAxLjUgLTAuMQ0KdiAwLjQgMC4zIC0wLjENCnYgMC40IDAuNCAtMC4xDQp2IDAuNCAwLjUgLTAuMQ0KdiAwLjQgMC42IC0wLjENCnYgMC40IDAuNyAtMC4xDQp2IDAuNCAwLjggLTAuMQ0KdiAwLjQgMS4zIC0wLjENCnYgMC40IDEuNCAtMC4xDQp2IDAuNSAwLjYgLTAuMQ0KdiAwLjUgMC43IC0wLjENCnYgMC42IDAuNSAtMC4xDQp2IDAuNiAwLjYgLTAuMQ0KdiAwLjYgMC43IC0wLjENCnYgMC43IDAuNiAtMC4xDQp2IDAuNyAwLjggLTAuMQ0KdiAtMC4yIDAgMC4xDQp2IDAuMiAwIDAuMQ0KdiAtMC4yIDAgLTAuMQ0KdiAwLjIgMCAtMC4xDQp2IC0wLjMgMC4xIDAuMQ0KdiAtMC4yIDAuMSAwLjENCnYgMC4yIDAuMSAwLjENCnYgMC4zIDAuMSAwLjENCnYgLTAuMyAwLjEgLTAuMQ0KdiAtMC4yIDAuMSAtMC4xDQp2IDAuMiAwLjEgLTAuMQ0KdiAwLjMgMC4xIC0wLjENCnYgLTAuNCAwLjMgMC4xDQp2IC0wLjMgMC4zIDAuMQ0KdiAwLjMgMC4zIDAuMQ0KdiAwLjQgMC4zIDAuMQ0KdiAtMC40IDAuMyAtMC4xDQp2IC0wLjMgMC4zIC0wLjENCnYgMC4zIDAuMyAtMC4xDQp2IDAuNCAwLjMgLTAuMQ0KdiAtMC42IDAuNSAwLjENCnYgLTAuNCAwLjUgMC4xDQp2IDAuNCAwLjUgMC4xDQp2IDAuNiAwLjUgMC4xDQp2IC0wLjYgMC41IC0wLjENCnYgLTAuNCAwLjUgLTAuMQ0KdiAwLjQgMC41IC0wLjENCnYgMC42IDAuNSAtMC4xDQp2IC0wLjcgMC42IDAuMQ0KdiAtMC42IDAuNiAwLjENCnYgMC42IDAuNiAwLjENCnYgMC43IDAuNiAwLjENCnYgLTAuNyAwLjYgLTAuMQ0KdiAtMC42IDAuNiAtMC4xDQp2IDAuNiAwLjYgLTAuMQ0KdiAwLjcgMC42IC0wLjENCnYgLTAuMSAwLjcgMC4yDQp2IDAuMSAwLjcgMC4yDQp2IC0wLjEgMC43IDAuMQ0KdiAwLjEgMC43IDAuMQ0KdiAtMC43IDAuOCAwLjENCnYgLTAuNCAwLjggMC4xDQp2IDAuNCAwLjggMC4xDQp2IDAuNyAwLjggMC4xDQp2IC0wLjcgMC44IC0wLjENCnYgLTAuNCAwLjggLTAuMQ0KdiAwLjQgMC44IC0wLjENCnYgMC43IDAuOCAtMC4xDQp2IC0wLjEgMSAwLjINCnYgMCAxIDAuMg0KdiAwLjEgMSAwLjINCnYgLTAuMSAxIDAuMQ0KdiAwIDEgMC4xDQp2IDAuMSAxIDAuMQ0KdiAtMC40IDEuNCAwLjENCnYgLTAuMyAxLjQgMC4xDQp2IDAuMyAxLjQgMC4xDQp2IDAuNCAxLjQgMC4xDQp2IC0wLjQgMS40IC0wLjENCnYgLTAuMyAxLjQgLTAuMQ0KdiAwLjMgMS40IC0wLjENCnYgMC40IDEuNCAtMC4xDQp2IC0wLjMgMS41IDAuMQ0KdiAwLjMgMS41IDAuMQ0KdiAtMC4zIDEuNSAtMC4xDQp2IDAuMyAxLjUgLTAuMQ0KDQojIGZhY2VzDQpmIDMvMy8xIDIvMy8xIDEvMy8xDQpmIDQvMy8xIDIvMy8xIDMvMy8xDQpmIDUvNi8xIDQvNi8xIDMvNi8xDQpmIDYvNi8xIDQvNi8xIDUvNi8xDQpmIDkvMy8xIDgvMy8xIDcvMy8xDQpmIDEwLzMvMSA4LzMvMSA5LzMvMQ0KZiAxMy8zLzEgMTIvMy8xIDExLzMvMQ0KZiAxNC8zLzEgMTIvMy8xIDEzLzMvMQ0KZiAxNy8zLzEgMTYvMy8xIDE1LzMvMQ0KZiAxOC8zLzEgMTYvMy8xIDE3LzMvMQ0KZiAxOS81LzEgMTgvNS8xIDE3LzUvMQ0KZiAyMC81LzEgMTgvNS8xIDE5LzUvMQ0KZiAyMy8zLzEgMjIvMy8xIDIxLzMvMQ0KZiAyNC8zLzEgMjIvMy8xIDIzLzMvMQ0KZiAyNy82LzEgMjYvNi8xIDI1LzYvMQ0KZiAyOC82LzEgMjYvNi8xIDI3LzYvMQ0KZiAzMS8zLzEgMzAvMy8xIDI5LzMvMQ0KZiAzMi8zLzEgMzAvMy8xIDMxLzMvMQ0KZiAzNS83LzEgMzQvNy8xIDMzLzcvMQ0KZiAzNi83LzEgMzQvNy8xIDM1LzcvMQ0KZiAzNy84LzEgMzYvOC8xIDM1LzgvMQ0KZiAzOC84LzEgMzYvOC8xIDM3LzgvMQ0KZiAzOS85LzEgMzgvOS8xIDM3LzkvMQ0KZiA0MC85LzEgMzgvOS8xIDM5LzkvMQ0KZiA0MS83LzIgNDIvNy8yIDQzLzcvMg0KZiA0MS83LzIgNDMvNy8yIDQ0LzcvMg0KZiA0NC83LzIgNDMvNy8yIDQ1LzcvMg0KZiA0NC84LzIgNDUvOC8yIDQ2LzgvMg0KZiA0Ni84LzIgNDUvOC8yIDQ3LzgvMg0KZiA0OC8zLzIgNDkvMy8yIDUwLzMvMg0KZiA1MC8zLzIgNDkvMy8yIDUxLzMvMg0KZiA1Mi8zLzIgNTMvMy8yIDU0LzMvMg0KZiA1NC8zLzIgNTMvMy8yIDU1LzMvMg0KZiA1Ni82LzIgNTcvNi8yIDU4LzYvMg0KZiA1OC82LzIgNTcvNi8yIDU5LzYvMg0KZiA2MC8zLzIgNjEvMy8yIDYyLzMvMg0KZiA2Mi8zLzIgNjEvMy8yIDYzLzMvMg0KZiA2Mi82LzIgNjMvNi8yIDY0LzYvMg0KZiA2NC82LzIgNjMvNi8yIDY1LzYvMg0KZiA2Ni8zLzIgNjcvMy8yIDY4LzMvMg0KZiA2OC8zLzIgNjcvMy8yIDY5LzMvMg0KZiA2OC82LzIgNjkvNi8yIDcwLzYvMg0KZiA3MC82LzIgNjkvNi8yIDcxLzYvMg0KZiA3Mi8zLzIgNzMvMy8yIDc0LzMvMg0KZiA3NC8zLzIgNzMvMy8yIDc1LzMvMg0KZiA3Ni82LzIgNzcvNi8yIDc4LzYvMg0KZiA3OC82LzIgNzcvNi8yIDc5LzYvMg0KZiA4NC83LzMgODEvNy8zIDgwLzcvMw0KZiA4NC84LzMgODIvOC8zIDgxLzgvMw0KZiA4NS85LzMgODMvOS8zIDgyLzkvMw0KZiA4NS84LzMgODIvOC8zIDg0LzgvMw0KZiA4Ni85LzMgODMvOS8zIDg1LzkvMw0KZiA4Ny83LzMgODQvNy8zIDgwLzcvMw0KZiA4Ny83LzMgODUvNy8zIDg0LzcvMw0KZiA4OC84LzMgODYvOC8zIDg1LzgvMw0KZiA4OC83LzMgODUvNy8zIDg3LzcvMw0KZiA4OS84LzMgODYvOC8zIDg4LzgvMw0KZiA5NC8zLzMgOTEvMy8zIDkwLzMvMw0KZiA5NS82LzMgOTIvNi8zIDkxLzYvMw0KZiA5NS8zLzMgOTEvMy8zIDk0LzMvMw0KZiA5Ni8zLzMgOTQvMy8zIDkzLzMvMw0KZiA5Ni80LzMgOTUvNC8zIDk0LzQvMw0KZiA5Ny82LzMgOTIvNi8zIDk1LzYvMw0KZiA5Ny80LzMgOTUvNC8zIDk2LzQvMw0KZiA5OS8zLzMgOTYvMy8zIDkzLzMvMw0KZiAxMDAvNS8zIDk3LzUvMyA5Ni81LzMNCmYgMTAwLzMvMyA5Ni8zLzMgOTkvMy8zDQpmIDEwMS82LzMgOTIvNi8zIDk3LzYvMw0KZiAxMDEvNS8zIDk3LzUvMyAxMDAvNS8zDQpmIDEwMi82LzMgOTIvNi8zIDEwMS82LzMNCmYgMTA2LzMvMyA5OS8zLzMgOTgvMy8zDQpmIDEwNy8zLzMgOTkvMy8zIDEwNi8zLzMNCmYgMTA4LzYvMyAxMDAvNi8zIDk5LzYvMw0KZiAxMDgvMy8zIDk5LzMvMyAxMDcvMy8zDQpmIDEwOS8zLzMgMTAxLzMvMyAxMDAvMy8zDQpmIDEwOS82LzMgMTAwLzYvMyAxMDgvNi8zDQpmIDExMC82LzMgMTAyLzYvMyAxMDEvNi8zDQpmIDExMC8zLzMgMTAxLzMvMyAxMDkvMy8zDQpmIDExMS8zLzMgMTAzLzMvMyAxMDIvMy8zDQpmIDExMS82LzMgMTAyLzYvMyAxMTAvNi8zDQpmIDExMi8zLzMgMTAzLzMvMyAxMTEvMy8zDQpmIDExMy8zLzMgMTAzLzMvMyAxMTIvMy8zDQpmIDExNC8zLzMgMTAzLzMvMyAxMTMvMy8zDQpmIDExNS8zLzMgMTAzLzMvMyAxMTQvMy8zDQpmIDExNi81LzMgMTA0LzUvMyAxMDMvNS8zDQpmIDExNi8zLzMgMTAzLzMvMyAxMTUvMy8zDQpmIDExNy81LzMgMTA0LzUvMyAxMTYvNS8zDQpmIDEyMC8zLzMgMTA2LzMvMyAxMDUvMy8zDQpmIDEyMS8zLzMgMTA2LzMvMyAxMjAvMy8zDQpmIDEyMi82LzMgMTA3LzYvMyAxMDYvNi8zDQpmIDEyMi8zLzMgMTA2LzMvMyAxMjEvMy8zDQpmIDEyMy81LzMgMTA4LzUvMyAxMDcvNS8zDQpmIDEyMy82LzMgMTA3LzYvMyAxMjIvNi8zDQpmIDEyNC80LzMgMTA5LzQvMyAxMDgvNC8zDQpmIDEyNC81LzMgMTA4LzUvMyAxMjMvNS8zDQpmIDEyNS81LzMgMTEwLzUvMyAxMDkvNS8zDQpmIDEyNS80LzMgMTA5LzQvMyAxMjQvNC8zDQpmIDEyNi8zLzMgMTExLzMvMyAxMTAvMy8zDQpmIDEyNi81LzMgMTEwLzUvMyAxMjUvNS8zDQpmIDEyNy81LzMgMTEyLzUvMyAxMTEvNS8zDQpmIDEyNy8zLzMgMTExLzMvMyAxMjYvMy8zDQpmIDEyOC8xLzMgMTEzLzEvMyAxMTIvMS8zDQpmIDEyOC81LzMgMTEyLzUvMyAxMjcvNS8zDQpmIDEyOS85LzMgMTE0LzkvMyAxMTMvOS8zDQpmIDEyOS8xLzMgMTEzLzEvMyAxMjgvMS8zDQpmIDEzMC80LzMgMTE1LzQvMyAxMTQvNC8zDQpmIDEzMC85LzMgMTE0LzkvMyAxMjkvOS8zDQpmIDEzMS83LzMgMTE2LzcvMyAxMTUvNy8zDQpmIDEzMS80LzMgMTE1LzQvMyAxMzAvNC8zDQpmIDEzMS83LzMgMTE3LzcvMyAxMTYvNy8zDQpmIDEzMi83LzMgMTE3LzcvMyAxMzEvNy8zDQpmIDEzMy80LzMgMTIxLzQvMyAxMjAvNC8zDQpmIDEzMy8zLzMgMTIwLzMvMyAxMTkvMy8zDQpmIDEzNC81LzMgMTIyLzUvMyAxMjEvNS8zDQpmIDEzNC80LzMgMTIxLzQvMyAxMzMvNC8zDQpmIDEzNS83LzMgMTI1LzcvMyAxMjQvNy8zDQpmIDEzNS80LzMgMTI2LzQvMyAxMjUvNC8zDQpmIDEzNi81LzMgMTI3LzUvMyAxMjYvNS8zDQpmIDEzNi80LzMgMTI2LzQvMyAxMzUvNC8zDQpmIDEzNy80LzMgMTI4LzQvMyAxMjcvNC8zDQpmIDEzNy81LzMgMTI3LzUvMyAxMzYvNS8zDQpmIDEzOC8yLzMgMTI5LzIvMyAxMjgvMi8zDQpmIDEzOC80LzMgMTI4LzQvMyAxMzcvNC8zDQpmIDEzOS8xLzMgMTMwLzEvMyAxMjkvMS8zDQpmIDEzOS8yLzMgMTI5LzIvMyAxMzgvMi8zDQpmIDE0MC80LzMgMTMxLzQvMyAxMzAvNC8zDQpmIDE0MC8xLzMgMTMwLzEvMyAxMzkvMS8zDQpmIDE0MS85LzMgMTMyLzkvMyAxMzEvOS8zDQpmIDE0MS80LzMgMTMxLzQvMyAxNDAvNC8zDQpmIDE0Mi80LzMgMTI0LzQvMyAxMjMvNC8zDQpmIDE0Mi83LzMgMTM1LzcvMyAxMjQvNy8zDQpmIDE0Mi83LzMgMTM2LzcvMyAxMzUvNy8zDQpmIDE0My83LzMgMTM2LzcvMyAxNDIvNy8zDQpmIDE0NC80LzMgMTQwLzQvMyAxMzkvNC8zDQpmIDE0NS84LzMgMTQxLzgvMyAxNDAvOC8zDQpmIDE0NS80LzMgMTQwLzQvMyAxNDQvNC8zDQpmIDE0Ni85LzMgMTMyLzkvMyAxNDEvOS8zDQpmIDE0Ni84LzMgMTQxLzgvMyAxNDUvOC8zDQpmIDE0Ny83LzMgMTE3LzcvMyAxMzIvNy8zDQpmIDE0Ny85LzMgMTMyLzkvMyAxNDYvOS8zDQpmIDE0OC8zLzMgMTMzLzMvMyAxMTkvMy8zDQpmIDE0OC81LzMgMTM0LzUvMyAxMzMvNS8zDQpmIDE0OS82LzMgMTIzLzYvMyAxMjIvNi8zDQpmIDE0OS81LzMgMTM0LzUvMyAxNDgvNS8zDQpmIDE0OS81LzMgMTIyLzUvMyAxMzQvNS8zDQpmIDE1MC84LzMgMTQzLzgvMyAxNDIvOC8zDQpmIDE1MC80LzMgMTQyLzQvMyAxMjMvNC8zDQpmIDE1MS83LzMgMTM2LzcvMyAxNDMvNy8zDQpmIDE1MS84LzMgMTQzLzgvMyAxNTAvOC8zDQpmIDE1Mi83LzMgMTM2LzcvMyAxNTEvNy8zDQpmIDE1NS80LzMgMTQ1LzQvMyAxNDQvNC8zDQpmIDE1Ni83LzMgMTQ2LzcvMyAxNDUvNy8zDQpmIDE1Ni80LzMgMTQ1LzQvMyAxNTUvNC8zDQpmIDE1Ny84LzMgMTQ3LzgvMyAxNDYvOC8zDQpmIDE1Ny83LzMgMTQ2LzcvMyAxNTYvNy8zDQpmIDE1OC8zLzMgMTQ4LzMvMyAxMTkvMy8zDQpmIDE1OS80LzMgMTQ5LzQvMyAxNDgvNC8zDQpmIDE1OS8zLzMgMTQ4LzMvMyAxNTgvMy8zDQpmIDE2MC82LzMgMTIzLzYvMyAxNDkvNi8zDQpmIDE2MC80LzMgMTQ5LzQvMyAxNTkvNC8zDQpmIDE2MS80LzMgMTUwLzQvMyAxMjMvNC8zDQpmIDE2MS82LzMgMTIzLzYvMyAxNjAvNi8zDQpmIDE2Mi85LzMgMTUxLzkvMyAxNTAvOS8zDQpmIDE2Mi80LzMgMTUwLzQvMyAxNjEvNC8zDQpmIDE2My80LzMgMTUyLzQvMyAxNTEvNC8zDQpmIDE2My85LzMgMTUxLzkvMyAxNjIvOS8zDQpmIDE2NC81LzMgMTUzLzUvMyAxNTIvNS8zDQpmIDE2NC80LzMgMTUyLzQvMyAxNjMvNC8zDQpmIDE2NS80LzMgMTU0LzQvMyAxNTMvNC8zDQpmIDE2NS81LzMgMTUzLzUvMyAxNjQvNS8zDQpmIDE2Ni8xLzMgMTU1LzEvMyAxNTQvMS8zDQpmIDE2Ni80LzMgMTU0LzQvMyAxNjUvNC8zDQpmIDE2Ny85LzMgMTU2LzkvMyAxNTUvOS8zDQpmIDE2Ny8xLzMgMTU1LzEvMyAxNjYvMS8zDQpmIDE2OC80LzMgMTU3LzQvMyAxNTYvNC8zDQpmIDE2OC85LzMgMTU2LzkvMyAxNjcvOS8zDQpmIDE2OS84LzMgMTQ3LzgvMyAxNTcvOC8zDQpmIDE2OS80LzMgMTU3LzQvMyAxNjgvNC8zDQpmIDE3MC83LzMgMTE3LzcvMyAxNDcvNy8zDQpmIDE3MC84LzMgMTQ3LzgvMyAxNjkvOC8zDQpmIDE3MS8zLzMgMTYwLzMvMyAxNTkvMy8zDQpmIDE3Mi82LzMgMTYxLzYvMyAxNjAvNi8zDQpmIDE3Mi8zLzMgMTYwLzMvMyAxNzEvMy8zDQpmIDE3My83LzMgMTYyLzcvMyAxNjEvNy8zDQpmIDE3My82LzMgMTYxLzYvMyAxNzIvNi8zDQpmIDE3NC84LzMgMTYzLzgvMyAxNjIvOC8zDQpmIDE3NC83LzMgMTYyLzcvMyAxNzMvNy8zDQpmIDE3NS83LzMgMTY0LzcvMyAxNjMvNy8zDQpmIDE3NS84LzMgMTYzLzgvMyAxNzQvOC8zDQpmIDE3Ni8zLzMgMTY1LzMvMyAxNjQvMy8zDQpmIDE3Ni83LzMgMTY0LzcvMyAxNzUvNy8zDQpmIDE3Ny81LzMgMTY2LzUvMyAxNjUvNS8zDQpmIDE3Ny8zLzMgMTY1LzMvMyAxNzYvMy8zDQpmIDE3OC8yLzMgMTY3LzIvMyAxNjYvMi8zDQpmIDE3OC81LzMgMTY2LzUvMyAxNzcvNS8zDQpmIDE3OS8xLzMgMTY4LzEvMyAxNjcvMS8zDQpmIDE3OS8yLzMgMTY3LzIvMyAxNzgvMi8zDQpmIDE4MC80LzMgMTY5LzQvMyAxNjgvNC8zDQpmIDE4MC8xLzMgMTY4LzEvMyAxNzkvMS8zDQpmIDE4MS83LzMgMTcwLzcvMyAxNjkvNy8zDQpmIDE4MS80LzMgMTY5LzQvMyAxODAvNC8zDQpmIDE4Mi83LzMgMTE3LzcvMyAxNzAvNy8zDQpmIDE4Mi83LzMgMTcwLzcvMyAxODEvNy8zDQpmIDE4My82LzMgMTE4LzYvMyAxMTcvNi8zDQpmIDE4My83LzMgMTE3LzcvMyAxODIvNy8zDQpmIDE4NC82LzMgMTE4LzYvMyAxODMvNi8zDQpmIDE4NS8zLzMgMTczLzMvMyAxNzIvMy8zDQpmIDE4Ni82LzMgMTc1LzYvMyAxNzQvNi8zDQpmIDE4Ni8zLzMgMTczLzMvMyAxODUvMy8zDQpmIDE4Ni82LzMgMTc0LzYvMyAxNzMvNi8zDQpmIDE4Ny82LzMgMTc1LzYvMyAxODYvNi8zDQpmIDE4OC8zLzMgMTc2LzMvMyAxNzUvMy8zDQpmIDE4OC82LzMgMTc1LzYvMyAxODcvNi8zDQpmIDE4OS82LzMgMTc3LzYvMyAxNzYvNi8zDQpmIDE4OS8zLzMgMTc2LzMvMyAxODgvMy8zDQpmIDE5MC8zLzMgMTc5LzMvMyAxNzgvMy8zDQpmIDE5MC82LzMgMTc3LzYvMyAxODkvNi8zDQpmIDE5MC8zLzMgMTc4LzMvMyAxNzcvMy8zDQpmIDE5MC8zLzMgMTgyLzMvMyAxODEvMy8zDQpmIDE5MC8zLzMgMTgxLzMvMyAxODAvMy8zDQpmIDE5MC8zLzMgMTgwLzMvMyAxNzkvMy8zDQpmIDE5MS82LzMgMTgzLzYvMyAxODIvNi8zDQpmIDE5MS8zLzMgMTgyLzMvMyAxOTAvMy8zDQpmIDE5Mi82LzMgMTgzLzYvMyAxOTEvNi8zDQpmIDE5My8zLzMgMTg4LzMvMyAxODcvMy8zDQpmIDE5My80LzMgMTg5LzQvMyAxODgvNC8zDQpmIDE5NC82LzMgMTkwLzYvMyAxODkvNi8zDQpmIDE5NC80LzMgMTg5LzQvMyAxOTMvNC8zDQpmIDE5NS8zLzMgMTkzLzMvMyAxODcvMy8zDQpmIDE5Ni83LzMgMTk0LzcvMyAxOTMvNy8zDQpmIDE5Ni8zLzMgMTkzLzMvMyAxOTUvMy8zDQpmIDE5Ny82LzMgMTkwLzYvMyAxOTQvNi8zDQpmIDE5Ny83LzMgMTk0LzcvMyAxOTYvNy8zDQpmIDE5OC82LzMgMTk3LzYvMyAxOTYvNi8zDQpmIDE5OS82LzMgMTkwLzYvMyAxOTcvNi8zDQpmIDE5OS82LzMgMTk3LzYvMyAxOTgvNi8zDQpmIDIwMC8zLzQgMjAxLzMvNCAyMDQvMy80DQpmIDIwMS82LzQgMjAyLzYvNCAyMDUvNi80DQpmIDIwNC8zLzQgMjAxLzMvNCAyMDUvMy80DQpmIDIwMy8zLzQgMjA0LzMvNCAyMDYvMy80DQpmIDIwNC80LzQgMjA1LzQvNCAyMDYvNC80DQpmIDIwNS82LzQgMjAyLzYvNCAyMDcvNi80DQpmIDIwNi80LzQgMjA1LzQvNCAyMDcvNC80DQpmIDIwMy8zLzQgMjA2LzMvNCAyMDkvMy80DQpmIDIwNi81LzQgMjA3LzUvNCAyMTAvNS80DQpmIDIwOS8zLzQgMjA2LzMvNCAyMTAvMy80DQpmIDIwNy82LzQgMjAyLzYvNCAyMTEvNi80DQpmIDIxMC81LzQgMjA3LzUvNCAyMTEvNS80DQpmIDIxMS82LzQgMjAyLzYvNCAyMTIvNi80DQpmIDIwOC8zLzQgMjA5LzMvNCAyMTYvMy80DQpmIDIxNi8zLzQgMjA5LzMvNCAyMTcvMy80DQpmIDIwOS82LzQgMjEwLzYvNCAyMTgvNi80DQpmIDIxNy8zLzQgMjA5LzMvNCAyMTgvMy80DQpmIDIxMC8zLzQgMjExLzMvNCAyMTkvMy80DQpmIDIxOC82LzQgMjEwLzYvNCAyMTkvNi80DQpmIDIxMS82LzQgMjEyLzYvNCAyMjAvNi80DQpmIDIxOS8zLzQgMjExLzMvNCAyMjAvMy80DQpmIDIxMi8zLzQgMjEzLzMvNCAyMjEvMy80DQpmIDIyMC82LzQgMjEyLzYvNCAyMjEvNi80DQpmIDIyMS8zLzQgMjEzLzMvNCAyMjIvMy80DQpmIDIyMi8zLzQgMjEzLzMvNCAyMjMvMy80DQpmIDIxMy81LzQgMjE0LzUvNCAyMjQvNS80DQpmIDIyMy8zLzQgMjEzLzMvNCAyMjQvMy80DQpmIDIyNC81LzQgMjE0LzUvNCAyMjUvNS80DQpmIDIxNS8zLzQgMjE2LzMvNCAyMjgvMy80DQpmIDIyOC8zLzQgMjE2LzMvNCAyMjkvMy80DQpmIDIxNi82LzQgMjE3LzYvNCAyMzAvNi80DQpmIDIyOS8zLzQgMjE2LzMvNCAyMzAvMy80DQpmIDIxNy81LzQgMjE4LzUvNCAyMzEvNS80DQpmIDIzMC82LzQgMjE3LzYvNCAyMzEvNi80DQpmIDIxOC80LzQgMjE5LzQvNCAyMzIvNC80DQpmIDIzMS81LzQgMjE4LzUvNCAyMzIvNS80DQpmIDIxOS81LzQgMjIwLzUvNCAyMzMvNS80DQpmIDIzMi80LzQgMjE5LzQvNCAyMzMvNC80DQpmIDIyMC8zLzQgMjIxLzMvNCAyMzQvMy80DQpmIDIzMy81LzQgMjIwLzUvNCAyMzQvNS80DQpmIDIyMS81LzQgMjIyLzUvNCAyMzUvNS80DQpmIDIzNC8zLzQgMjIxLzMvNCAyMzUvMy80DQpmIDIyMi80LzQgMjIzLzQvNCAyMzYvNC80DQpmIDIzNS81LzQgMjIyLzUvNCAyMzYvNS80DQpmIDIyMy83LzQgMjI0LzcvNCAyMzcvNy80DQpmIDIzNi80LzQgMjIzLzQvNCAyMzcvNC80DQpmIDIzNy83LzQgMjI0LzcvNCAyMzgvNy80DQpmIDIyNC80LzQgMjI1LzQvNCAyMzkvNC80DQpmIDIzOC83LzQgMjI0LzcvNCAyMzkvNy80DQpmIDIyNS82LzQgMjI2LzYvNCAyNDAvNi80DQpmIDIzOS80LzQgMjI1LzQvNCAyNDAvNC80DQpmIDIyOC80LzQgMjI5LzQvNCAyNDEvNC80DQpmIDIyNy8zLzQgMjI4LzMvNCAyNDEvMy80DQpmIDIyOS81LzQgMjMwLzUvNCAyNDIvNS80DQpmIDI0MS80LzQgMjI5LzQvNCAyNDIvNC80DQpmIDIzMi83LzQgMjMzLzcvNCAyNDMvNy80DQpmIDIzMy80LzQgMjM0LzQvNCAyNDMvNC80DQpmIDIzNC81LzQgMjM1LzUvNCAyNDQvNS80DQpmIDI0My80LzQgMjM0LzQvNCAyNDQvNC80DQpmIDIzNS80LzQgMjM2LzQvNCAyNDUvNC80DQpmIDI0NC81LzQgMjM1LzUvNCAyNDUvNS80DQpmIDIzNi83LzQgMjM3LzcvNCAyNDYvNy80DQpmIDI0NS80LzQgMjM2LzQvNCAyNDYvNC80DQpmIDIzNy84LzQgMjM4LzgvNCAyNDcvOC80DQpmIDIzOC83LzQgMjM5LzcvNCAyNDgvNy80DQpmIDI0Ny84LzQgMjM4LzgvNCAyNDgvOC80DQpmIDIzOS83LzQgMjQwLzcvNCAyNDgvNy80DQpmIDI0OC83LzQgMjQwLzcvNCAyNDkvNy80DQpmIDIzMi83LzQgMjQzLzcvNCAyNTAvNy80DQpmIDIzMS80LzQgMjMyLzQvNCAyNTAvNC80DQpmIDI0My83LzQgMjQ0LzcvNCAyNTAvNy80DQpmIDI1MC83LzQgMjQ0LzcvNCAyNTEvNy80DQpmIDI0Ni83LzQgMjM3LzcvNCAyNTIvNy80DQpmIDI0NS83LzQgMjQ2LzcvNCAyNTIvNy80DQpmIDIzNy84LzQgMjQ3LzgvNCAyNTMvOC80DQpmIDI1Mi83LzQgMjM3LzcvNCAyNTMvNy80DQpmIDIyNy8zLzQgMjQxLzMvNCAyNTQvMy80DQpmIDI0MS81LzQgMjQyLzUvNCAyNTQvNS80DQpmIDIzMC82LzQgMjMxLzYvNCAyNTUvNi80DQpmIDI1NC81LzQgMjQyLzUvNCAyNTUvNS80DQpmIDI0Mi81LzQgMjMwLzUvNCAyNTUvNS80DQpmIDIzMS80LzQgMjUwLzQvNCAyNTYvNC80DQpmIDI1MC84LzQgMjUxLzgvNCAyNTYvOC80DQpmIDI1MS83LzQgMjQ0LzcvNCAyNTcvNy80DQpmIDI1Ni84LzQgMjUxLzgvNCAyNTcvOC80DQpmIDI0NC81LzQgMjQ1LzUvNCAyNTgvNS80DQpmIDI1Ny83LzQgMjQ0LzcvNCAyNTgvNy80DQpmIDI0NS83LzQgMjUyLzcvNCAyNTkvNy80DQpmIDI1OC81LzQgMjQ1LzUvNCAyNTkvNS80DQpmIDI1Mi84LzQgMjUzLzgvNCAyNjAvOC80DQpmIDI1OS83LzQgMjUyLzcvNCAyNjAvNy80DQpmIDI1My84LzQgMjQ3LzgvNCAyNjEvOC80DQpmIDI2MC84LzQgMjUzLzgvNCAyNjEvOC80DQpmIDI0Ny85LzQgMjQ4LzkvNCAyNjIvOS80DQpmIDI2MS84LzQgMjQ3LzgvNCAyNjIvOC80DQpmIDI0OC84LzQgMjQ5LzgvNCAyNjMvOC80DQpmIDI2Mi85LzQgMjQ4LzkvNCAyNjMvOS80DQpmIDI0OS83LzQgMjQwLzcvNCAyNjQvNy80DQpmIDI2My84LzQgMjQ5LzgvNCAyNjQvOC80DQpmIDIyNy8zLzQgMjU0LzMvNCAyNjUvMy80DQpmIDI1NC80LzQgMjU1LzQvNCAyNjYvNC80DQpmIDI2NS8zLzQgMjU0LzMvNCAyNjYvMy80DQpmIDI1NS82LzQgMjMxLzYvNCAyNjcvNi80DQpmIDI2Ni80LzQgMjU1LzQvNCAyNjcvNC80DQpmIDIzMS80LzQgMjU2LzQvNCAyNjgvNC80DQpmIDI2Ny82LzQgMjMxLzYvNCAyNjgvNi80DQpmIDI1Ni85LzQgMjU3LzkvNCAyNjkvOS80DQpmIDI2OC80LzQgMjU2LzQvNCAyNjkvNC80DQpmIDI1Ny80LzQgMjU4LzQvNCAyNzAvNC80DQpmIDI2OS85LzQgMjU3LzkvNCAyNzAvOS80DQpmIDI1OC81LzQgMjU5LzUvNCAyNzEvNS80DQpmIDI3MC80LzQgMjU4LzQvNCAyNzEvNC80DQpmIDI1OS80LzQgMjYwLzQvNCAyNzIvNC80DQpmIDI3MS81LzQgMjU5LzUvNCAyNzIvNS80DQpmIDI2MC83LzQgMjYxLzcvNCAyNzMvNy80DQpmIDI3Mi80LzQgMjYwLzQvNCAyNzMvNC80DQpmIDI2Mi84LzQgMjYzLzgvNCAyNzQvOC80DQpmIDI3My83LzQgMjYxLzcvNCAyNzQvNy80DQpmIDI2MS84LzQgMjYyLzgvNCAyNzQvOC80DQpmIDI2My83LzQgMjY0LzcvNCAyNzUvNy80DQpmIDI3NC84LzQgMjYzLzgvNCAyNzUvOC80DQpmIDI2NC83LzQgMjQwLzcvNCAyNzYvNy80DQpmIDI3NS83LzQgMjY0LzcvNCAyNzYvNy80DQpmIDI0MC82LzQgMjI2LzYvNCAyNzcvNi80DQpmIDI3Ni83LzQgMjQwLzcvNCAyNzcvNy80DQpmIDI2Ni8zLzQgMjY3LzMvNCAyNzgvMy80DQpmIDI2Ny82LzQgMjY4LzYvNCAyNzkvNi80DQpmIDI3OC8zLzQgMjY3LzMvNCAyNzkvMy80DQpmIDI2OC83LzQgMjY5LzcvNCAyODAvNy80DQpmIDI3OS82LzQgMjY4LzYvNCAyODAvNi80DQpmIDI2OS84LzQgMjcwLzgvNCAyODEvOC80DQpmIDI4MC83LzQgMjY5LzcvNCAyODEvNy80DQpmIDI3MC83LzQgMjcxLzcvNCAyODIvNy80DQpmIDI4MS84LzQgMjcwLzgvNCAyODIvOC80DQpmIDI3MS8zLzQgMjcyLzMvNCAyODMvMy80DQpmIDI4Mi83LzQgMjcxLzcvNCAyODMvNy80DQpmIDI3Mi81LzQgMjczLzUvNCAyODQvNS80DQpmIDI4My8zLzQgMjcyLzMvNCAyODQvMy80DQpmIDI3My80LzQgMjc0LzQvNCAyODUvNC80DQpmIDI4NC81LzQgMjczLzUvNCAyODUvNS80DQpmIDI3NS83LzQgMjc2LzcvNCAyODYvNy80DQpmIDI4NS80LzQgMjc0LzQvNCAyODYvNC80DQpmIDI3NC83LzQgMjc1LzcvNCAyODYvNy80DQpmIDI3Ni80LzQgMjc3LzQvNCAyODcvNC80DQpmIDI4Ni83LzQgMjc2LzcvNCAyODcvNy80DQpmIDI3Ny82LzQgMjI2LzYvNCAyODgvNi80DQpmIDI4Ny80LzQgMjc3LzQvNCAyODgvNC80DQpmIDI4OC82LzQgMjI2LzYvNCAyODkvNi80DQpmIDI3OS8zLzQgMjgwLzMvNCAyOTAvMy80DQpmIDI4MC82LzQgMjgxLzYvNCAyOTEvNi80DQpmIDI5MC8zLzQgMjgwLzMvNCAyOTEvMy80DQpmIDI4MS82LzQgMjgyLzYvNCAyOTEvNi80DQpmIDI5MS82LzQgMjgyLzYvNCAyOTIvNi80DQpmIDI4Mi8zLzQgMjgzLzMvNCAyOTMvMy80DQpmIDI5Mi82LzQgMjgyLzYvNCAyOTMvNi80DQpmIDI4My82LzQgMjg0LzYvNCAyOTQvNi80DQpmIDI5My8zLzQgMjgzLzMvNCAyOTQvMy80DQpmIDI4NC8zLzQgMjg1LzMvNCAyOTUvMy80DQpmIDI5NC82LzQgMjg0LzYvNCAyOTUvNi80DQpmIDI4Ni8zLzQgMjg3LzMvNCAyOTUvMy80DQpmIDI4NS8zLzQgMjg2LzMvNCAyOTUvMy80DQpmIDI4Ny82LzQgMjg4LzYvNCAyOTYvNi80DQpmIDI5NS8zLzQgMjg3LzMvNCAyOTYvMy80DQpmIDI5Ni82LzQgMjg4LzYvNCAyOTcvNi80DQpmIDI5My80LzQgMjk0LzQvNCAyOTgvNC80DQpmIDI5Mi8zLzQgMjkzLzMvNCAyOTgvMy80DQpmIDI5NC82LzQgMjk1LzYvNCAyOTkvNi80DQpmIDI5OC80LzQgMjk0LzQvNCAyOTkvNC80DQpmIDI5Mi8zLzQgMjk4LzMvNCAzMDAvMy80DQpmIDI5OC83LzQgMjk5LzcvNCAzMDEvNy80DQpmIDMwMC8zLzQgMjk4LzMvNCAzMDEvMy80DQpmIDI5OS82LzQgMjk1LzYvNCAzMDIvNi80DQpmIDMwMS83LzQgMjk5LzcvNCAzMDIvNy80DQpmIDMwMS82LzQgMzAyLzYvNCAzMDMvNi80DQpmIDMwMi82LzQgMjk1LzYvNCAzMDQvNi80DQpmIDMwMy82LzQgMzAyLzYvNCAzMDQvNi80DQpmIDMwNy8zLzUgMzA2LzMvNSAzMDUvMy81DQpmIDMwOC8zLzUgMzA2LzMvNSAzMDcvMy81DQpmIDMxMy8zLzUgMzEwLzMvNSAzMDkvMy81DQpmIDMxNC8zLzUgMzEwLzMvNSAzMTMvMy81DQpmIDMxNS8zLzUgMzEyLzMvNSAzMTEvMy81DQpmIDMxNi8zLzUgMzEyLzMvNSAzMTUvMy81DQpmIDMyMS8zLzUgMzE4LzMvNSAzMTcvMy81DQpmIDMyMi8zLzUgMzE4LzMvNSAzMjEvMy81DQpmIDMyMy8zLzUgMzIwLzMvNSAzMTkvMy81DQpmIDMyNC8zLzUgMzIwLzMvNSAzMjMvMy81DQpmIDMyOS8zLzUgMzI2LzMvNSAzMjUvMy81DQpmIDMzMC8zLzUgMzI2LzMvNSAzMjkvMy81DQpmIDMzMS8zLzUgMzI4LzMvNSAzMjcvMy81DQpmIDMzMi8zLzUgMzI4LzMvNSAzMzEvMy81DQpmIDMzNy8zLzUgMzM0LzMvNSAzMzMvMy81DQpmIDMzOC8zLzUgMzM0LzMvNSAzMzcvMy81DQpmIDMzOS82LzUgMzM2LzYvNSAzMzUvNi81DQpmIDM0MC82LzUgMzM2LzYvNSAzMzkvNi81DQpmIDM0My83LzUgMzQyLzcvNSAzNDEvNy81DQpmIDM0NC83LzUgMzQyLzcvNSAzNDMvNy81DQpmIDM0NS82LzYgMzQ2LzYvNiAzNDkvNi82DQpmIDM0OS82LzYgMzQ2LzYvNiAzNTAvNi82DQpmIDM0Ny82LzYgMzQ4LzYvNiAzNTEvNi82DQpmIDM1MS82LzYgMzQ4LzYvNiAzNTIvNi82DQpmIDM1My85LzYgMzU0LzkvNiAzNTYvOS82DQpmIDM1NC84LzYgMzU1LzgvNiAzNTcvOC82DQpmIDM1Ni85LzYgMzU0LzkvNiAzNTcvOS82DQpmIDM1Ny84LzYgMzU1LzgvNiAzNTgvOC82DQpmIDM1OS81LzYgMzYwLzUvNiAzNjMvNS82DQpmIDM2My81LzYgMzYwLzUvNiAzNjQvNS82DQpmIDM2MS82LzYgMzYyLzYvNiAzNjUvNi82DQpmIDM2NS82LzYgMzYyLzYvNiAzNjYvNi82DQpmIDM2Ny82LzYgMzY4LzYvNiAzNjkvNi82DQpmIDM2OS82LzYgMzY4LzYvNiAzNzAvNi82DQo=';
+      const OBJ_TEXT = decodeURIComponent(escape(atob(OBJ_B64)));
 
       let mesh = null, rotX = 0.2, rotY = 0, velX = 0, velY = 0, dragging = false, lastX = 0, lastY = 0;
 
@@ -1411,18 +1415,16 @@
         return geo;
       }
 
-      fetch('model.obj').then(r => r.text()).then(text => {
-        const geo = parseOBJ(text);
-        const mat = new THREE.MeshLambertMaterial({ map: tex });
-        mesh = new THREE.Mesh(geo, mat);
-        const box = new THREE.Box3().setFromObject(mesh);
-        const size = box.getSize(new THREE.Vector3());
-        const s = 3 / Math.max(size.x, size.y, size.z);
-        mesh.scale.setScalar(s);
-        const center = box.getCenter(new THREE.Vector3());
-        mesh.position.sub(center.clone().multiplyScalar(s));
-        scene.add(mesh);
-      });
+      const geo = parseOBJ(OBJ_TEXT);
+      const mat = new THREE.MeshLambertMaterial({ map: tex });
+      mesh = new THREE.Mesh(geo, mat);
+      const box = new THREE.Box3().setFromObject(mesh);
+      const size = box.getSize(new THREE.Vector3());
+      const s = 3 / Math.max(size.x, size.y, size.z);
+      mesh.scale.setScalar(s);
+      const center = box.getCenter(new THREE.Vector3());
+      mesh.position.sub(center.clone().multiplyScalar(s));
+      scene.add(mesh);
 
       canvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; velX = velY = 0; });
       window.addEventListener('mouseup', () => dragging = false);
@@ -1432,6 +1434,14 @@
         rotY += velY; rotX += velX; lastX = e.clientX; lastY = e.clientY;
       });
 
+      canvas.addEventListener('touchstart', e => { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; velX = velY = 0; }, { passive: true });
+      window.addEventListener('touchend', () => dragging = false);
+      window.addEventListener('touchmove', e => {
+        if (!dragging || !mesh) return;
+        velY = (e.touches[0].clientX - lastX) * 0.012; velX = (e.touches[0].clientY - lastY) * 0.012;
+        rotY += velY; rotX += velX; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+      }, { passive: true });
+
       (function loop() {
         requestAnimationFrame(loop);
         if (!dragging) { velX *= 0.9; velY *= 0.9; rotX += velX; rotY += velY; rotY += 0.006; }
@@ -1440,6 +1450,1365 @@
       })();
     })();
   </script>
+
+</body>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Note — Minecraft Client. But maxed out.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { user-select: none; -webkit-user-select: none; }
+
+    :root {
+      --accent: #e8192c;
+      --accent-dark: #b5101f;
+      --accent-glow: rgba(232,25,44,0.35);
+      --nav-bg: rgba(8, 4, 4, 0.82);
+      --nav-border: rgba(232,25,44,0.18);
+      --text: #ffffff;
+      --text-sub: rgba(255,255,255,0.65);
+      --card-bg: #110808;
+      --card-border: rgba(232,25,44,0.10);
+      --page-bg: #080404;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes navSlideDown {
+      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes floatCloud {
+      0%   { transform: translateX(0px); }
+      50%  { transform: translateX(18px); }
+      100% { transform: translateX(0px); }
+    }
+
+    @keyframes floatCloud2 {
+      0%   { transform: translateX(0px); }
+      50%  { transform: translateX(-14px); }
+      100% { transform: translateX(0px); }
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.15); }
+      50%       { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes ripple {
+      from { transform: scale(0); opacity: 0.5; }
+      to   { transform: scale(3); opacity: 0; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
+    }
+
+
+    .sky {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: url('1646520492_13-abrakadabra-fun-p-cherno-krasnie-anime-oboi-13.jpg') center/cover no-repeat;
+      filter: blur(6px);
+      transform: scale(1.04);
+    }
+
+    /* оверлей */
+    .sky::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.30) 0%,
+        rgba(0,0,0,0.10) 35%,
+        rgba(0,0,0,0.40) 100%
+      );
+    }
+
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 5px 6px;
+      background: rgba(8, 2, 2, 0.88);
+      border: 1px solid rgba(232,25,44,0.20);
+      border-radius: 50px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      white-space: nowrap;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,25,44,0.06), inset 0 1px 0 rgba(255,255,255,0.04);
+      gap: 0;
+      animation: navSlideDown 0.6s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 3px 12px 3px 4px;
+      letter-spacing: 0.01em;
+    }
+
+    /* Logo SVG mark — stylized Ð like the original site */
+    .nav-logo-icon {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, #e8192c, #8b0000);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(232,25,44,0.5);
+    }
+
+    .nav-logo-icon svg {
+      width: 17px; height: 17px;
+    }
+
+    /* Divider */
+    .nav-sep {
+      width: 1px; height: 16px;
+      background: rgba(232,25,44,0.20);
+      margin: 0 4px;
+      flex-shrink: 0;
+    }
+
+    /* Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 1px;
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 11px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.60);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1;
+    }
+
+    .nav-links a:hover {
+      background: rgba(232,25,44,0.12);
+      color: #ffffff;
+    }
+
+    .nav-links a.active {
+      background: rgba(232,25,44,0.16);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .nav-links a .nav-icon {
+      width: 14px; height: 14px;
+      opacity: 0.80;
+      flex-shrink: 0;
+    }
+
+    /* Right actions */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-left: 2px;
+    }
+
+    /* ☀ 🌙 toggle pill */
+    .theme-toggle-pill {
+      display: flex;
+      align-items: center;
+      background: rgba(232,25,44,0.08);
+      border: 1px solid rgba(232,25,44,0.16);
+      border-radius: 50px;
+      padding: 3px 4px;
+      gap: 1px;
+      cursor: pointer;
+    }
+
+    .tog-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      transition: background 0.18s, color 0.18s;
+      user-select: none;
+    }
+
+    .tog-icon.active {
+      background: rgba(232,25,44,0.28);
+      color: #ffffff;
+    }
+
+    .btn-signin {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px 6px 11px;
+      border-radius: 50px;
+      background: #e8192c;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(255,80,80,0.3);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, box-shadow 0.15s;
+      line-height: 1;
+      box-shadow: 0 2px 12px rgba(232,25,44,0.4);
+    }
+    .btn-signin:hover {
+      background: #c5101f;
+      box-shadow: 0 4px 20px rgba(232,25,44,0.55);
+    }
+
+    .signin-icon {
+      width: 15px; height: 15px;
+      opacity: 0.80;
+      flex-shrink: 0;
+    }
+
+    /* ─── HERO CONTENT ─── */
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      padding: 0 0 0 7vw;
+      max-width: 700px;
+      width: 100%;
+      margin-top: -40px;
+      align-self: flex-start;
+    }
+
+    #model-canvas {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 480px;
+      height: 480px;
+      z-index: 5;
+      cursor: grab;
+    }
+    #model-canvas:active { cursor: grabbing; }
+
+    .hero {
+      align-items: flex-start !important;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Onest', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(232,25,44,0.07);
+      border: 1px solid rgba(232,25,44,0.25);
+      border-radius: 50px;
+      padding: 8px 18px;
+      margin-bottom: 28px;
+      box-shadow: 0 0 10px rgba(232,25,44,0.08), inset 0 1px 0 rgba(255,255,255,0.04);
+      backdrop-filter: blur(10px);
+      animation: fadeUp 0.7s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #e8192c;
+      box-shadow: 0 0 10px rgba(232,25,44,1), 0 0 4px rgba(255,100,100,0.8);
+      flex-shrink: 0;
+      animation: dotPulse 2s infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { box-shadow: 0 0 6px rgba(232,25,44,0.9); }
+      50%      { box-shadow: 0 0 14px rgba(232,25,44,1), 0 0 6px rgba(255,80,80,0.9); }
+    }
+
+    .hero-title {
+      font-family: 'Onest', sans-serif;
+      font-size: clamp(52px, 8vw, 110px);
+      font-weight: 900;
+      line-height: 0.95;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.75s 0.35s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .hero-title .t-white {
+      display: block;
+      color: #e8192c;
+      text-shadow: 0 0 30px rgba(232,25,44,0.6), 0 0 60px rgba(232,25,44,0.3);
+      -webkit-text-stroke: 1px rgba(255,80,80,0.4);
+    }
+    .hero-title .t-dim {
+      display: block;
+      color: rgba(255,255,255,0.22);
+      -webkit-text-stroke: 0;
+    }
+
+    .hero-sub {
+      font-family: 'Onest', sans-serif;
+      font-size: clamp(15px, 1.4vw, 17px);
+      color: rgba(255,255,255,0.55);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 36px;
+      animation: fadeUp 0.7s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      animation: fadeUp 0.7s 0.62s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      padding: 14px 28px;
+      border-radius: 50px;
+      background: #e8192c;
+      color: #ffffff;
+      font-family: 'Onest', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 4px 24px rgba(232,25,44,0.5);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 32px rgba(232,25,44,0.7);
+    }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-primary .ripple {
+      position: absolute;
+      border-radius: 50%;
+      width: 60px; height: 60px;
+      margin-top: -30px; margin-left: -30px;
+      background: rgba(0,0,0,0.10);
+      animation: ripple 0.55s linear;
+      pointer-events: none;
+    }
+
+    /* Кнопка "See pricing" — белый полупрозрачный пилл */
+    .btn-ghost {
+      padding: 14px 28px;
+      border-radius: 50px;
+      background: transparent;
+      color: #ffffff;
+      font-family: 'Onest', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      border: 1.5px solid rgba(232,25,44,0.5);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.18s, border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 14px rgba(232,25,44,0.15), inset 0 0 14px rgba(232,25,44,0.05);
+    }
+    .btn-ghost:hover {
+      background: rgba(232,25,44,0.1);
+      border-color: rgba(232,25,44,0.9);
+      box-shadow: 0 0 24px rgba(232,25,44,0.35), inset 0 0 20px rgba(232,25,44,0.08);
+      transform: translateY(-2px);
+      transform: translateY(-2px);
+    }
+
+    /* ─── FEATURES SECTION ─── */
+    .features {
+      background: #060101;
+      padding: 100px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(232,25,44,0.12);
+      border: 1px solid rgba(232,25,44,0.35);
+      color: #ff4455;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 64px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-card {
+      background: #0d0303;
+      border: 1px solid rgba(232,25,44,0.10);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .feature-card:hover {
+      border-color: rgba(232,25,44,0.40);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,25,44,0.12), 0 0 30px rgba(232,25,44,0.08);
+    }
+
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(232,25,44,0.12);
+      border: 1px solid rgba(232,25,44,0.20);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .feature-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    /* ─── PRICING SECTION ─── */
+    .pricing {
+      background: #040000;
+      padding: 100px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      scroll-margin-top: 80px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      width: 100%;
+      margin-top: 0;
+    }
+
+    .plan-card {
+      background: #0d0303;
+      border: 1px solid rgba(232,25,44,0.12);
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: border-color 0.2s;
+    }
+
+    .plan-card.featured {
+      border-color: rgba(232,25,44,0.40);
+      background: linear-gradient(145deg, #180404, #0d0202);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(232,25,44,0.08);
+    }
+
+    .plan-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #8b0000, #e8192c, #8b0000);
+    }
+
+    .plan-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(232,25,44,0.15);
+      color: #ff4455;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .plan-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .plan-price {
+      font-size: 48px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+      letter-spacing: -0.03em;
+    }
+
+    .plan-price span {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .plan-period {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 28px;
+    }
+
+    .plan-divider {
+      height: 1px;
+      background: rgba(232,25,44,0.12);
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex: 1;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: #e8192c;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .plan-btn {
+      display: block;
+      text-align: center;
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .plan-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .plan-btn-outline {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .plan-btn-filled {
+      background: linear-gradient(135deg, #e8192c, #8b0000);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(232,25,44,0.4);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #040000;
+      border-top: 1px solid rgba(232,25,44,0.15);
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      color: #ffffff;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: #0d0202;
+      border: 1px solid rgba(232,25,44,0.20);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transform: translateY(12px);
+      transition: transform 0.2s;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .modal-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 28px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .form-field input {
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus { border-color: rgba(232,25,44,0.6); }
+
+    .modal-submit {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #e8192c, #8b0000);
+      box-shadow: 0 4px 20px rgba(232,25,44,0.4);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.15s;
+    }
+    .modal-submit:hover { opacity: 0.85; }
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.15); }
+
+    .modal-wrapper {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 14V3l8.5 8.5V3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.5 14V9" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      Note
+    </a>
+
+    <div class="nav-sep"></div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="#" class="active">
+          <!-- House icon -->
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 1.5L1.5 6v6.5h3.75V9.5h3.5v3h3.75V6L7 1.5z"/>
+          </svg>
+          <span data-i18n="nav_home">Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="#pricing">
+          <!-- Diamond/gem icon -->
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 12L1.5 6l1.5-3h8l1.5 3L7 12z" stroke-linejoin="round"/>
+            <line x1="1.5" y1="6" x2="12.5" y2="6"/>
+          </svg>
+          <span data-i18n="nav_pricing">Pricing</span>
+        </a>
+      </li>
+      <li>
+        <a href="#privacy">
+          <!-- Document icon -->
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/>
+            <line x1="4.5" y1="5" x2="9.5" y2="5"/>
+            <line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/>
+            <line x1="4.5" y1="10" x2="7.5" y2="10"/>
+          </svg>
+          <span data-i18n="nav_privacy">Privacy Policy</span>
+        </a>
+      </li>
+      <li>
+        <a href="#tos">
+          <!-- Document icon -->
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/>
+            <line x1="4.5" y1="5" x2="9.5" y2="5"/>
+            <line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/>
+            <line x1="4.5" y1="10" x2="7.5" y2="10"/>
+          </svg>
+          <span data-i18n="nav_tos">Terms Of Service</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="nav-sep"></div>
+
+    <div class="nav-actions">
+      <!-- ☀ / 🌙 pill -->
+      <div class="theme-toggle-pill" id="themeToggle">
+        <div class="tog-icon" id="togSun">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor">
+            <circle cx="6.5" cy="6.5" r="2.5"/>
+            <line x1="6.5" y1="0.5" x2="6.5" y2="2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="6.5" y1="11" x2="6.5" y2="12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="0.5" y1="6.5" x2="2" y2="6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="11" y1="6.5" x2="12.5" y2="6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="2.1" y1="2.1" x2="3.2" y2="3.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="9.8" y1="9.8" x2="10.9" y2="10.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="10.9" y1="2.1" x2="9.8" y2="3.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="3.2" y1="9.8" x2="2.1" y2="10.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="tog-icon active" id="togMoon">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor">
+            <path d="M10.5 7.5A5 5 0 015.5 2.5a5 5 0 000 8 5 5 0 005-3z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Sign in -->
+      <a href="#" class="btn-signin" onclick="openModal(); return false;">
+        <svg class="signin-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3H3a1 1 0 00-1 1v8a1 1 0 001 1h3"/>
+          <path d="M10 5l3 3-3 3"/>
+          <line x1="13" y1="8" x2="6" y2="8"/>
+        </svg>
+        <span data-i18n="nav_signin">Sign in</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="sky"></div>
+
+    <!-- 3D Model -->
+    <canvas id="model-canvas"></canvas>
+
+    <!-- Hero text -->
+    <div class="hero-content">
+      <p class="hero-eyebrow" data-i18n="eyebrow">CLIENT 1.8.4 — 1.21.4</p>
+      <h1 class="hero-title">
+        <span class="t-white" data-i18n="title_line1">Note</span>
+        <span class="t-dim" data-i18n="title_line2">Client</span>
+      </h1>
+      <p class="hero-sub" data-i18n="sub">Note is a Minecraft client that our developers have poured their hearts into... and their brains, too.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary" onclick="openModal()" data-i18n="btn_signup">Sign up for free</a>
+        <a href="#pricing" class="btn-ghost" data-i18n="btn_pricing">See pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-tag" data-i18n="feat_tag">Features</div>
+    <h2 class="section-title" data-i18n="feat_title">Everything you need to dominate</h2>
+    <p class="section-sub" data-i18n="feat_sub">Built by players, for players. Every feature is hand-crafted to give you the edge.</p>
+    <div class="features-grid">
+      <div class="feature-card reveal" style="transition-delay:0.00s">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title" data-i18n="f1_title">Ultra-low Latency</div>
+        <div class="feature-desc" data-i18n="f1_desc">Optimized network stack reduces ping by up to 40%. Every millisecond matters.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.08s">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title" data-i18n="f2_title">Advanced Aim Assist</div>
+        <div class="feature-desc" data-i18n="f2_desc">Smart targeting system that adapts to your playstyle and improves over time.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.16s">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-title" data-i18n="f3_title">Anti-cheat Bypass</div>
+        <div class="feature-desc" data-i18n="f3_desc">Undetected by all major anti-cheat systems. Play freely without worry.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.08s">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title" data-i18n="f4_title">Custom HUD</div>
+        <div class="feature-desc" data-i18n="f4_desc">Fully customizable interface. Move, resize, and style every element your way.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.16s">
+        <div class="feature-icon">🔧</div>
+        <div class="feature-title" data-i18n="f5_title">Module System</div>
+        <div class="feature-desc" data-i18n="f5_desc">100+ toggleable modules. Mix and match to create your perfect setup.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.24s">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title" data-i18n="f6_title">Auto Updates</div>
+        <div class="feature-desc" data-i18n="f6_desc">Always stay on the latest version. Updates install silently in the background.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="section-tag" data-i18n="price_tag">Pricing</div>
+    <h2 class="section-title" data-i18n="price_title">Simple, honest pricing</h2>
+    <p class="section-sub" style="margin-bottom:48px" data-i18n="price_sub">No hidden fees. Cancel anytime. Pick the plan that fits.</p>
+    <div class="pricing-grid">
+
+      <div class="plan-card reveal" style="transition-delay:0.05s">
+        <div class="plan-name" data-i18n="p1_name">Free</div>
+        <div class="plan-desc" data-i18n="p1_desc">Perfect for trying out the client.</div>
+        <div class="plan-price">$0<span>/mo</span></div>
+        <div class="plan-period" data-i18n="p1_period">Forever free</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li data-i18n="p1_f1">Basic modules (15+)</li>
+          <li data-i18n="p1_f2">Custom HUD</li>
+          <li data-i18n="p1_f3">Discord community access</li>
+          <li data-i18n="p1_f4">Basic support</li>
+        </ul>
+        <a href="#" class="plan-btn plan-btn-outline" onclick="openModal()" data-i18n="p1_btn">Get started</a>
+      </div>
+
+      <div class="plan-card featured reveal" style="transition-delay:0.15s">
+        <div class="plan-badge" data-i18n="p2_badge">Most popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-desc" data-i18n="p2_desc">For serious players who want every advantage.</div>
+        <div class="plan-price">$7<span>/mo</span></div>
+        <div class="plan-period" data-i18n="p2_period">Billed monthly · Cancel anytime</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li data-i18n="p2_f1">All 100+ modules unlocked</li>
+          <li data-i18n="p2_f2">Ultra-low latency mode</li>
+          <li data-i18n="p2_f3">Advanced aim assist</li>
+          <li data-i18n="p2_f4">Anti-cheat bypass</li>
+          <li data-i18n="p2_f5">Priority support</li>
+          <li data-i18n="p2_f6">Early access to new features</li>
+        </ul>
+        <a href="#" class="plan-btn plan-btn-filled" onclick="openModal()" data-i18n="p2_btn">Start Pro trial</a>
+      </div>
+
+      <div class="plan-card reveal" style="transition-delay:0.25s">
+        <div class="plan-name" data-i18n="p3_name">Lifetime</div>
+        <div class="plan-desc" data-i18n="p3_desc">Pay once, use forever.</div>
+        <div class="plan-price">$49<span></span></div>
+        <div class="plan-period" data-i18n="p3_period">One-time payment</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li data-i18n="p3_f1">Everything in Pro</li>
+          <li data-i18n="p3_f2">Lifetime updates</li>
+          <li data-i18n="p3_f3">VIP Discord role</li>
+          <li data-i18n="p3_f4">1-on-1 setup call</li>
+          <li data-i18n="p3_f5">Beta tester status</li>
+        </ul>
+        <a href="#" class="plan-btn plan-btn-outline" onclick="openModal()" data-i18n="p3_btn">Buy lifetime</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 14V3l8.5 8.5V3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.5 14V9" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      Note
+    </div>
+    <div class="footer-links">
+      <a href="#" id="privacy">Privacy Policy</a>
+      <a href="#" id="tos">Terms of Service</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#">Discord</a>
+    </div>
+    <div class="footer-copy">© 2026 Note. All rights reserved.</div>
+  </footer>
+
+  <!-- MODAL (Sign In / Sign Up) -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal-wrapper">
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <div class="modal-title">Welcome back</div>
+        <div class="modal-sub">Sign in to your Note account</div>
+        <div class="form-field">
+          <label>Username or Email</label>
+          <input type="text" placeholder="steve@minecraft.net" />
+        </div>
+        <div class="form-field">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" />
+        </div>
+        <button class="modal-submit">Sign in ⚡</button>
+        <p style="text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,0.35)">
+          No account? <a href="#" style="color:#ff4455;text-decoration:none" onclick="switchToSignup()">Sign up free</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle pill
+    const html = document.documentElement;
+    const pill = document.getElementById('themeToggle');
+    const togSun = document.getElementById('togSun');
+    const togMoon = document.getElementById('togMoon');
+
+    function setTheme(dark) {
+      html.setAttribute('data-theme', dark ? 'dark' : 'light');
+      togSun.classList.toggle('active', !dark);
+      togMoon.classList.toggle('active', dark);
+    }
+
+    pill.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      setTheme(!isDark);
+    });
+
+    // Init: dark mode = moon active
+    setTheme(true);
+
+    // Modal
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+    function switchToSignup() {
+      document.querySelector('.modal-title').textContent = 'Create account';
+      document.querySelector('.modal-sub').textContent = 'Join thousands of Note players';
+      document.querySelector('.modal-submit').textContent = 'Sign up for free ⚡';
+      document.querySelector('p[style] a').textContent = 'Sign in instead';
+      document.querySelector('p[style] a').setAttribute('onclick', 'switchToSignin()');
+    }
+    function switchToSignin() {
+      document.querySelector('.modal-title').textContent = 'Welcome back';
+      document.querySelector('.modal-sub').textContent = 'Sign in to your Note account';
+      document.querySelector('.modal-submit').textContent = 'Sign in ⚡';
+      document.querySelector('p[style] a').textContent = 'Sign up free';
+      document.querySelector('p[style] a').setAttribute('onclick', 'switchToSignup()');
+    }
+
+    // ── Scroll reveal ──
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.section-tag, .section-title, .section-sub').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i * 0.08) + 's';
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Ripple on primary button ──
+    document.querySelectorAll('.btn-primary').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const r = document.createElement('span');
+        r.className = 'ripple';
+        const rect = btn.getBoundingClientRect();
+        r.style.left = (e.clientX - rect.left) + 'px';
+        r.style.top  = (e.clientY - rect.top)  + 'px';
+        btn.appendChild(r);
+        setTimeout(() => r.remove(), 600);
+      });
+    });
+
+    // ── Smooth scroll ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        const el = document.getElementById(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // ── Nav highlight on scroll ──
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = 'home';
+      ['home','features','pricing'].forEach(id => {
+        const s = document.getElementById(id);
+        if (s && window.scrollY >= s.offsetTop - 140) cur = id;
+      });
+      navLinks.forEach(a => {
+        const href = a.getAttribute('href').replace('#','');
+        a.classList.toggle('active', href === '' ? cur === 'home' : href === cur);
+      });
+    }, { passive: true });
+
+    // ── ESC closes modal ──
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  </script>
+
+  <!-- Кнопка переводчика -->
+  <button id="lang-btn" onclick="toggleLang()">EN</button>
+
+  <style>
+    #lang-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(8,2,2,0.90);
+      border: 1px solid rgba(232,25,44,0.35);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Nunito Sans', sans-serif;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,25,44,0.10);
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      user-select: none;
+    }
+    #lang-btn:hover {
+      transform: scale(1.10);
+      background: rgba(232,25,44,0.25);
+      box-shadow: 0 6px 28px rgba(232,25,44,0.40);
+    }
+    #lang-btn:active { transform: scale(0.95); }
+  </style>
+
+  <script>
+    const translations = {
+      en: {
+        nav_home:'Home', nav_pricing:'Pricing', nav_privacy:'Privacy Policy', nav_tos:'Terms Of Service', nav_signin:'Sign in',
+        eyebrow:'MINECRAFT 1.12.2 — 1.19.4',
+        title_line1:'Note', title_line2:'Client.',
+        title:'Minecraft Client.<br>But maxed out.',
+        sub:'Note is a Minecraft client that our developers have poured their hearts into... and their brains, too.',
+        btn_signup:'Sign up for free', btn_pricing:'See pricing',
+        feat_tag:'Features', feat_title:'Everything you need to dominate',
+        feat_sub:'Built by players, for players. Every feature is hand-crafted to give you the edge.',
+        f1_title:'Ultra-low Latency',    f1_desc:'Optimized network stack reduces ping by up to 40%. Every millisecond matters.',
+        f2_title:'Advanced Aim Assist',  f2_desc:'Smart targeting system that adapts to your playstyle and improves over time.',
+        f3_title:'Anti-cheat Bypass',    f3_desc:'Undetected by all major anti-cheat systems. Play freely without worry.',
+        f4_title:'Custom HUD',           f4_desc:'Fully customizable interface. Move, resize, and style every element your way.',
+        f5_title:'Module System',        f5_desc:'100+ toggleable modules. Mix and match to create your perfect setup.',
+        f6_title:'Auto Updates',         f6_desc:'Always stay on the latest version. Updates install silently in the background.',
+        price_tag:'Pricing', price_title:'Simple, honest pricing',
+        price_sub:'No hidden fees. Cancel anytime. Pick the plan that fits.',
+        p1_name:'Free', p1_desc:'Perfect for trying out the client.', p1_period:'Forever free',
+        p1_f1:'Basic modules (15+)', p1_f2:'Custom HUD', p1_f3:'Discord community access', p1_f4:'Basic support', p1_btn:'Get started',
+        p2_badge:'Most popular', p2_desc:'For serious players who want every advantage.', p2_period:'Billed monthly · Cancel anytime',
+        p2_f1:'All 100+ modules unlocked', p2_f2:'Ultra-low latency mode', p2_f3:'Advanced aim assist',
+        p2_f4:'Anti-cheat bypass', p2_f5:'Priority support', p2_f6:'Early access to new features', p2_btn:'Start Pro trial',
+        p3_name:'Lifetime', p3_desc:'Pay once, use forever.', p3_period:'One-time payment',
+        p3_f1:'Everything in Pro', p3_f2:'Lifetime updates', p3_f3:'VIP Discord role', p3_f4:'1-on-1 setup call', p3_f5:'Beta tester status', p3_btn:'Buy lifetime',
+      },
+      ru: {
+        nav_home:'Главная', nav_pricing:'Цены', nav_privacy:'Политика конф.', nav_tos:'Условия', nav_signin:'Войти',
+        eyebrow:'MINECRAFT 1.12.2 — 1.19.4',
+        title_line1:'Note', title_line2:'Клиент.',
+        title:'Minecraft Клиент.<br>Прокачан до максимума.',
+        sub:'Note — это Minecraft клиент, в который наши разработчики вложили душу... и немало мозгов.',
+        btn_signup:'Зарегистрироваться бесплатно', btn_pricing:'Посмотреть цены',
+        feat_tag:'Возможности', feat_title:'Всё что нужно для победы',
+        feat_sub:'Создано игроками для игроков. Каждая функция заточена под результат.',
+        f1_title:'Сверхнизкий пинг',    f1_desc:'Оптимизированный сетевой стек снижает пинг до 40%. Каждая миллисекунда на счету.',
+        f2_title:'Авто-прицел',         f2_desc:'Умная система прицеливания, которая подстраивается под ваш стиль игры.',
+        f3_title:'Обход античита',      f3_desc:'Не обнаруживается основными античит-системами. Играйте свободно.',
+        f4_title:'Кастомный HUD',       f4_desc:'Полностью настраиваемый интерфейс. Перемещай, изменяй размер и стиль элементов.',
+        f5_title:'Система модулей',     f5_desc:'100+ переключаемых модулей. Создай идеальную сборку под себя.',
+        f6_title:'Автообновления',      f6_desc:'Всегда актуальная версия. Обновления устанавливаются автоматически в фоне.',
+        price_tag:'Цены', price_title:'Простые и честные цены',
+        price_sub:'Никаких скрытых платежей. Отмена в любой момент.',
+        p1_name:'Бесплатный', p1_desc:'Идеально чтобы попробовать клиент.', p1_period:'Навсегда бесплатно',
+        p1_f1:'Базовые модули (15+)', p1_f2:'Кастомный HUD', p1_f3:'Доступ к Discord', p1_f4:'Базовая поддержка', p1_btn:'Начать',
+        p2_badge:'Популярный', p2_desc:'Для серьёзных игроков которым нужно всё.', p2_period:'Ежемесячно · Отмена в любой момент',
+        p2_f1:'Все 100+ модулей разблокированы', p2_f2:'Режим сверхнизкого пинга', p2_f3:'Продвинутый авто-прицел',
+        p2_f4:'Обход античита', p2_f5:'Приоритетная поддержка', p2_f6:'Ранний доступ к новым функциям', p2_btn:'Начать Pro период',
+        p3_name:'Навсегда', p3_desc:'Платишь один раз — пользуешься вечно.', p3_period:'Единоразовый платёж',
+        p3_f1:'Всё что есть в Pro', p3_f2:'Пожизненные обновления', p3_f3:'VIP роль в Discord', p3_f4:'Настройка 1 на 1', p3_f5:'Статус бета-тестера', p3_btn:'Купить навсегда',
+      }
+    };
+
+    let currentLang = 'en';
+
+    function toggleLang() {
+      currentLang = currentLang === 'en' ? 'ru' : 'en';
+      document.getElementById('lang-btn').textContent = currentLang.toUpperCase();
+      const t = translations[currentLang];
+      const els = document.querySelectorAll('[data-i18n]');
+
+      els.forEach(el => {
+        el.style.transition = 'opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease';
+        el.style.opacity = '0';
+        el.style.transform = 'scale(0.94) translateY(-4px)';
+        el.style.filter = 'blur(4px)';
+      });
+
+      setTimeout(() => {
+        els.forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (t[key] !== undefined) el.innerHTML = t[key];
+          el.style.transition = 'opacity 0.22s cubic-bezier(.22,1,.36,1), transform 0.22s cubic-bezier(.22,1,.36,1), filter 0.22s ease';
+          el.style.opacity = '1';
+          el.style.transform = 'scale(1) translateY(0)';
+          el.style.filter = 'blur(0)';
+        });
+      }, 160);
+    }
+  </script>
+
+  <script>
+    (function() {
+      // Создаём обёртку
+      const wrap = document.createElement('div');
+      wrap.id = 'sw';
+      wrap.style.cssText = 'will-change:transform;';
+      while (document.body.firstChild) wrap.appendChild(document.body.firstChild);
+      document.body.appendChild(wrap);
+
+      // Вытаскиваем fixed-элементы из враппера
+      const langBtn = wrap.querySelector('#lang-btn');
+      if (langBtn) document.body.appendChild(langBtn);
+      const navbar = wrap.querySelector('nav');
+      if (navbar) document.body.insertBefore(navbar, wrap);
+
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
+
+      let cur = 0, dst = 0;
+      const EASE = 0.045;
+
+      const maxScroll = () => wrap.scrollHeight - window.innerHeight;
+
+      window.addEventListener('wheel', e => {
+        dst = Math.min(Math.max(dst + e.deltaY, 0), maxScroll());
+      }, { passive: true });
+
+      let ty = 0;
+      window.addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
+      window.addEventListener('touchmove', e => {
+        dst = Math.min(Math.max(dst + (ty - e.touches[0].clientY) * 1.5, 0), maxScroll());
+        ty = e.touches[0].clientY;
+      }, { passive: true });
+
+      // Поддержка клавиш и скроллбара
+      window.addEventListener('keydown', e => {
+        const step = 80;
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') dst = Math.min(dst + (e.key === 'PageDown' ? window.innerHeight : step), maxScroll());
+        if (e.key === 'ArrowUp'   || e.key === 'PageUp')   dst = Math.max(dst - (e.key === 'PageUp'   ? window.innerHeight : step), 0);
+        if (e.key === 'End')   dst = maxScroll();
+        if (e.key === 'Home')  dst = 0;
+      });
+
+      (function loop() {
+        cur += (dst - cur) * EASE;
+        if (Math.abs(dst - cur) < 0.5) cur = dst;
+        wrap.style.transform = `translateY(${-cur}px)`;
+        requestAnimationFrame(loop);
+      })();
+    })();
+  </script>
+
 
 </body>
 </html>
