@@ -1420,7 +1420,7 @@
       mesh = new THREE.Mesh(geo, mat);
       const box = new THREE.Box3().setFromObject(mesh);
       const size = box.getSize(new THREE.Vector3());
-      const s = 4.5 / Math.max(size.x, size.y, size.z);
+      const s = 3.5 / Math.max(size.x, size.y, size.z);
       mesh.scale.setScalar(s);
       const center = box.getCenter(new THREE.Vector3());
       mesh.position.sub(center.clone().multiplyScalar(s));
