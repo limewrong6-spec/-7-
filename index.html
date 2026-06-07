@@ -1232,6 +1232,10 @@
       while (document.body.firstChild) wrap.appendChild(document.body.firstChild);
       document.body.appendChild(wrap);
 
+      // Вытаскиваем lang-btn из враппера чтобы он не двигался со страницей
+      const langBtn = wrap.querySelector('#lang-btn');
+      if (langBtn) document.body.appendChild(langBtn);
+
       document.body.style.overflow = 'hidden';
       document.body.style.height = '100vh';
 
