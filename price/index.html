@@ -433,6 +433,19 @@
   </div>
 
   <script>
+    // Theme toggle
+    const html = document.documentElement;
+    const pill = document.querySelector('.theme-toggle-pill');
+    const togSun = pill.children[0];
+    const togMoon = pill.children[1];
+    function setTheme(dark) {
+      html.setAttribute('data-theme', dark ? 'dark' : 'light');
+      togSun.classList.toggle('active', !dark);
+      togMoon.classList.toggle('active', dark);
+    }
+    pill.addEventListener('click', () => setTheme(html.getAttribute('data-theme') !== 'dark'));
+    setTheme(true);
+
     function openModal() { document.getElementById('modalOverlay').classList.add('open'); }
     function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
     function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
