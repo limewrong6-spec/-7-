@@ -293,18 +293,20 @@
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-family: 'Onest', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 0.08em;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(135deg, rgba(232,25,44,0.18) 0%, rgba(0,0,0,0.3) 100%);
+      border: 1px solid rgba(232,25,44,0.45);
       border-radius: 50px;
-      padding: 6px 14px;
+      padding: 8px 18px;
       margin-bottom: 28px;
+      box-shadow: 0 0 18px rgba(232,25,44,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
       animation: fadeUp 0.7s 0.2s cubic-bezier(0.22,1,0.36,1) both;
     }
     .hero-eyebrow::before {
@@ -312,8 +314,13 @@
       width: 7px; height: 7px;
       border-radius: 50%;
       background: #e8192c;
-      box-shadow: 0 0 8px rgba(232,25,44,0.9);
+      box-shadow: 0 0 10px rgba(232,25,44,1), 0 0 4px rgba(255,100,100,0.8);
       flex-shrink: 0;
+      animation: dotPulse 2s infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { box-shadow: 0 0 6px rgba(232,25,44,0.9); }
+      50%      { box-shadow: 0 0 14px rgba(232,25,44,1), 0 0 6px rgba(255,80,80,0.9); }
     }
 
     .hero-title {
@@ -912,7 +919,7 @@
 
     <!-- Hero text -->
     <div class="hero-content">
-      <p class="hero-eyebrow" data-i18n="eyebrow">MINECRAFT 1.12.2 — 1.19.4</p>
+      <p class="hero-eyebrow" data-i18n="eyebrow">CLIENT 1.8.4 — 1.21.4</p>
       <h1 class="hero-title">
         <span class="t-white" data-i18n="title_line1">Note</span>
         <span class="t-dim" data-i18n="title_line2">Client</span>
