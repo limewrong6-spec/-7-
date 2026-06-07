@@ -462,5 +462,48 @@
     }, { threshold: 0.1 });
     anims.forEach(el => io.observe(el));
   </script>
+  <script>
+    (function() {
+      const wrap = document.createElement('div');
+      wrap.id = 'sw';
+      wrap.style.cssText = 'will-change:transform;position:relative;';
+      while (document.body.firstChild) wrap.appendChild(document.body.firstChild);
+      document.body.appendChild(wrap);
+      const navbar = wrap.querySelector('nav');
+      if (navbar) document.body.insertBefore(navbar, wrap);
+      const modalOverlay = wrap.querySelector('#modalOverlay');
+      if (modalOverlay) document.body.appendChild(modalOverlay);
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
+      let cur = 0, dst = 0;
+      const EASE = 0.045;
+      const maxScroll = () => wrap.scrollHeight - window.innerHeight;
+      window.addEventListener('wheel', e => {
+        dst = Math.min(Math.max(dst + e.deltaY, 0), maxScroll());
+      }, { passive: true });
+      let ty = 0;
+      window.addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
+      window.addEventListener('touchmove', e => {
+        dst = Math.min(Math.max(dst + (ty - e.touches[0].clientY) * 1.5, 0), maxScroll());
+        ty = e.touches[0].clientY;
+      }, { passive: true });
+      window.addEventListener('keydown', e => {
+        const step = 80;
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') dst = Math.min(dst + (e.key === 'PageDown' ? window.innerHeight : step), maxScroll());
+        if (e.key === 'ArrowUp'   || e.key === 'PageUp')   dst = Math.max(dst - (e.key === 'PageUp'   ? window.innerHeight : step), 0);
+        if (e.key === 'End')  dst = maxScroll();
+        if (e.key === 'Home') dst = 0;
+      });
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => { e.preventDefault(); });
+      });
+      (function loop() {
+        cur += (dst - cur) * EASE;
+        if (Math.abs(dst - cur) < 0.5) cur = dst;
+        wrap.style.transform = `translateY(${-cur}px)`;
+        requestAnimationFrame(loop);
+      })();
+    })();
+  </script>
 </body>
 </html>
