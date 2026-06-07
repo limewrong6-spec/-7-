@@ -225,6 +225,44 @@
     .plan-btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
     .plan-btn-filled { background: linear-gradient(135deg, #e8192c, #8b0000); color: #fff; box-shadow: 0 4px 16px rgba(232,25,44,0.4); }
 
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+      z-index: 200; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: #0d0202; border: 1px solid rgba(232,25,44,0.20);
+      border-radius: 20px; padding: 40px; width: 100%; max-width: 420px;
+      display: flex; flex-direction: column; position: relative;
+      transform: translateY(12px); transition: transform 0.2s;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none; color: rgba(255,255,255,0.4);
+      font-size: 22px; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal-title { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .modal-sub { font-size: 14px; color: rgba(255,255,255,0.45); margin-bottom: 28px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-field label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); }
+    .form-field input {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(232,25,44,0.20);
+      border-radius: 10px; padding: 11px 14px; color: #fff; font-size: 14px; outline: none;
+    }
+    .form-field input:focus { border-color: rgba(232,25,44,0.5); }
+    .modal-submit {
+      width: 100%; padding: 13px; border-radius: 12px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, #e8192c, #8b0000); color: #fff;
+      font-size: 15px; font-weight: 700; margin-top: 6px;
+      box-shadow: 0 4px 16px rgba(232,25,44,0.4); transition: opacity 0.15s;
+    }
+    .modal-submit:hover { opacity: 0.85; }
+
     /* ─── ANIMATIONS ─── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(32px); }
@@ -300,7 +338,7 @@
           <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M10.5 7.5A5 5 0 015.5 2.5a5 5 0 000 8 5 5 0 005-3z"/></svg>
         </div>
       </div>
-      <a href="#" class="btn-signin" onclick="return false;">
+      <a href="#" class="btn-signin" onclick="openModal(); return false;">
         <svg class="signin-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3H3a1 1 0 00-1 1v8a1 1 0 001 1h3"/><path d="M10 5l3 3-3 3"/><line x1="13" y1="8" x2="6" y2="8"/></svg>
         Sign in
       </a>
@@ -326,7 +364,7 @@
           <li>Discord community access</li>
           <li>Basic support</li>
         </ul>
-        <a href="#" class="plan-btn plan-btn-outline" onclick="return false;">Get started</a>
+        <a href="#" class="plan-btn plan-btn-outline" onclick="openModal(); return false;">Get started</a>
       </div>
 
       <div class="plan-card featured anim">
@@ -344,7 +382,7 @@
           <li>Priority support</li>
           <li>Early access to new features</li>
         </ul>
-        <a href="#" class="plan-btn plan-btn-filled" onclick="return false;">Start Pro trial</a>
+        <a href="#" class="plan-btn plan-btn-filled" onclick="openModal(); return false;">Start Pro trial</a>
       </div>
 
       <div class="plan-card anim">
@@ -360,7 +398,7 @@
           <li>1-on-1 setup call</li>
           <li>Beta tester status</li>
         </ul>
-        <a href="#" class="plan-btn plan-btn-outline" onclick="return false;">Buy lifetime</a>
+        <a href="#" class="plan-btn plan-btn-outline" onclick="openModal(); return false;">Buy lifetime</a>
       </div>
 
     </div>
@@ -380,7 +418,25 @@
     <p>© 2026 Note. All rights reserved.</p>
   </footer>
 
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-title">Get started</div>
+      <div class="modal-sub">Create your Note account</div>
+      <div class="form-field"><label>Username or Email</label><input type="text" placeholder="steve@minecraft.net"/></div>
+      <div class="form-field"><label>Password</label><input type="password" placeholder="••••••••"/></div>
+      <button class="modal-submit">Sign up free ⚡</button>
+      <p style="text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,0.35)">
+        Already have an account? <a href="#" style="color:#ff4455;text-decoration:none" onclick="event.preventDefault()">Sign in</a>
+      </p>
+    </div>
+  </div>
+
   <script>
+    function openModal() { document.getElementById('modalOverlay').classList.add('open'); }
+    function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+    function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
     const anims = document.querySelectorAll('.anim');
     const delays = [0, 0.1, 0.2, 0.35, 0.5, 0.65];
     let d = 0;
