@@ -1310,7 +1310,7 @@
       // Создаём обёртку
       const wrap = document.createElement('div');
       wrap.id = 'sw';
-      wrap.style.cssText = 'will-change:transform;';
+      wrap.style.cssText = 'will-change:transform;position:relative;';
       while (document.body.firstChild) wrap.appendChild(document.body.firstChild);
       document.body.appendChild(wrap);
 
