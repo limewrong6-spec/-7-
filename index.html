@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Note — Minecraft Client. But maxed out.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Rubik+Glitch&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { user-select: none; -webkit-user-select: none; }
@@ -274,79 +274,89 @@
       z-index: 10;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 0 24px;
-      max-width: 800px;
+      align-items: flex-start;
+      text-align: left;
+      padding: 0 60px;
+      max-width: 860px;
       width: 100%;
-      margin-top: -60px; /* чуть выше центра как на скрине */
+      margin-top: -40px;
     }
 
     .hero-eyebrow {
-      font-size: 14px;
-      color: rgba(255,255,255,0.80);
-      margin-bottom: 16px;
-      letter-spacing: 0.02em;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.9);
-      animation: fadeUp 0.7s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Onest', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px;
+      padding: 6px 14px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.7s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #e8192c;
+      box-shadow: 0 0 8px rgba(232,25,44,0.9);
+      flex-shrink: 0;
     }
 
     .hero-title {
-      font-family: 'Rubik Glitch', cursive;
-      font-size: clamp(36px, 5.5vw, 68px);
-      font-weight: 400;
-      line-height: 1.10;
-      color: #ffffff;
-      text-shadow: 0 0 30px rgba(232,25,44,0.6), 0 2px 20px rgba(0,0,0,0.9), 3px 0 0 rgba(232,25,44,0.3), -3px 0 0 rgba(0,200,255,0.15);
-      margin-bottom: 22px;
-      letter-spacing: 0.01em;
-      animation: fadeUp 0.75s 0.4s cubic-bezier(0.22,1,0.36,1) both, glitchFlicker 6s 1.5s infinite;
+      font-family: 'Onest', sans-serif;
+      font-size: clamp(52px, 8vw, 110px);
+      font-weight: 900;
+      line-height: 0.95;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.75s 0.35s cubic-bezier(0.22,1,0.36,1) both;
     }
-
-    @keyframes glitchFlicker {
-      0%,96%,100% { text-shadow: 0 0 30px rgba(232,25,44,0.6), 0 2px 20px rgba(0,0,0,0.9), 3px 0 0 rgba(232,25,44,0.3), -3px 0 0 rgba(0,200,255,0.15); transform: translate(0); }
-      97%   { text-shadow: -4px 0 rgba(232,25,44,0.9), 4px 0 rgba(0,200,255,0.5); transform: translate(-2px, 1px) skewX(-1deg); }
-      98%   { text-shadow: 4px 0 rgba(232,25,44,0.9), -4px 0 rgba(0,200,255,0.5); transform: translate(2px,-1px) skewX(1deg); }
-      99%   { text-shadow: 0 0 40px rgba(232,25,44,1); transform: translate(0); }
-    }
+    .hero-title .t-white { color: #ffffff; display: block; }
+    .hero-title .t-dim   { color: rgba(255,255,255,0.30); display: block; }
 
     .hero-sub {
-      font-size: clamp(15px, 1.5vw, 17px);
-      color: rgba(255,255,255,0.82);
-      max-width: 460px;
+      font-family: 'Onest', sans-serif;
+      font-size: clamp(15px, 1.4vw, 17px);
+      color: rgba(255,255,255,0.55);
+      max-width: 480px;
       line-height: 1.65;
       margin-bottom: 36px;
-      text-shadow: 0 1px 12px rgba(0,0,0,0.8);
-      animation: fadeUp 0.7s 0.55s cubic-bezier(0.22,1,0.36,1) both;
+      animation: fadeUp 0.7s 0.5s cubic-bezier(0.22,1,0.36,1) both;
     }
 
     .hero-btns {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp 0.7s 0.68s cubic-bezier(0.22,1,0.36,1) both;
+      justify-content: flex-start;
+      animation: fadeUp 0.7s 0.62s cubic-bezier(0.22,1,0.36,1) both;
     }
 
-    /* Кнопка "Sign up for free" — белая пилюля с тёмным текстом */
     .btn-primary {
       position: relative;
       overflow: hidden;
       padding: 14px 28px;
       border-radius: 50px;
-      background: #ffffff;
-      color: #111111;
+      background: #e8192c;
+      color: #ffffff;
+      font-family: 'Onest', sans-serif;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       border: none;
       cursor: pointer;
       text-decoration: none;
       transition: transform 0.18s, box-shadow 0.18s;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 24px rgba(232,25,44,0.5);
     }
     .btn-primary:hover {
       transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 32px rgba(232,25,44,0.7);
     }
     .btn-primary:active { transform: scale(0.97); }
 
@@ -880,8 +890,11 @@
 
     <!-- Hero text -->
     <div class="hero-content">
-      <p class="hero-eyebrow" data-i18n="eyebrow">Yet another perfect minecraft client...</p>
-      <h1 class="hero-title" data-i18n="title">Minecraft Client.<br>But maxed out.</h1>
+      <p class="hero-eyebrow" data-i18n="eyebrow">MINECRAFT 1.12.2 — 1.19.4</p>
+      <h1 class="hero-title">
+        <span class="t-white" data-i18n="title_line1">Note</span>
+        <span class="t-dim" data-i18n="title_line2">Client.</span>
+      </h1>
       <p class="hero-sub" data-i18n="sub">Note is a Minecraft client that our developers have poured their hearts into... and their brains, too.</p>
       <div class="hero-btns">
         <a href="#" class="btn-primary" onclick="openModal()" data-i18n="btn_signup">Sign up for free</a>
@@ -1172,7 +1185,8 @@
     const translations = {
       en: {
         nav_home:'Home', nav_pricing:'Pricing', nav_privacy:'Privacy Policy', nav_tos:'Terms Of Service', nav_signin:'Sign in',
-        eyebrow:'Yet another perfect minecraft client...',
+        eyebrow:'MINECRAFT 1.12.2 — 1.19.4',
+        title_line1:'Note', title_line2:'Client.',
         title:'Minecraft Client.<br>But maxed out.',
         sub:'Note is a Minecraft client that our developers have poured their hearts into... and their brains, too.',
         btn_signup:'Sign up for free', btn_pricing:'See pricing',
@@ -1196,7 +1210,8 @@
       },
       ru: {
         nav_home:'Главная', nav_pricing:'Цены', nav_privacy:'Политика конф.', nav_tos:'Условия', nav_signin:'Войти',
-        eyebrow:'Ещё один идеальный клиент для Minecraft...',
+        eyebrow:'MINECRAFT 1.12.2 — 1.19.4',
+        title_line1:'Note', title_line2:'Клиент.',
         title:'Minecraft Клиент.<br>Прокачан до максимума.',
         sub:'Note — это Minecraft клиент, в который наши разработчики вложили душу... и немало мозгов.',
         btn_signup:'Зарегистрироваться бесплатно', btn_pricing:'Посмотреть цены',
