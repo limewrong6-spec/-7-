@@ -285,6 +285,18 @@
       align-self: flex-start;
     }
 
+    #model-canvas {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 480px;
+      height: 480px;
+      z-index: 5;
+      cursor: grab;
+    }
+    #model-canvas:active { cursor: grabbing; }
+
     .hero {
       align-items: flex-start !important;
       justify-content: center;
@@ -914,6 +926,9 @@
   <section class="hero" id="home">
     <div class="sky"></div>
 
+    <!-- 3D Model -->
+    <canvas id="model-canvas"></canvas>
+
     <!-- Hero text -->
     <div class="hero-content">
       <p class="hero-eyebrow" data-i18n="eyebrow">CLIENT 1.8.4 — 1.21.4</p>
@@ -1338,6 +1353,85 @@
         wrap.style.transform = `translateY(${-cur}px)`;
         requestAnimationFrame(loop);
       })();
+    })();
+  </script>
+
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
+    const canvas = document.getElementById('model-canvas');
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w * devicePixelRatio;
+    canvas.height = h * devicePixelRatio;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(devicePixelRatio);
+    renderer.setSize(w, h);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
+    camera.position.set(0, 0, 4);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+    const dir = new THREE.DirectionalLight(0xff3333, 1.5);
+    dir.position.set(2, 3, 3);
+    scene.add(dir);
+    const dir2 = new THREE.DirectionalLight(0xffffff, 0.8);
+    dir2.position.set(-2, -1, 2);
+    scene.add(dir2);
+
+    const tex = new THREE.TextureLoader().load('model.png');
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    const mat = new THREE.MeshLambertMaterial({ map: tex });
+
+    let mesh = null;
+    new OBJLoader().load('model.obj', obj => {
+      obj.traverse(c => { if (c.isMesh) c.material = mat; });
+      obj.scale.setScalar(0.08);
+
+      const box = new THREE.Box3().setFromObject(obj);
+      const center = box.getCenter(new THREE.Vector3());
+      obj.position.sub(center);
+
+      mesh = obj;
+      scene.add(obj);
+    });
+
+    // Drag to rotate
+    let dragging = false, lastX = 0, lastY = 0, rotX = 0, rotY = 0, velX = 0, velY = 0;
+    canvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; velX = velY = 0; });
+    window.addEventListener('mouseup', () => { dragging = false; });
+    window.addEventListener('mousemove', e => {
+      if (!dragging || !mesh) return;
+      velY = (e.clientX - lastX) * 0.01;
+      velX = (e.clientY - lastY) * 0.01;
+      rotY += velY; rotX += velX;
+      lastX = e.clientX; lastY = e.clientY;
+    });
+
+    canvas.addEventListener('touchstart', e => { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchend', () => { dragging = false; });
+    window.addEventListener('touchmove', e => {
+      if (!dragging || !mesh) return;
+      velY = (e.touches[0].clientX - lastX) * 0.01;
+      velX = (e.touches[0].clientY - lastY) * 0.01;
+      rotY += velY; rotX += velX;
+      lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+    }, { passive: true });
+
+    (function animate() {
+      requestAnimationFrame(animate);
+      if (mesh) {
+        if (!dragging) { velX *= 0.92; velY *= 0.92; rotX += velX; rotY += velY; rotY += 0.004; }
+        mesh.rotation.x = rotX;
+        mesh.rotation.y = rotY;
+      }
+      renderer.render(scene, camera);
     })();
   </script>
 
