@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Note — Minecraft Client. But maxed out.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Rubik+Glitch&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { user-select: none; -webkit-user-select: none; }
@@ -292,14 +292,22 @@
     }
 
     .hero-title {
-      font-size: clamp(40px, 6vw, 74px);
-      font-weight: 600;
-      line-height: 1.05;
+      font-family: 'Rubik Glitch', cursive;
+      font-size: clamp(36px, 5.5vw, 68px);
+      font-weight: 400;
+      line-height: 1.10;
       color: #ffffff;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.7);
+      text-shadow: 0 0 30px rgba(232,25,44,0.6), 0 2px 20px rgba(0,0,0,0.9), 3px 0 0 rgba(232,25,44,0.3), -3px 0 0 rgba(0,200,255,0.15);
       margin-bottom: 22px;
-      letter-spacing: -0.03em;
-      animation: fadeUp 0.75s 0.4s cubic-bezier(0.22,1,0.36,1) both;
+      letter-spacing: 0.01em;
+      animation: fadeUp 0.75s 0.4s cubic-bezier(0.22,1,0.36,1) both, glitchFlicker 6s 1.5s infinite;
+    }
+
+    @keyframes glitchFlicker {
+      0%,96%,100% { text-shadow: 0 0 30px rgba(232,25,44,0.6), 0 2px 20px rgba(0,0,0,0.9), 3px 0 0 rgba(232,25,44,0.3), -3px 0 0 rgba(0,200,255,0.15); transform: translate(0); }
+      97%   { text-shadow: -4px 0 rgba(232,25,44,0.9), 4px 0 rgba(0,200,255,0.5); transform: translate(-2px, 1px) skewX(-1deg); }
+      98%   { text-shadow: 4px 0 rgba(232,25,44,0.9), -4px 0 rgba(0,200,255,0.5); transform: translate(2px,-1px) skewX(1deg); }
+      99%   { text-shadow: 0 0 40px rgba(232,25,44,1); transform: translate(0); }
     }
 
     .hero-sub {
