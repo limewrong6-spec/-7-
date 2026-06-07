@@ -504,13 +504,18 @@
     }
 
     .feature-icon {
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      background: rgba(232,25,44,0.12);
-      border: 1px solid rgba(232,25,44,0.20);
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(232,25,44,0.18), rgba(139,0,0,0.12));
+      border: 1px solid rgba(232,25,44,0.25);
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 16px rgba(232,25,44,0.12);
+    }
+    .feature-icon svg {
+      width: 24px; height: 24px;
+      color: #e8192c;
+      flex-shrink: 0;
     }
 
     .feature-title {
@@ -952,32 +957,44 @@
     <p class="section-sub" data-i18n="feat_sub">Built by players, for players. Every feature is hand-crafted to give you the edge.</p>
     <div class="features-grid">
       <div class="feature-card reveal" style="transition-delay:0.00s">
-        <div class="feature-icon">⚡</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
         <div class="feature-title" data-i18n="f1_title">Ultra-low Latency</div>
         <div class="feature-desc" data-i18n="f1_desc">Optimized network stack reduces ping by up to 40%. Every millisecond matters.</div>
       </div>
       <div class="feature-card reveal" style="transition-delay:0.08s">
-        <div class="feature-icon">🎯</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+        </div>
         <div class="feature-title" data-i18n="f2_title">Advanced Aim Assist</div>
         <div class="feature-desc" data-i18n="f2_desc">Smart targeting system that adapts to your playstyle and improves over time.</div>
       </div>
       <div class="feature-card reveal" style="transition-delay:0.16s">
-        <div class="feature-icon">🛡️</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
         <div class="feature-title" data-i18n="f3_title">Anti-cheat Bypass</div>
         <div class="feature-desc" data-i18n="f3_desc">Undetected by all major anti-cheat systems. Play freely without worry.</div>
       </div>
       <div class="feature-card reveal" style="transition-delay:0.08s">
-        <div class="feature-icon">🎨</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
         <div class="feature-title" data-i18n="f4_title">Custom HUD</div>
         <div class="feature-desc" data-i18n="f4_desc">Fully customizable interface. Move, resize, and style every element your way.</div>
       </div>
       <div class="feature-card reveal" style="transition-delay:0.16s">
-        <div class="feature-icon">🔧</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
         <div class="feature-title" data-i18n="f5_title">Module System</div>
         <div class="feature-desc" data-i18n="f5_desc">100+ toggleable modules. Mix and match to create your perfect setup.</div>
       </div>
       <div class="feature-card reveal" style="transition-delay:0.24s">
-        <div class="feature-icon">🌐</div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        </div>
         <div class="feature-title" data-i18n="f6_title">Auto Updates</div>
         <div class="feature-desc" data-i18n="f6_desc">Always stay on the latest version. Updates install silently in the background.</div>
       </div>
