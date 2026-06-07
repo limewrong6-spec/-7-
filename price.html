@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Note — Pricing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #e8192c;
+      --accent-dark: #b5101f;
+      --nav-bg: rgba(8, 4, 4, 0.82);
+      --nav-border: rgba(232,25,44,0.18);
+    }
+
+    html, body {
+      min-height: 100%;
+      background: #040000;
+      font-family: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #fff;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--nav-bg);
+      border: 1px solid var(--nav-border);
+      backdrop-filter: blur(18px);
+      border-radius: 100px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      z-index: 100;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 12px 6px 6px;
+      margin-right: 4px;
+    }
+
+    .nav-logo-icon {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, #e8192c, #8b0000);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 15px; color: #fff;
+    }
+
+    nav ul { list-style: none; display: flex; align-items: center; gap: 2px; }
+
+    nav ul li a {
+      display: flex; align-items: center; gap: 5px;
+      padding: 7px 14px;
+      border-radius: 100px;
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.15s, background 0.15s;
+    }
+    nav ul li a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    nav ul li a.active { color: #fff; background: rgba(232,25,44,0.18); border: 1px solid rgba(232,25,44,0.3); }
+
+    .nav-icon { width: 13px; height: 13px; opacity: 0.7; }
+
+    .btn-signin {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #e8192c, #8b0000);
+      border-radius: 100px;
+      font-size: 13px; font-weight: 700;
+      color: #fff; text-decoration: none;
+      margin-left: 4px;
+      transition: opacity 0.15s;
+    }
+    .btn-signin:hover { opacity: 0.85; }
+
+    /* PRICING */
+    .pricing-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 80px;
+    }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(232,25,44,0.12);
+      border: 1px solid rgba(232,25,44,0.25);
+      color: #ff4455;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      max-width: 480px;
+      margin-bottom: 56px;
+      line-height: 1.6;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .plan-card {
+      background: #0d0303;
+      border: 1px solid rgba(232,25,44,0.12);
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s;
+    }
+    .plan-card:hover { border-color: rgba(232,25,44,0.25); }
+
+    .plan-card.featured {
+      border-color: rgba(232,25,44,0.40);
+      background: linear-gradient(145deg, #180404, #0d0202);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(232,25,44,0.08);
+    }
+
+    .plan-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #8b0000, #e8192c, #8b0000);
+    }
+
+    .plan-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(232,25,44,0.15);
+      color: #ff4455;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
+
+    .plan-name { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .plan-desc { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 24px; line-height: 1.5; }
+
+    .plan-price {
+      font-size: 48px; font-weight: 800;
+      letter-spacing: -0.03em; margin-bottom: 4px;
+    }
+    .plan-price span { font-size: 18px; font-weight: 500; color: rgba(255,255,255,0.45); }
+
+    .plan-period { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+
+    .plan-divider { height: 1px; background: rgba(232,25,44,0.12); margin-bottom: 24px; }
+
+    .plan-features {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 32px; flex: 1;
+    }
+    .plan-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: rgba(255,255,255,0.7);
+    }
+    .plan-features li::before { content: '✓'; color: #e8192c; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    .plan-btn {
+      display: block; text-align: center;
+      padding: 13px; border-radius: 12px;
+      font-size: 15px; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .plan-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .plan-btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+    .plan-btn-filled { background: linear-gradient(135deg, #e8192c, #8b0000); color: #fff; box-shadow: 0 4px 16px rgba(232,25,44,0.4); }
+
+    /* FOOTER */
+    footer {
+      background: #040000;
+      border-top: 1px solid rgba(232,25,44,0.15);
+      padding: 40px 24px;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+    .footer-links a:hover { color: #fff; }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.25); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">N</div>
+      Note
+    </a>
+    <ul>
+      <li>
+        <a href="/">
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1.5L1.5 6v6.5h3.75V9.5h3.5v3h3.75V6L7 1.5z"/></svg>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="/price" class="active">
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 12L1.5 6l1.5-3h8l1.5 3L7 12z" stroke-linejoin="round"/><line x1="1.5" y1="6" x2="12.5" y2="6"/></svg>
+          Pricing
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7" y2="10"/></svg>
+          Privacy Policy
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7" y2="10"/></svg>
+          Terms Of Service
+        </a>
+      </li>
+    </ul>
+    <a href="#" class="btn-signin" onclick="return false;">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 7H3M6 4.5L3.5 7 6 9.5"/><path d="M8 2.5h2a1 1 0 011 1v7a1 1 0 01-1 1H8"/></svg>
+      Sign in
+    </a>
+  </nav>
+
+  <main class="pricing-page">
+    <div class="section-tag">Pricing</div>
+    <h1 class="section-title">Simple, honest pricing</h1>
+    <p class="section-sub">No hidden fees. Cancel anytime. Pick the plan that fits.</p>
+
+    <div class="pricing-grid">
+
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-desc">Perfect for trying out the client.</div>
+        <div class="plan-price">$0<span>/mo</span></div>
+        <div class="plan-period">Forever free</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Basic modules (15+)</li>
+          <li>Custom HUD</li>
+          <li>Discord community access</li>
+          <li>Basic support</li>
+        </ul>
+        <a href="#" class="plan-btn plan-btn-outline" onclick="return false;">Get started</a>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-desc">For serious players who want every advantage.</div>
+        <div class="plan-price">$7<span>/mo</span></div>
+        <div class="plan-period">Billed monthly · Cancel anytime</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>All 100+ modules unlocked</li>
+          <li>Ultra-low latency mode</li>
+          <li>Advanced aim assist</li>
+          <li>Anti-cheat bypass</li>
+          <li>Priority support</li>
+          <li>Early access to new features</li>
+        </ul>
+        <a href="#" class="plan-btn plan-btn-filled" onclick="return false;">Start Pro trial</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">Lifetime</div>
+        <div class="plan-desc">Pay once, use forever.</div>
+        <div class="plan-price">$49<span></span></div>
+        <div class="plan-period">One-time payment</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Everything in Pro</li>
+          <li>Lifetime updates</li>
+          <li>VIP Discord role</li>
+          <li>1-on-1 setup call</li>
+          <li>Beta tester status</li>
+        </ul>
+        <a href="#" class="plan-btn plan-btn-outline" onclick="return false;">Buy lifetime</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">
+      <div class="nav-logo-icon">N</div>
+      Note
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="/price">Pricing</a>
+      <a href="#">Discord</a>
+    </div>
+    <p>© 2026 Note. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
