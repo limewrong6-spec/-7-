@@ -1347,13 +1347,20 @@
         if (e.key === 'Home')  dst = 0;
       });
 
+      function offsetInWrap(el) {
+        let top = 0;
+        let node = el;
+        while (node && node !== wrap) { top += node.offsetTop; node = node.offsetParent; }
+        return top;
+      }
+
       document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
           e.preventDefault();
           const id = a.getAttribute('href').slice(1);
           if (!id) return;
           const target = document.getElementById(id);
-          if (target) dst = Math.min(Math.max(cur + target.getBoundingClientRect().top, 0), maxScroll());
+          if (target) dst = Math.min(Math.max(offsetInWrap(target), 0), maxScroll());
         });
       });
 
