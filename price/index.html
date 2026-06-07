@@ -209,6 +209,21 @@
     .plan-btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
     .plan-btn-filled { background: linear-gradient(135deg, #e8192c, #8b0000); color: #fff; box-shadow: 0 4px 16px rgba(232,25,44,0.4); }
 
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes navSlideDown {
+      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    nav { animation: navSlideDown 0.55s cubic-bezier(.22,1,.36,1) both; }
+
+    .anim { opacity: 0; }
+    .anim.visible { animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) both; }
+
     /* FOOTER */
     footer {
       background: #040000;
@@ -263,13 +278,13 @@
   </nav>
 
   <main class="pricing-page">
-    <div class="section-tag">Pricing</div>
-    <h1 class="section-title">Simple, honest pricing</h1>
-    <p class="section-sub">No hidden fees. Cancel anytime. Pick the plan that fits.</p>
+    <div class="section-tag anim">Pricing</div>
+    <h1 class="section-title anim">Simple, honest pricing</h1>
+    <p class="section-sub anim">No hidden fees. Cancel anytime. Pick the plan that fits.</p>
 
     <div class="pricing-grid">
 
-      <div class="plan-card">
+      <div class="plan-card anim">
         <div class="plan-name">Free</div>
         <div class="plan-desc">Perfect for trying out the client.</div>
         <div class="plan-price">$0<span>/mo</span></div>
@@ -284,7 +299,7 @@
         <a href="#" class="plan-btn plan-btn-outline" onclick="return false;">Get started</a>
       </div>
 
-      <div class="plan-card featured">
+      <div class="plan-card featured anim">
         <div class="plan-badge">Most popular</div>
         <div class="plan-name">Pro</div>
         <div class="plan-desc">For serious players who want every advantage.</div>
@@ -302,7 +317,7 @@
         <a href="#" class="plan-btn plan-btn-filled" onclick="return false;">Start Pro trial</a>
       </div>
 
-      <div class="plan-card">
+      <div class="plan-card anim">
         <div class="plan-name">Lifetime</div>
         <div class="plan-desc">Pay once, use forever.</div>
         <div class="plan-price">$49<span></span></div>
@@ -335,5 +350,18 @@
     <p>© 2026 Note. All rights reserved.</p>
   </footer>
 
+  <script>
+    const anims = document.querySelectorAll('.anim');
+    const delays = [0, 0.1, 0.2, 0.35, 0.5, 0.65];
+    let d = 0;
+    anims.forEach(el => {
+      el.style.animationDelay = (delays[d] || d * 0.12) + 's';
+      d++;
+    });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    anims.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
