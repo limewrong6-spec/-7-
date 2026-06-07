@@ -1471,7 +1471,6 @@
         requestAnimationFrame(loop);
         if (!dragging) { velX *= 0.9; velY *= 0.9; rotX += velX; rotY += velY; }
         rotX = Math.max(-0.4, Math.min(0.4, rotX));
-        rotY = Math.max(-0.5, Math.min(0.5, rotY));
         if (mesh) { mesh.rotation.x = rotX; mesh.rotation.y = rotY; }
         renderer.render(scene, camera);
       })();
