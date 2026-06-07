@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" data-theme="dark" style="background:#000">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -294,8 +294,6 @@
       height: 480px;
       z-index: 5;
       cursor: grab;
-      opacity: 0;
-      transition: opacity 0.25s ease;
     }
     #model-canvas:active { cursor: grabbing; }
 
@@ -929,7 +927,7 @@
     <div class="sky"></div>
 
     <!-- 3D Model -->
-    <canvas id="model-canvas" style="opacity:0;background:transparent"></canvas>
+    <canvas id="model-canvas"></canvas>
 
     <!-- Hero text -->
     <div class="hero-content">
@@ -1428,9 +1426,6 @@
       const center = box.getCenter(new THREE.Vector3());
       mesh.position.sub(center.clone().multiplyScalar(s));
       scene.add(mesh);
-      renderer.render(scene, camera);
-      canvas.style.transition = 'opacity 0.3s ease';
-      canvas.style.opacity = '1';
 
       canvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; velX = velY = 0; });
       window.addEventListener('mouseup', () => dragging = false);
@@ -1459,7 +1454,7 @@
   </script>
 
 </body>
-<html lang="en" data-theme="dark" style="background:#000">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -1754,8 +1749,6 @@
       height: 480px;
       z-index: 5;
       cursor: grab;
-      opacity: 0;
-      transition: opacity 0.25s ease;
     }
     #model-canvas:active { cursor: grabbing; }
 
@@ -2389,7 +2382,7 @@
     <div class="sky"></div>
 
     <!-- 3D Model -->
-    <canvas id="model-canvas" style="opacity:0;background:transparent"></canvas>
+    <canvas id="model-canvas"></canvas>
 
     <!-- Hero text -->
     <div class="hero-content">
