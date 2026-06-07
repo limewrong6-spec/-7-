@@ -29,65 +29,69 @@
       top: 16px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--nav-bg);
-      border: 1px solid var(--nav-border);
-      backdrop-filter: blur(18px);
-      border-radius: 100px;
-      padding: 6px 8px;
-      display: flex;
-      align-items: center;
-      gap: 2px;
       z-index: 100;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
-    }
-
-    .nav-logo {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-weight: 800;
-      font-size: 15px;
-      color: #fff;
-      text-decoration: none;
-      padding: 6px 12px 6px 6px;
-      margin-right: 4px;
+      padding: 5px 6px;
+      background: rgba(8, 2, 2, 0.88);
+      border: 1px solid rgba(232,25,44,0.20);
+      border-radius: 50px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      white-space: nowrap;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,25,44,0.06), inset 0 1px 0 rgba(255,255,255,0.04);
+      gap: 0;
     }
-
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 700; font-size: 14px; color: #fff;
+      text-decoration: none; padding: 3px 12px 3px 4px; letter-spacing: 0.01em;
+    }
     .nav-logo-icon {
       width: 30px; height: 30px;
       background: linear-gradient(135deg, #e8192c, #8b0000);
-      border-radius: 8px;
+      border-radius: 9px;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 15px; color: #fff;
+      flex-shrink: 0; box-shadow: 0 2px 12px rgba(232,25,44,0.5);
     }
-
-    nav ul { list-style: none; display: flex; align-items: center; gap: 2px; }
-
-    nav ul li a {
+    .nav-logo-icon svg { width: 17px; height: 17px; }
+    .nav-sep { width: 1px; height: 16px; background: rgba(232,25,44,0.20); margin: 0 4px; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; list-style: none; gap: 1px; }
+    .nav-links a {
       display: flex; align-items: center; gap: 5px;
-      padding: 7px 14px;
-      border-radius: 100px;
-      font-size: 13px; font-weight: 600;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      transition: color 0.15s, background 0.15s;
+      padding: 6px 11px; border-radius: 50px;
+      font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.60); text-decoration: none;
+      transition: background 0.15s, color 0.15s; line-height: 1;
     }
-    nav ul li a:hover { color: #fff; background: rgba(255,255,255,0.06); }
-    nav ul li a.active { color: #fff; background: rgba(232,25,44,0.18); border: 1px solid rgba(232,25,44,0.3); }
-
-    .nav-icon { width: 13px; height: 13px; opacity: 0.7; }
-
+    .nav-links a:hover { background: rgba(232,25,44,0.12); color: #fff; }
+    .nav-links a.active { background: rgba(232,25,44,0.16); color: #fff; font-weight: 600; }
+    .nav-links a .nav-icon { width: 14px; height: 14px; opacity: 0.80; flex-shrink: 0; }
+    .nav-actions { display: flex; align-items: center; gap: 5px; margin-left: 2px; }
+    .theme-toggle-pill {
+      display: flex; align-items: center;
+      background: rgba(232,25,44,0.08); border: 1px solid rgba(232,25,44,0.16);
+      border-radius: 50px; padding: 3px 4px; gap: 1px; cursor: pointer;
+    }
+    .tog-icon {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: rgba(255,255,255,0.35);
+      transition: background 0.18s, color 0.18s; user-select: none;
+    }
+    .tog-icon.active { background: rgba(232,25,44,0.28); color: #fff; }
     .btn-signin {
       display: flex; align-items: center; gap: 6px;
-      padding: 8px 16px;
-      background: linear-gradient(135deg, #e8192c, #8b0000);
-      border-radius: 100px;
-      font-size: 13px; font-weight: 700;
-      color: #fff; text-decoration: none;
-      margin-left: 4px;
-      transition: opacity 0.15s;
+      padding: 6px 14px 6px 11px; border-radius: 50px;
+      background: #e8192c; color: #fff;
+      font-size: 13px; font-weight: 600;
+      border: 1px solid rgba(255,80,80,0.3);
+      cursor: pointer; text-decoration: none;
+      transition: background 0.15s, box-shadow 0.15s; line-height: 1;
+      box-shadow: 0 2px 12px rgba(232,25,44,0.4);
     }
-    .btn-signin:hover { opacity: 0.85; }
+    .btn-signin:hover { background: #c5101f; box-shadow: 0 4px 20px rgba(232,25,44,0.55); }
+    .signin-icon { width: 15px; height: 15px; opacity: 0.80; flex-shrink: 0; }
 
     /* PRICING */
     .pricing-page {
@@ -242,13 +246,16 @@
 
   <nav>
     <a href="/" class="nav-logo">
-      <div class="nav-logo-icon">N</div>
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 17 17" fill="none"><path d="M3 14V3l8.5 8.5V3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.5 14V9" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </div>
       Note
     </a>
-    <ul>
+    <div class="nav-sep"></div>
+    <ul class="nav-links">
       <li>
         <a href="/">
-          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1.5L1.5 6v6.5h3.75V9.5h3.5v3h3.75V6L7 1.5z"/></svg>
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1.5L1.5 6v6.5h3.75V9.5h3.5v3h3.75V6L7 1.5z"/></svg>
           Home
         </a>
       </li>
@@ -260,21 +267,32 @@
       </li>
       <li>
         <a href="#">
-          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7" y2="10"/></svg>
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7.5" y2="10"/></svg>
           Privacy Policy
         </a>
       </li>
       <li>
         <a href="#">
-          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7" y2="10"/></svg>
+          <svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7.5" y2="10"/></svg>
           Terms Of Service
         </a>
       </li>
     </ul>
-    <a href="#" class="btn-signin" onclick="return false;">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 7H3M6 4.5L3.5 7 6 9.5"/><path d="M8 2.5h2a1 1 0 011 1v7a1 1 0 01-1 1H8"/></svg>
-      Sign in
-    </a>
+    <div class="nav-sep"></div>
+    <div class="nav-actions">
+      <div class="theme-toggle-pill">
+        <div class="tog-icon">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><circle cx="6.5" cy="6.5" r="2.5"/><line x1="6.5" y1="0.5" x2="6.5" y2="2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="6.5" y1="11" x2="6.5" y2="12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="0.5" y1="6.5" x2="2" y2="6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="11" y1="6.5" x2="12.5" y2="6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="tog-icon active">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M10.5 7.5A5 5 0 015.5 2.5a5 5 0 000 8 5 5 0 005-3z"/></svg>
+        </div>
+      </div>
+      <a href="#" class="btn-signin" onclick="return false;">
+        <svg class="signin-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3H3a1 1 0 00-1 1v8a1 1 0 001 1h3"/><path d="M10 5l3 3-3 3"/><line x1="13" y1="8" x2="6" y2="8"/></svg>
+        Sign in
+      </a>
+    </div>
   </nav>
 
   <main class="pricing-page">
