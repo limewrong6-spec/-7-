@@ -1220,17 +1220,23 @@
       const t = translations[currentLang];
       const els = document.querySelectorAll('[data-i18n]');
 
-      // Fade out
-      els.forEach(el => { el.style.transition = 'opacity 0.18s ease, transform 0.18s ease'; el.style.opacity = '0'; el.style.transform = 'translateY(-6px)'; });
+      els.forEach(el => {
+        el.style.transition = 'opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease';
+        el.style.opacity = '0';
+        el.style.transform = 'scale(0.94) translateY(-4px)';
+        el.style.filter = 'blur(4px)';
+      });
 
       setTimeout(() => {
         els.forEach(el => {
           const key = el.getAttribute('data-i18n');
           if (t[key] !== undefined) el.innerHTML = t[key];
+          el.style.transition = 'opacity 0.22s cubic-bezier(.22,1,.36,1), transform 0.22s cubic-bezier(.22,1,.36,1), filter 0.22s ease';
           el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
+          el.style.transform = 'scale(1) translateY(0)';
+          el.style.filter = 'blur(0)';
         });
-      }, 180);
+      }, 160);
     }
   </script>
 
@@ -1243,9 +1249,11 @@
       while (document.body.firstChild) wrap.appendChild(document.body.firstChild);
       document.body.appendChild(wrap);
 
-      // Вытаскиваем lang-btn из враппера чтобы он не двигался со страницей
+      // Вытаскиваем fixed-элементы из враппера
       const langBtn = wrap.querySelector('#lang-btn');
       if (langBtn) document.body.appendChild(langBtn);
+      const navbar = wrap.querySelector('nav');
+      if (navbar) document.body.insertBefore(navbar, wrap);
 
       document.body.style.overflow = 'hidden';
       document.body.style.height = '100vh';
