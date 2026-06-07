@@ -49,19 +49,21 @@
     }
     .nav-logo-icon {
       width: 34px; height: 34px;
-      background: linear-gradient(145deg, #ff3347 0%, #cc0018 50%, #8b0000 100%);
+      background: radial-gradient(circle at 40% 35%, #2a0008 0%, #0d0002 100%);
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 0 0 1px rgba(255,80,80,0.3), 0 4px 20px rgba(232,25,44,0.7), inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(0,0,0,0.2);
+      border: 1px solid rgba(232,25,44,0.35);
+      box-shadow: 0 0 12px rgba(232,25,44,0.5), 0 0 32px rgba(232,25,44,0.2), inset 0 0 12px rgba(232,25,44,0.08);
       position: relative; overflow: hidden;
     }
-    .nav-logo-icon::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 55%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent);
-      border-radius: 10px 10px 0 0; pointer-events: none;
+    .nav-logo-icon::after {
+      content: ''; position: absolute; top: -8px; left: 50%;
+      transform: translateX(-50%); width: 20px; height: 20px;
+      background: radial-gradient(circle, rgba(232,25,44,0.6), transparent 70%);
+      pointer-events: none;
     }
-    .nav-logo-icon svg { width: 20px; height: 20px; position: relative; z-index: 1; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5)); }
+    .nav-logo-icon svg { width: 22px; height: 22px; position: relative; z-index: 1; }
     .nav-sep { width: 1px; height: 16px; background: rgba(232,25,44,0.20); margin: 0 4px; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; list-style: none; gap: 1px; }
     .nav-links a {
@@ -254,7 +256,7 @@
   <nav>
     <a href="/" class="nav-logo">
       <div class="nav-logo-icon">
-        <svg viewBox="0 0 20 22" fill="none"><text x="10" y="19" text-anchor="middle" font-size="20" fill="white" font-family="Georgia, 'Times New Roman', serif">𝄞</text></svg>
+        <svg viewBox="0 0 20 22" fill="none"><defs><linearGradient id="ng" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ff8899"/></linearGradient></defs><text x="10" y="17" text-anchor="middle" font-size="20" fill="url(#ng)" font-family="Georgia, 'Times New Roman', serif">𝄞</text></svg>
       </div>
       Note
     </a>
