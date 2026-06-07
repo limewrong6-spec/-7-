@@ -116,6 +116,7 @@
       top: 16px;
       left: 50%;
       transform: translateX(-50%);
+      transition: top 0.4s cubic-bezier(.22,1,.36,1), opacity 0.3s ease, box-shadow 0.3s ease;
       z-index: 100;
       display: flex;
       align-items: center;
@@ -1254,6 +1255,21 @@
       if (langBtn) document.body.appendChild(langBtn);
       const navbar = wrap.querySelector('nav');
       if (navbar) document.body.insertBefore(navbar, wrap);
+
+      // Навбар прячется при скролле вниз, появляется при скролле вверх
+      let lastDst = 0;
+      const navHideY = -80;
+      setInterval(() => {
+        const delta = dst - lastDst;
+        if (delta > 2) {
+          navbar.style.top = navHideY + 'px';
+          navbar.style.opacity = '0';
+        } else if (delta < -2) {
+          navbar.style.top = '16px';
+          navbar.style.opacity = '1';
+        }
+        lastDst = dst;
+      }, 60);
 
       document.body.style.overflow = 'hidden';
       document.body.style.height = '100vh';
