@@ -48,13 +48,21 @@
       text-decoration: none; padding: 3px 12px 3px 4px; letter-spacing: 0.01em;
     }
     .nav-logo-icon {
-      width: 30px; height: 30px;
-      background: linear-gradient(135deg, #e8192c, #8b0000);
-      border-radius: 9px;
+      width: 32px; height: 32px;
+      background: linear-gradient(145deg, #ff2a3d, #9b0000);
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; box-shadow: 0 2px 12px rgba(232,25,44,0.5);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255,60,60,0.25), 0 2px 16px rgba(232,25,44,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+      position: relative; overflow: hidden;
     }
-    .nav-logo-icon svg { width: 17px; height: 17px; }
+    .nav-logo-icon::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), transparent);
+      border-radius: 10px 10px 0 0;
+    }
+    .nav-logo-icon svg { width: 18px; height: 18px; position: relative; z-index: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4)); }
     .nav-sep { width: 1px; height: 16px; background: rgba(232,25,44,0.20); margin: 0 4px; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; list-style: none; gap: 1px; }
     .nav-links a {
@@ -247,7 +255,7 @@
   <nav>
     <a href="/" class="nav-logo">
       <div class="nav-logo-icon">
-        <svg viewBox="0 0 17 17" fill="none"><path d="M3 14V3l8.5 8.5V3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.5 14V9" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 18 18" fill="none"><path d="M3.5 14.5V3.5L9 10.5L14.5 3.5V14.5" stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       Note
     </a>

@@ -149,16 +149,27 @@
 
     /* Logo SVG mark — stylized Ð like the original site */
     .nav-logo-icon {
-      width: 30px; height: 30px;
-      background: linear-gradient(135deg, #e8192c, #8b0000);
-      border-radius: 9px;
+      width: 32px; height: 32px;
+      background: linear-gradient(145deg, #ff2a3d, #9b0000);
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 2px 12px rgba(232,25,44,0.5);
+      box-shadow: 0 0 0 1px rgba(255,60,60,0.25), 0 2px 16px rgba(232,25,44,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
     }
-
+    .nav-logo-icon::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), transparent);
+      border-radius: 10px 10px 0 0;
+    }
     .nav-logo-icon svg {
-      width: 17px; height: 17px;
+      width: 18px; height: 18px;
+      position: relative; z-index: 1;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
     }
 
     /* Divider */
@@ -835,9 +846,8 @@
   <nav id="navbar">
     <a href="#" class="nav-logo">
       <div class="nav-logo-icon">
-        <svg viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 14V3l8.5 8.5V3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M11.5 14V9" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.5 14.5V3.5L9 10.5L14.5 3.5V14.5" stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       Note
@@ -1005,9 +1015,8 @@
   <footer>
     <div class="footer-logo">
       <div class="nav-logo-icon">
-        <svg viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 14V3l8.5 8.5V3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M11.5 14V9" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.5 14.5V3.5L9 10.5L14.5 3.5V14.5" stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       Note
