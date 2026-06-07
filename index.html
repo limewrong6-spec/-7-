@@ -116,7 +116,6 @@
       top: 16px;
       left: 50%;
       transform: translateX(-50%);
-      will-change: transform, box-shadow;
       z-index: 100;
       display: flex;
       align-items: center;
@@ -1255,23 +1254,6 @@
       if (langBtn) document.body.appendChild(langBtn);
       const navbar = wrap.querySelector('nav');
       if (navbar) document.body.insertBefore(navbar, wrap);
-
-      // Навбар: 3D наклон + красное свечение при скролле
-      let prevCur = 0, tilt = 0, glowA = 0;
-      (function navAnim() {
-        const vel = cur - prevCur;
-        prevCur = cur;
-        const targetTilt = Math.max(-18, Math.min(18, vel * 1.4));
-        const targetGlow = Math.min(1, Math.abs(vel) / 6);
-        tilt  += (targetTilt - tilt)  * 0.14;
-        glowA += (targetGlow - glowA) * 0.10;
-        const s = 1 + glowA * 0.04;
-        const g = (20 + glowA * 40).toFixed(1);
-        const a = (0.3 + glowA * 0.7).toFixed(2);
-        navbar.style.transform   = `translateX(-50%) perspective(500px) rotateX(${(-tilt).toFixed(2)}deg) scaleY(${s.toFixed(3)})`;
-        navbar.style.boxShadow   = `0 4px ${g}px rgba(232,25,44,${a}), 0 0 ${(+g/2).toFixed(1)}px rgba(232,25,44,${(+a*0.6).toFixed(2)})`;
-        requestAnimationFrame(navAnim);
-      })();
 
       document.body.style.overflow = 'hidden';
       document.body.style.height = '100vh';
