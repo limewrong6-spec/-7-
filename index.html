@@ -1297,6 +1297,8 @@
       if (langBtn) document.body.appendChild(langBtn);
       const navbar = wrap.querySelector('nav');
       if (navbar) document.body.insertBefore(navbar, wrap);
+      const modal = wrap.querySelector('#modalOverlay');
+      if (modal) document.body.appendChild(modal);
 
       document.body.style.overflow = 'hidden';
       document.body.style.height = '100vh';
