@@ -485,10 +485,9 @@
     </div>
   </div>
 
-  <!-- Firebase Auth + DB -->
+  <!-- Firebase Auth -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script>
     if (!firebase.apps.length) {
       firebase.initializeApp({
@@ -502,7 +501,6 @@
       });
     }
     const _auth = firebase.auth();
-    const _db   = firebase.database();
     let _isSignup = false;
 
     function _buildNavBtn(name, photoURL) {
@@ -517,21 +515,15 @@
       return btn;
     }
 
-    _auth.onAuthStateChanged(async user => {
+    _auth.onAuthStateChanged(user => {
       const navActions = document.querySelector('.nav-actions');
       const existing = navActions.querySelector('.btn-signin, .btn-user');
       if (user) {
         closeModal();
         const name = user.displayName || user.email.split('@')[0];
-        const snap = await _db.ref('users/' + user.uid + '/photoURL').once('value');
-        const photoURL = snap.val() || null;
+        const photoURL = user.photoURL || null;
         const btn = _buildNavBtn(name, photoURL);
         if (existing) existing.replaceWith(btn); else navActions.appendChild(btn);
-        _db.ref('users/' + user.uid + '/photoURL').on('value', s => {
-          const p = s.val() || null;
-          const cur = navActions.querySelector('.btn-user');
-          if (cur) cur.replaceWith(_buildNavBtn(name, p));
-        });
       } else {
         if (existing && existing.classList.contains('btn-user')) {
           const btn = document.createElement('a');

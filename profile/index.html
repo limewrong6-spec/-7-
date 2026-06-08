@@ -434,7 +434,9 @@
 
         try {
           const user = auth.currentUser;
-          // Store in Firebase DB
+          // Save to Firebase Auth (so all pages see it via user.photoURL)
+          await user.updateProfile({ photoURL: dataURL });
+          // Also store in Firebase DB as backup
           await db.ref('users/' + user.uid).update({ photoURL: dataURL });
           // Update display
           document.getElementById('avatarCircle').innerHTML = `<img src="${dataURL}" alt=""/>`;

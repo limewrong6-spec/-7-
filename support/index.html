@@ -446,13 +446,8 @@
           }
           return b;
         };
-        const snap = await db.ref('users/' + user.uid + '/photoURL').once('value');
-        const btn = buildBtn(snap.val() || null);
+        const btn = buildBtn(user.photoURL || null);
         if (existing) existing.replaceWith(btn); else navActions.appendChild(btn);
-        db.ref('users/' + user.uid + '/photoURL').on('value', s => {
-          const cur = navActions.querySelector('.btn-user');
-          if (cur) cur.replaceWith(buildBtn(s.val() || null));
-        });
         // Attach chat listener once
         if (!chatListenerAttached) {
           chatListenerAttached = true;
