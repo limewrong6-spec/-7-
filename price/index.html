@@ -507,10 +507,11 @@
       const btn = document.createElement('a');
       btn.href = '/profile';
       btn.className = 'btn-user';
+      const label = name.length > 12 ? name.slice(0, 12) + '…' : name;
       if (photoURL) {
-        btn.innerHTML = `<div class="user-initial" style="overflow:hidden;"><img src="${photoURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>${name}`;
+        btn.innerHTML = `<div class="user-initial" style="overflow:hidden;"><img src="${photoURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>${label}`;
       } else {
-        btn.innerHTML = `<div class="user-initial">${name[0].toUpperCase()}</div>${name}`;
+        btn.innerHTML = `<div class="user-initial">${name[0].toUpperCase()}</div>${label}`;
       }
       return btn;
     }
