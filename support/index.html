@@ -236,6 +236,38 @@
     .modal-submit:hover { opacity: 0.9; transform: translateY(-1px); }
     .modal-footer { text-align: center; margin-top: 18px; font-size: 13px; color: rgba(255,255,255,0.3); }
     .modal-footer a { color: #ff4455; text-decoration: none; font-weight: 600; }
+    .modal-error { font-size: 13px; color: #ff6677; text-align: center; margin-top: 10px; display: none; }
+    .btn-user {
+      display: flex; align-items: center; gap: 7px;
+      padding: 5px 13px 5px 5px; border-radius: 50px;
+      background: rgba(232,25,44,0.12); border: 1px solid rgba(232,25,44,0.22);
+      cursor: pointer; color: #fff; font-size: 13px; font-weight: 600;
+      transition: background 0.15s; text-decoration: none; line-height: 1;
+    }
+    .btn-user:hover { background: rgba(232,25,44,0.22); }
+    .user-initial {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8192c, #6b0010);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+    }
+    /* Auth gate */
+    .chat-gate {
+      position: absolute; inset: 0; z-index: 10;
+      background: rgba(4,0,0,0.75); backdrop-filter: blur(8px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; border-radius: 20px; text-align: center; padding: 32px;
+    }
+    .chat-gate-icon { font-size: 36px; margin-bottom: 4px; }
+    .chat-gate h3 { font-size: 18px; font-weight: 800; }
+    .chat-gate p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; max-width: 280px; }
+    .chat-gate-btn {
+      padding: 12px 28px; border-radius: 50px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, #e8192c, #9b0010); color: #fff;
+      font-size: 14px; font-weight: 700; font-family: inherit;
+      box-shadow: 0 4px 16px rgba(232,25,44,0.4); transition: opacity 0.15s;
+    }
+    .chat-gate-btn:hover { opacity: 0.85; }
 
     @keyframes navSlideDown { from{opacity:0;transform:translateX(-50%) translateY(-20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
     nav { animation: navSlideDown 0.55s cubic-bezier(.22,1,.36,1) both; }
@@ -290,7 +322,14 @@
       <p class="page-sub anim">We typically reply within a few minutes.</p>
     </div>
 
-    <div class="chat-window anim">
+    <div class="chat-window anim" style="position:relative;">
+      <!-- Auth gate overlay -->
+      <div class="chat-gate" id="chatGate">
+        <div class="chat-gate-icon">🔒</div>
+        <h3>Sign in to chat</h3>
+        <p>You need a Note account to contact support. It's free and takes 10 seconds.</p>
+        <button class="chat-gate-btn" onclick="openModal()">Sign in / Sign up</button>
+      </div>
       <div class="chat-header">
         <div class="chat-header-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
         <div class="support-avatar">N</div>
@@ -352,6 +391,7 @@
           <input type="password" id="modalPass" placeholder="••••••••" />
         </div>
         <button class="modal-submit" id="modalSubmit">Sign in</button>
+        <div class="modal-error" id="modalError"></div>
         <div class="modal-footer" id="modalFooter">
           No account? <a href="#" onclick="switchToSignup(); return false;">Sign up free</a>
         </div>
@@ -361,6 +401,7 @@
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script>
     // Firebase init
@@ -373,28 +414,62 @@
       messagingSenderId: "387409651145",
       appId: "1:387409651145:web:c22642b42360ab25b77418"
     });
-    const db = firebase.database();
-
-    // Session ID (unique per browser)
-    let sessionId = localStorage.getItem('note_session');
-    if (!sessionId) {
-      sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-      localStorage.setItem('note_session', sessionId);
-    }
+    const db   = firebase.database();
+    const auth = firebase.auth();
+    let sessionId = null;
+    let chatListenerAttached = false;
 
     const messagesEl = document.getElementById('chatMessages');
     const inputEl    = document.getElementById('chatInput');
     const sendBtn    = document.getElementById('chatSend');
     const typingEl   = document.getElementById('typingEl');
+    const gateEl     = document.getElementById('chatGate');
+
+    // Auth state — show/hide gate, connect chat
+    auth.onAuthStateChanged(user => {
+      const navActions = document.querySelector('.nav-actions');
+      const existing = navActions.querySelector('.btn-signin, .btn-user');
+      if (user) {
+        // Hide gate
+        gateEl.style.display = 'none';
+        // Use UID as session ID
+        sessionId = 'uid_' + user.uid;
+        // Update nav button
+        const name = user.displayName || user.email.split('@')[0];
+        const btn = document.createElement('a');
+        btn.href = '#';
+        btn.className = 'btn-user';
+        btn.innerHTML = `<div class="user-initial">${name[0].toUpperCase()}</div>${name}`;
+        btn.onclick = (e) => { e.preventDefault(); auth.signOut(); };
+        if (existing) existing.replaceWith(btn);
+        // Attach chat listener once
+        if (!chatListenerAttached) {
+          chatListenerAttached = true;
+          attachChatListeners(user);
+        }
+      } else {
+        // Show gate
+        gateEl.style.display = 'flex';
+        sessionId = null;
+        // Restore sign in button
+        if (existing && existing.classList.contains('btn-user')) {
+          const btn = document.createElement('a');
+          btn.href = '#';
+          btn.className = 'btn-signin';
+          btn.innerHTML = `<svg class="signin-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3H3a1 1 0 00-1 1v8a1 1 0 001 1h3"/><path d="M10 5l3 3-3 3"/><line x1="13" y1="8" x2="6" y2="8"/></svg>Sign in`;
+          btn.onclick = (e) => { e.preventDefault(); openModal(); };
+          existing.replaceWith(btn);
+        }
+      }
+    });
 
     function getTime() {
       const d = new Date();
       return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
     }
-
     function scrollBottom() { messagesEl.scrollTop = messagesEl.scrollHeight; }
+    function escHtml(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-    // Render message from Firebase
     function renderMsg(data) {
       const isUser = data.from === 'user';
       const msg = document.createElement('div');
@@ -408,40 +483,32 @@
       scrollBottom();
     }
 
-    function escHtml(t) {
-      return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    function attachChatListeners(user) {
+      const sid = 'uid_' + user.uid;
+      // Save user info to session
+      db.ref('chats/' + sid + '/info').set({
+        sessionId: sid,
+        email: user.email,
+        displayName: user.displayName || user.email.split('@')[0],
+        lastTime: Date.now(),
+        unread: false
+      });
+      db.ref('chats/' + sid + '/messages').on('child_added', snap => renderMsg(snap.val()));
+      db.ref('chats/' + sid + '/adminTyping').on('value', snap => {
+        if (snap.val()) typingEl.classList.add('show'); else typingEl.classList.remove('show');
+        scrollBottom();
+      });
     }
 
-    // Listen to messages in real time
-    db.ref('chats/' + sessionId + '/messages').on('child_added', snap => {
-      renderMsg(snap.val());
-    });
-
-    // Listen for admin typing indicator
-    db.ref('chats/' + sessionId + '/adminTyping').on('value', snap => {
-      if (snap.val()) typingEl.classList.add('show');
-      else typingEl.classList.remove('show');
-      scrollBottom();
-    });
-
-    // Send message
     function sendMessage() {
+      if (!sessionId) { openModal(); return; }
       const text = inputEl.value.trim();
       if (!text) return;
       inputEl.value = '';
       inputEl.style.height = 'auto';
-
-      // Save session info for admin
-      db.ref('chats/' + sessionId + '/info').set({
-        sessionId,
-        lastMsg: text,
-        lastTime: Date.now(),
-        unread: true
-      });
-
-      db.ref('chats/' + sessionId + '/messages').push({
-        text, from: 'user', time: getTime(), ts: Date.now()
-      });
+      const user = auth.currentUser;
+      db.ref('chats/' + sessionId + '/info').update({ lastMsg: text, lastTime: Date.now(), unread: true });
+      db.ref('chats/' + sessionId + '/messages').push({ text, from: 'user', time: getTime(), ts: Date.now() });
     }
 
     sendBtn.addEventListener('click', sendMessage);
@@ -454,22 +521,64 @@
     });
 
     // Modal
+    let _isSignup = false;
     function openModal() { document.getElementById('modalOverlay').classList.add('open'); }
     function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
     function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
     function switchToSignup() {
+      _isSignup = true;
       document.getElementById('modalTitle').textContent = 'Create account';
       document.getElementById('modalSub').textContent = 'Join thousands of Note players';
       document.getElementById('modalSubmit').textContent = 'Sign up free';
       document.getElementById('modalNameField').style.display = 'flex';
+      document.getElementById('modalError').style.display = 'none';
       document.getElementById('modalFooter').innerHTML = 'Already have an account? <a href="#" onclick="switchToSignin(); return false;">Sign in</a>';
     }
     function switchToSignin() {
+      _isSignup = false;
       document.getElementById('modalTitle').textContent = 'Welcome back';
       document.getElementById('modalSub').textContent = 'Sign in to your Note account';
       document.getElementById('modalSubmit').textContent = 'Sign in';
       document.getElementById('modalNameField').style.display = 'none';
+      document.getElementById('modalError').style.display = 'none';
       document.getElementById('modalFooter').innerHTML = 'No account? <a href="#" onclick="switchToSignup(); return false;">Sign up free</a>';
+    }
+
+    document.getElementById('modalSubmit').addEventListener('click', async () => {
+      const email = document.getElementById('modalEmail').value.trim();
+      const pass  = document.getElementById('modalPass').value;
+      const errEl = document.getElementById('modalError');
+      const btn   = document.getElementById('modalSubmit');
+      errEl.style.display = 'none';
+      if (!email || !pass) { errEl.textContent = 'Please fill in all fields.'; errEl.style.display = 'block'; return; }
+      btn.disabled = true;
+      btn.textContent = _isSignup ? 'Creating account...' : 'Signing in...';
+      try {
+        if (_isSignup) {
+          const username = (document.getElementById('modalName').value || '').trim();
+          const cred = await auth.createUserWithEmailAndPassword(email, pass);
+          if (username) await cred.user.updateProfile({ displayName: username });
+        } else {
+          await auth.signInWithEmailAndPassword(email, pass);
+        }
+      } catch(e) {
+        errEl.textContent = _authErr(e.code);
+        errEl.style.display = 'block';
+      }
+      btn.disabled = false;
+      btn.textContent = _isSignup ? 'Sign up free' : 'Sign in';
+    });
+
+    function _authErr(code) {
+      return ({
+        'auth/user-not-found':'No account with this email.',
+        'auth/wrong-password':'Incorrect password.',
+        'auth/invalid-credential':'Wrong email or password.',
+        'auth/email-already-in-use':'Email already registered. Sign in instead.',
+        'auth/weak-password':'Password must be at least 6 characters.',
+        'auth/invalid-email':'Invalid email address.',
+        'auth/too-many-requests':'Too many attempts. Try again later.',
+      })[code] || 'Something went wrong. Try again.';
     }
 
     // Theme toggle

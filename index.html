@@ -832,6 +832,22 @@
     .modal-divider::before, .modal-divider::after {
       content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08);
     }
+    .modal-error { font-size: 13px; color: #ff6677; text-align: center; margin-top: 10px; display: none; }
+    /* Logged-in nav button */
+    .btn-user {
+      display: flex; align-items: center; gap: 7px;
+      padding: 5px 13px 5px 5px; border-radius: 50px;
+      background: rgba(232,25,44,0.12); border: 1px solid rgba(232,25,44,0.22);
+      cursor: pointer; color: #fff; font-size: 13px; font-weight: 600;
+      transition: background 0.15s; text-decoration: none; line-height: 1;
+    }
+    .btn-user:hover { background: rgba(232,25,44,0.22); }
+    .user-initial {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8192c, #6b0010);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -1053,12 +1069,93 @@
           <input type="password" id="modalPass" placeholder="••••••••" />
         </div>
         <button class="modal-submit" id="modalSubmit">Sign in</button>
+        <div class="modal-error" id="modalError"></div>
         <div class="modal-footer" id="modalFooter">
           No account? <a href="#" onclick="switchToSignup(); return false;">Sign up free</a>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyDlHPmsc1z0XVQ8XALZZAfuDAf04IfWKls",
+        authDomain: "note-client-2017b.firebaseapp.com",
+        databaseURL: "https://note-client-2017b-default-rtdb.firebaseio.com",
+        projectId: "note-client-2017b",
+        storageBucket: "note-client-2017b.firebasestorage.app",
+        messagingSenderId: "387409651145",
+        appId: "1:387409651145:web:c22642b42360ab25b77418"
+      });
+    }
+    const _auth = firebase.auth();
+    let _isSignup = false;
+
+    _auth.onAuthStateChanged(user => {
+      const navActions = document.querySelector('.nav-actions');
+      const existing = navActions.querySelector('.btn-signin, .btn-user');
+      if (user) {
+        closeModal();
+        const name = user.displayName || user.email.split('@')[0];
+        const btn = document.createElement('a');
+        btn.href = '#';
+        btn.className = 'btn-user';
+        btn.innerHTML = `<div class="user-initial">${name[0].toUpperCase()}</div>${name}`;
+        btn.onclick = (e) => { e.preventDefault(); _auth.signOut(); };
+        if (existing) existing.replaceWith(btn);
+      } else {
+        if (existing && existing.classList.contains('btn-user')) {
+          const btn = document.createElement('a');
+          btn.href = '#';
+          btn.className = 'btn-signin';
+          btn.innerHTML = `<svg class="signin-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3H3a1 1 0 00-1 1v8a1 1 0 001 1h3"/><path d="M10 5l3 3-3 3"/><line x1="13" y1="8" x2="6" y2="8"/></svg>Sign in`;
+          btn.onclick = (e) => { e.preventDefault(); openModal(); };
+          existing.replaceWith(btn);
+        }
+      }
+    });
+
+    document.getElementById('modalSubmit').addEventListener('click', async () => {
+      const email = document.getElementById('modalEmail').value.trim();
+      const pass  = document.getElementById('modalPass').value;
+      const errEl = document.getElementById('modalError');
+      const btn   = document.getElementById('modalSubmit');
+      errEl.style.display = 'none';
+      if (!email || !pass) { errEl.textContent = 'Please fill in all fields.'; errEl.style.display = 'block'; return; }
+      btn.disabled = true;
+      btn.textContent = _isSignup ? 'Creating account...' : 'Signing in...';
+      try {
+        if (_isSignup) {
+          const username = (document.getElementById('modalName').value || '').trim();
+          const cred = await _auth.createUserWithEmailAndPassword(email, pass);
+          if (username) await cred.user.updateProfile({ displayName: username });
+        } else {
+          await _auth.signInWithEmailAndPassword(email, pass);
+        }
+      } catch(e) {
+        errEl.textContent = _authErr(e.code);
+        errEl.style.display = 'block';
+      }
+      btn.disabled = false;
+      btn.textContent = _isSignup ? 'Sign up free' : 'Sign in';
+    });
+
+    function _authErr(code) {
+      return ({
+        'auth/user-not-found':'No account with this email.',
+        'auth/wrong-password':'Incorrect password.',
+        'auth/invalid-credential':'Wrong email or password.',
+        'auth/email-already-in-use':'Email already registered. Sign in instead.',
+        'auth/weak-password':'Password must be at least 6 characters.',
+        'auth/invalid-email':'Invalid email address.',
+        'auth/too-many-requests':'Too many attempts. Try again later.',
+      })[code] || 'Something went wrong. Try again.';
+    }
+  </script>
 
   <script>
     // Theme toggle pill
@@ -1092,25 +1189,22 @@
       if (e.target === document.getElementById('modalOverlay')) closeModal();
     }
     function switchToSignup() {
+      _isSignup = true;
       document.getElementById('modalTitle').textContent = 'Create account';
       document.getElementById('modalSub').textContent = 'Join thousands of Note players';
       document.getElementById('modalSubmit').textContent = 'Sign up free';
       document.getElementById('modalNameField').style.display = 'flex';
+      document.getElementById('modalError').style.display = 'none';
       document.getElementById('modalFooter').innerHTML = 'Already have an account? <a href="#" onclick="switchToSignin(); return false;">Sign in</a>';
     }
     function switchToSignin() {
+      _isSignup = false;
       document.getElementById('modalTitle').textContent = 'Welcome back';
       document.getElementById('modalSub').textContent = 'Sign in to your Note account';
       document.getElementById('modalSubmit').textContent = 'Sign in';
       document.getElementById('modalNameField').style.display = 'none';
+      document.getElementById('modalError').style.display = 'none';
       document.getElementById('modalFooter').innerHTML = 'No account? <a href="#" onclick="switchToSignup(); return false;">Sign up free</a>';
-    }
-    function switchToSignin() {
-      document.querySelector('.modal-title').textContent = 'Welcome back';
-      document.querySelector('.modal-sub').textContent = 'Sign in to your Note account';
-      document.querySelector('.modal-submit').textContent = 'Sign in ⚡';
-      document.querySelector('p[style] a').textContent = 'Sign up free';
-      document.querySelector('p[style] a').setAttribute('onclick', 'switchToSignup()');
     }
 
     // ── Scroll reveal ──
