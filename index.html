@@ -1061,7 +1061,7 @@
           <input type="text" id="modalName" placeholder="Steve" />
         </div>
         <div class="form-field">
-          <label>Email or Username</label>
+          <label id="modalEmailLabel">Email or Username</label>
           <input type="text" id="modalEmail" placeholder="name@mail.ru or steve" />
         </div>
         <div class="form-field">
@@ -1219,6 +1219,8 @@
       document.getElementById('modalSub').textContent = 'Join thousands of Note players';
       document.getElementById('modalSubmit').textContent = 'Sign up free';
       document.getElementById('modalNameField').style.display = 'flex';
+      document.getElementById('modalEmailLabel').textContent = 'Email';
+      document.getElementById('modalEmail').placeholder = 'name@mail.ru';
       document.getElementById('modalError').style.display = 'none';
       document.getElementById('modalFooter').innerHTML = 'Already have an account? <a href="#" onclick="switchToSignin(); return false;">Sign in</a>';
     }
@@ -1228,6 +1230,8 @@
       document.getElementById('modalSub').textContent = 'Sign in to your Note account';
       document.getElementById('modalSubmit').textContent = 'Sign in';
       document.getElementById('modalNameField').style.display = 'none';
+      document.getElementById('modalEmailLabel').textContent = 'Email or Username';
+      document.getElementById('modalEmail').placeholder = 'name@mail.ru or steve';
       document.getElementById('modalError').style.display = 'none';
       document.getElementById('modalFooter').innerHTML = 'No account? <a href="#" onclick="switchToSignup(); return false;">Sign up free</a>';
     }
