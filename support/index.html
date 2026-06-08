@@ -8,14 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --accent: #e8192c;
       --accent-dark: #b5101f;
-      --nav-bg: rgba(8, 4, 4, 0.82);
-      --nav-border: rgba(232,25,44,0.18);
     }
-
     html, body {
       min-height: 100%;
       background: #040000;
@@ -25,19 +21,10 @@
 
     /* NAV */
     nav {
-      position: fixed;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      padding: 5px 6px;
-      background: rgba(8, 2, 2, 0.88);
-      border: 1px solid rgba(232,25,44,0.20);
-      border-radius: 50px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      z-index: 100; display: flex; align-items: center; padding: 5px 6px;
+      background: rgba(8,2,2,0.88); border: 1px solid rgba(232,25,44,0.20);
+      border-radius: 50px; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       white-space: nowrap;
       box-shadow: 0 2px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,25,44,0.06), inset 0 1px 0 rgba(255,255,255,0.04);
       gap: 0;
@@ -52,10 +39,8 @@
     .nav-logo-icon {
       width: 34px; height: 34px;
       background: radial-gradient(circle at 40% 35%, #2a0008 0%, #0d0002 100%);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      border: 1px solid rgba(232,25,44,0.35);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; border: 1px solid rgba(232,25,44,0.35);
       box-shadow: 0 0 12px rgba(232,25,44,0.5), 0 0 32px rgba(232,25,44,0.2), inset 0 0 12px rgba(232,25,44,0.08);
       position: relative; overflow: hidden;
     }
@@ -70,8 +55,7 @@
     .nav-links { display: flex; align-items: center; list-style: none; gap: 1px; }
     .nav-links a {
       display: flex; align-items: center; gap: 5px;
-      padding: 6px 11px; border-radius: 50px;
-      font-size: 13px; font-weight: 500;
+      padding: 6px 11px; border-radius: 50px; font-size: 13px; font-weight: 500;
       color: rgba(255,255,255,0.60); text-decoration: none;
       transition: background 0.15s, color 0.15s; line-height: 1;
     }
@@ -94,180 +78,227 @@
     .btn-signin {
       display: flex; align-items: center; gap: 6px;
       padding: 6px 14px 6px 11px; border-radius: 50px;
-      background: #e8192c; color: #fff;
-      font-size: 13px; font-weight: 600;
-      border: 1px solid rgba(255,80,80,0.3);
-      cursor: pointer; text-decoration: none;
+      background: #e8192c; color: #fff; font-size: 13px; font-weight: 600;
+      border: 1px solid rgba(255,80,80,0.3); cursor: pointer; text-decoration: none;
       transition: background 0.15s, box-shadow 0.15s; line-height: 1;
       box-shadow: 0 2px 12px rgba(232,25,44,0.4);
     }
     .btn-signin:hover { background: #c5101f; box-shadow: 0 4px 20px rgba(232,25,44,0.55); }
     .signin-icon { width: 15px; height: 15px; opacity: 0.80; flex-shrink: 0; }
 
-    /* PAGE */
+    /* PAGE LAYOUT */
     .support-page {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 120px 24px 80px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 100px 24px 60px;
     }
 
+    .page-header {
+      text-align: center; margin-bottom: 36px;
+    }
     .section-tag {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(232,25,44,0.12);
-      border: 1px solid rgba(232,25,44,0.25);
-      color: #ff4455;
-      font-size: 12px; font-weight: 700;
+      background: rgba(232,25,44,0.12); border: 1px solid rgba(232,25,44,0.25);
+      color: #ff4455; font-size: 12px; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 5px 14px; border-radius: 100px;
-      margin-bottom: 20px;
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 18px;
     }
+    .page-title {
+      font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+      letter-spacing: -0.02em; margin-bottom: 10px;
+    }
+    .page-sub { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 
-    .section-title {
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 14px;
-      letter-spacing: -0.02em;
-    }
-
-    .section-sub {
-      font-size: 16px;
-      color: rgba(255,255,255,0.55);
-      text-align: center;
-      max-width: 480px;
-      margin-bottom: 56px;
-      line-height: 1.6;
-    }
-
-    /* CONTACT FORM */
-    .support-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      max-width: 900px;
-      width: 100%;
-    }
-    @media (max-width: 700px) {
-      .support-wrap { grid-template-columns: 1fr; }
-    }
-
-    .contact-form-card {
-      background: #0d0303;
-      border: 1px solid rgba(232,25,44,0.15);
+    /* CHAT WINDOW */
+    .chat-window {
+      width: 100%; max-width: 760px;
+      background: #0a0101;
+      border: 1px solid rgba(232,25,44,0.18);
       border-radius: 20px;
-      padding: 36px 32px;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,25,44,0.06);
+      display: flex; flex-direction: column;
+      height: 540px;
     }
 
-    .form-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .form-sub { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 28px; line-height: 1.5; }
+    /* CHAT HEADER */
+    .chat-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px;
+      background: #0d0202;
+      border-bottom: 1px solid rgba(232,25,44,0.14);
+      flex-shrink: 0;
+    }
+    .support-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8192c, #6b0010);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(232,25,44,0.4);
+    }
+    .support-info { flex: 1; }
+    .support-name { font-size: 14px; font-weight: 700; }
+    .support-status {
+      font-size: 12px; color: rgba(255,255,255,0.45);
+      display: flex; align-items: center; gap: 5px; margin-top: 1px;
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px rgba(34,197,94,0.7);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .chat-header-actions {
+      display: flex; gap: 8px;
+    }
+    .chat-header-actions span {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .dot-red   { background: #ff5f57; }
+    .dot-yellow{ background: #febc2e; }
+    .dot-green { background: #28c840; }
 
-    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-    .form-field label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); }
-    .form-field input,
-    .form-field textarea,
-    .form-field select {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(232,25,44,0.20);
-      border-radius: 10px; padding: 11px 14px;
-      color: #fff; font-size: 14px; outline: none;
-      font-family: inherit; resize: none;
+    /* MESSAGES AREA */
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 20px 20px 8px;
+      display: flex; flex-direction: column; gap: 10px;
+      scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(232,25,44,0.25); border-radius: 2px; }
+
+    /* MESSAGE BUBBLES */
+    .msg { display: flex; align-items: flex-end; gap: 8px; max-width: 75%; }
+    .msg.from-support { align-self: flex-start; }
+    .msg.from-user    { align-self: flex-end; flex-direction: row-reverse; }
+
+    .msg-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8192c, #6b0010);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+
+    .msg-bubble {
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 14px; line-height: 1.5;
+      animation: msgIn 0.25s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .msg.from-support .msg-bubble {
+      background: #181010;
+      border: 1px solid rgba(232,25,44,0.15);
+      border-bottom-left-radius: 5px;
+      color: rgba(255,255,255,0.88);
+    }
+    .msg.from-user .msg-bubble {
+      background: linear-gradient(135deg, #e8192c, #9b0010);
+      border-bottom-right-radius: 5px;
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(232,25,44,0.35);
+    }
+
+    .msg-time {
+      font-size: 10px; color: rgba(255,255,255,0.28);
+      margin-top: 2px; text-align: right;
+      padding: 0 4px;
+    }
+    .msg.from-support .msg-time { text-align: left; }
+
+    /* DATE DIVIDER */
+    .date-divider {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; color: rgba(255,255,255,0.25); margin: 4px 0;
+    }
+    .date-divider::before, .date-divider::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.07);
+    }
+
+    /* TYPING INDICATOR */
+    .typing-indicator {
+      display: none; align-items: flex-end; gap: 8px;
+      align-self: flex-start;
+    }
+    .typing-indicator.show { display: flex; }
+    .typing-bubble {
+      background: #181010; border: 1px solid rgba(232,25,44,0.15);
+      border-radius: 18px; border-bottom-left-radius: 5px;
+      padding: 12px 16px; display: flex; align-items: center; gap: 4px;
+    }
+    .typing-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      animation: typing 1.2s ease-in-out infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0%, 80%, 100% { transform: scale(1); opacity: 0.4; }
+      40% { transform: scale(1.3); opacity: 1; }
+    }
+
+    /* INPUT BAR */
+    .chat-input-bar {
+      padding: 12px 16px;
+      background: #0d0202;
+      border-top: 1px solid rgba(232,25,44,0.12);
+      display: flex; align-items: flex-end; gap: 10px;
+      flex-shrink: 0;
+    }
+    .chat-input {
+      flex: 1; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(232,25,44,0.18);
+      border-radius: 22px; padding: 10px 16px;
+      color: #fff; font-size: 14px; font-family: inherit;
+      outline: none; resize: none;
+      max-height: 120px; line-height: 1.5;
       transition: border-color 0.15s;
     }
-    .form-field input:focus,
-    .form-field textarea:focus,
-    .form-field select:focus { border-color: rgba(232,25,44,0.5); }
-    .form-field textarea { min-height: 120px; }
-    .form-field select option { background: #1a0505; }
+    .chat-input::placeholder { color: rgba(255,255,255,0.28); }
+    .chat-input:focus { border-color: rgba(232,25,44,0.4); }
 
-    .form-submit {
-      width: 100%; padding: 13px; border-radius: 12px; border: none; cursor: pointer;
-      background: linear-gradient(135deg, #e8192c, #8b0000); color: #fff;
-      font-size: 15px; font-weight: 700; margin-top: 6px;
-      box-shadow: 0 4px 16px rgba(232,25,44,0.4);
-      transition: opacity 0.15s, transform 0.15s;
-      font-family: inherit;
+    .chat-send {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8192c, #8b0000);
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(232,25,44,0.4);
+      transition: opacity 0.15s, transform 0.15s; flex-shrink: 0;
     }
-    .form-submit:hover { opacity: 0.85; transform: translateY(-1px); }
-
-    /* INFO CARDS */
-    .info-col {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .info-card {
-      background: #0d0303;
-      border: 1px solid rgba(232,25,44,0.12);
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      transition: border-color 0.2s;
-    }
-    .info-card:hover { border-color: rgba(232,25,44,0.28); }
-
-    .info-icon {
-      width: 40px; height: 40px; flex-shrink: 0;
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(232,25,44,0.18), rgba(139,0,0,0.12));
-      border: 1px solid rgba(232,25,44,0.25);
-      box-shadow: 0 4px 16px rgba(232,25,44,0.10);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .info-icon svg { width: 18px; height: 18px; color: #e8192c; }
-
-    .info-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .info-text p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
-    .info-text a { color: #ff4455; text-decoration: none; }
-    .info-text a:hover { text-decoration: underline; }
-
-    /* SUCCESS STATE */
-    .success-msg {
-      display: none;
-      text-align: center;
-      padding: 40px 0 20px;
-    }
-    .success-msg .check {
-      width: 56px; height: 56px;
-      background: rgba(232,25,44,0.15);
-      border: 1px solid rgba(232,25,44,0.3);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px;
-    }
-    .success-msg h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-    .success-msg p { font-size: 14px; color: rgba(255,255,255,0.5); }
+    .chat-send:hover { opacity: 0.85; transform: scale(1.05); }
+    .chat-send svg { width: 16px; height: 16px; color: #fff; }
 
     /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(32px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
     @keyframes navSlideDown {
       from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
       to   { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
     nav { animation: navSlideDown 0.55s cubic-bezier(.22,1,.36,1) both; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
     .anim { opacity: 0; }
     .anim.visible { animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) both; }
 
     /* FOOTER */
     footer {
-      background: #040000;
-      border-top: 1px solid rgba(232,25,44,0.15);
-      padding: 40px 24px;
-      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      background: #040000; border-top: 1px solid rgba(232,25,44,0.12);
+      padding: 32px 24px; margin-top: 40px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%;
     }
-    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; }
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
-    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+    .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; transition: color 0.15s; }
     .footer-links a:hover { color: #fff; }
-    footer p { font-size: 12px; color: rgba(255,255,255,0.25); }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.22); }
   </style>
 </head>
 <body>
@@ -334,120 +365,79 @@
   </nav>
 
   <main class="support-page">
-    <div class="section-tag anim">
-      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M2 2.5h10a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5H8l-3 2v-2H2a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/>
-      </svg>
-      Support
+    <div class="page-header">
+      <div class="section-tag anim">
+        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M2 2.5h10a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5H8l-3 2v-2H2a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/>
+        </svg>
+        Live Support
+      </div>
+      <h1 class="page-title anim">Chat with us</h1>
+      <p class="page-sub anim">Our support team is here to help. Send us a message below.</p>
     </div>
-    <h1 class="section-title anim">How can we help?</h1>
-    <p class="section-sub anim">Send us a message and we'll get back to you as soon as possible.</p>
 
-    <div class="support-wrap">
-      <!-- FORM -->
-      <div class="contact-form-card anim">
-        <div id="formWrap">
-          <p class="form-title">Send a message</p>
-          <p class="form-sub">Fill in the form below and our team will respond within 24 hours.</p>
-
-          <form id="supportForm" onsubmit="handleSubmit(event)">
-            <div class="form-field">
-              <label for="inp-name">Your name</label>
-              <input id="inp-name" type="text" placeholder="Steve" required autocomplete="off" />
-            </div>
-            <div class="form-field">
-              <label for="inp-email">Email</label>
-              <input id="inp-email" type="email" placeholder="you@example.com" required autocomplete="off" />
-            </div>
-            <div class="form-field">
-              <label for="inp-topic">Topic</label>
-              <select id="inp-topic">
-                <option value="billing">Billing & Subscription</option>
-                <option value="bug">Bug Report</option>
-                <option value="account">Account Issue</option>
-                <option value="feature">Feature Request</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label for="inp-msg">Message</label>
-              <textarea id="inp-msg" placeholder="Describe your issue..." required></textarea>
-            </div>
-            <button type="submit" class="form-submit">Send Message</button>
-          </form>
+    <div class="chat-window anim">
+      <!-- Header -->
+      <div class="chat-header">
+        <div class="chat-header-actions">
+          <span class="dot-red"></span>
+          <span class="dot-yellow"></span>
+          <span class="dot-green"></span>
         </div>
-
-        <div class="success-msg" id="successMsg">
-          <div class="check">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8192c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
+        <div class="support-avatar">N</div>
+        <div class="support-info">
+          <div class="support-name">Note Support</div>
+          <div class="support-status">
+            <span class="status-dot"></span>
+            Online — usually replies in minutes
           </div>
-          <h3>Message sent!</h3>
-          <p>We've received your request and will get back to you shortly.</p>
         </div>
       </div>
 
-      <!-- INFO -->
-      <div class="info-col">
-        <div class="info-card anim">
-          <div class="info-icon">
-            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-              <path d="M16 11.5a1.5 1.5 0 0 1-1.5 1.5h-9L2 16V3.5A1.5 1.5 0 0 1 3.5 2h11A1.5 1.5 0 0 1 16 3.5v8z"/>
-            </svg>
-          </div>
-          <div class="info-text">
-            <h4>Discord Community</h4>
-            <p>Join our Discord server for faster support and to chat with other players.</p>
+      <!-- Messages -->
+      <div class="chat-messages" id="chatMessages">
+        <div class="date-divider">Today</div>
+
+        <div class="msg from-support">
+          <div class="msg-avatar">N</div>
+          <div>
+            <div class="msg-bubble">Hey! 👋 Welcome to Note support. How can we help you today?</div>
+            <div class="msg-time">just now</div>
           </div>
         </div>
-        <div class="info-card anim">
-          <div class="info-icon">
-            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-              <circle cx="9" cy="9" r="7"/>
-              <path d="M9 5v4l2.5 2.5"/>
-            </svg>
-          </div>
-          <div class="info-text">
-            <h4>Response time</h4>
-            <p>We typically respond within <strong style="color:#fff">24 hours</strong>. For urgent issues, use Discord.</p>
+
+        <div class="msg from-support">
+          <div class="msg-avatar">N</div>
+          <div>
+            <div class="msg-bubble">Feel free to ask about billing, account issues, bugs, or anything else.</div>
+            <div class="msg-time">just now</div>
           </div>
         </div>
-        <div class="info-card anim">
-          <div class="info-icon">
-            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-              <circle cx="9" cy="9" r="7"/>
-              <path d="M9 6.5c0-1 .8-1.5 1.5-1.5s1.5.7 1.5 1.5c0 1-1.5 1.5-1.5 2.5M9 13h.01"/>
-            </svg>
-          </div>
-          <div class="info-text">
-            <h4>FAQ</h4>
-            <p>Check common questions: billing issues, download problems, account setup, and more.</p>
+
+        <!-- Typing indicator -->
+        <div class="typing-indicator" id="typingIndicator">
+          <div class="msg-avatar">N</div>
+          <div class="typing-bubble">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
           </div>
         </div>
-        <div class="info-card anim">
-          <div class="info-icon">
-            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-              <rect x="2" y="3" width="14" height="10" rx="2"/>
-              <path d="M2 7h14M6 3v4M12 3v4"/>
-            </svg>
-          </div>
-          <div class="info-text">
-            <h4>Working hours</h4>
-            <p>Our team is available <strong style="color:#fff">Mon–Fri, 10:00–22:00 UTC</strong>.</p>
-          </div>
-        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="chat-input-bar">
+        <textarea class="chat-input" id="chatInput" placeholder="Type a message..." rows="1"></textarea>
+        <button class="chat-send" id="chatSend">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 8L2 2l3 6-3 6 12-6z"/>
+          </svg>
+        </button>
       </div>
     </div>
   </main>
 
   <footer>
-    <div class="footer-logo">
-      <div class="nav-logo-icon" style="width:28px;height:28px;border-radius:8px;">
-        <svg viewBox="0 0 20 22" fill="none" style="width:18px;height:18px;"><defs><linearGradient id="ng2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ff8899"/></linearGradient></defs><text x="10" y="17" text-anchor="middle" font-size="20" fill="url(#ng2)" font-family="Georgia, 'Times New Roman', serif">𝄞</text></svg>
-      </div>
-      Note
-    </div>
     <div class="footer-links">
       <a href="/">Home</a>
       <a href="/price">Pricing</a>
@@ -459,36 +449,114 @@
   <script>
     // Theme toggle
     const html = document.documentElement;
-    const sun = document.getElementById('togSun');
-    const moon = document.getElementById('togMoon');
     const pill = document.querySelector('.theme-toggle-pill');
     function setTheme(dark) {
       html.setAttribute('data-theme', dark ? 'dark' : 'light');
-      sun.classList.toggle('active', !dark);
-      moon.classList.toggle('active', dark);
+      document.getElementById('togSun').classList.toggle('active', !dark);
+      document.getElementById('togMoon').classList.toggle('active', dark);
     }
     pill.addEventListener('click', () => setTheme(html.getAttribute('data-theme') !== 'dark'));
     setTheme(true);
 
-    // Form submit
-    function handleSubmit(e) {
-      e.preventDefault();
-      document.getElementById('formWrap').style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-    }
-
     // Animations
-    const delays = [0, 0.08, 0.16, 0.24, 0.32, 0.40, 0.48, 0.56];
     const anims = document.querySelectorAll('.anim');
-    let d = 0;
-    anims.forEach(el => {
-      el.style.animationDelay = (delays[d] || d * 0.08) + 's';
-      d++;
-    });
+    const delays = [0, 0.09, 0.18, 0.28];
+    anims.forEach((el, i) => { el.style.animationDelay = (delays[i] || i * 0.09) + 's'; });
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
     anims.forEach(el => io.observe(el));
+
+    // Chat
+    const messagesEl = document.getElementById('chatMessages');
+    const inputEl = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSend');
+    const typingEl = document.getElementById('typingIndicator');
+
+    const botReplies = [
+      "Got it! Let me look into that for you. 🔍",
+      "Thanks for reaching out! Could you provide more details so we can help faster?",
+      "Our team will get back to you shortly. In the meantime, check our FAQ!",
+      "That's a great question. Let me connect you with the right specialist. ⚡",
+      "We appreciate your patience! This is being escalated to our team.",
+      "Noted! We'll have this resolved for you as soon as possible. 🛠️",
+      "Thanks for the info! We're on it. Expect a response within a few hours.",
+      "Happy to help! Can you share your account email so we can look it up?",
+    ];
+    let replyIndex = 0;
+
+    function getTime() {
+      const d = new Date();
+      return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+    }
+
+    function scrollToBottom() {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function addMessage(text, fromUser) {
+      const msg = document.createElement('div');
+      msg.className = 'msg ' + (fromUser ? 'from-user' : 'from-support');
+      const timeStr = getTime();
+
+      if (fromUser) {
+        msg.innerHTML = `
+          <div>
+            <div class="msg-bubble">${text}</div>
+            <div class="msg-time">${timeStr}</div>
+          </div>`;
+      } else {
+        msg.innerHTML = `
+          <div class="msg-avatar">N</div>
+          <div>
+            <div class="msg-bubble">${text}</div>
+            <div class="msg-time">${timeStr}</div>
+          </div>`;
+      }
+
+      messagesEl.insertBefore(msg, typingEl);
+      scrollToBottom();
+    }
+
+    function showTyping() {
+      typingEl.classList.add('show');
+      scrollToBottom();
+    }
+    function hideTyping() {
+      typingEl.classList.remove('show');
+    }
+
+    function sendMessage() {
+      const text = inputEl.value.trim();
+      if (!text) return;
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+      addMessage(text, true);
+
+      // Bot reply
+      showTyping();
+      const delay = 1200 + Math.random() * 800;
+      setTimeout(() => {
+        hideTyping();
+        const reply = botReplies[replyIndex % botReplies.length];
+        replyIndex++;
+        addMessage(reply, false);
+      }, delay);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    inputEl.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Auto-resize textarea
+    inputEl.addEventListener('input', () => {
+      inputEl.style.height = 'auto';
+      inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+    });
   </script>
   <script>
     (function() {
@@ -514,11 +582,13 @@
         ty = e.touches[0].clientY;
       }, { passive: true });
       window.addEventListener('keydown', e => {
-        const step = 80;
-        if (e.key === 'ArrowDown' || e.key === 'PageDown') dst = Math.min(dst + (e.key === 'PageDown' ? window.innerHeight : step), maxScroll());
-        if (e.key === 'ArrowUp'   || e.key === 'PageUp')   dst = Math.max(dst - (e.key === 'PageUp'   ? window.innerHeight : step), 0);
-        if (e.key === 'End')  dst = maxScroll();
-        if (e.key === 'Home') dst = 0;
+        if (['ArrowDown','ArrowUp','PageDown','PageUp','End','Home'].includes(e.key) && document.activeElement !== document.getElementById('chatInput')) {
+          const step = 80;
+          if (e.key === 'ArrowDown' || e.key === 'PageDown') dst = Math.min(dst + (e.key === 'PageDown' ? window.innerHeight : step), maxScroll());
+          if (e.key === 'ArrowUp'   || e.key === 'PageUp')   dst = Math.max(dst - (e.key === 'PageUp'   ? window.innerHeight : step), 0);
+          if (e.key === 'End')  dst = maxScroll();
+          if (e.key === 'Home') dst = 0;
+        }
       });
       document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => { e.preventDefault(); });
