@@ -522,7 +522,7 @@
       if (user) {
         closeModal();
         const name = user.displayName || user.email.split('@')[0];
-        const photoURL = user.photoURL || null;
+        const photoURL = localStorage.getItem('note_av_' + user.uid) || null;
         const btn = _buildNavBtn(name, photoURL);
         if (existing) existing.replaceWith(btn); else navActions.appendChild(btn);
       } else {

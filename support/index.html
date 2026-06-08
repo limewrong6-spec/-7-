@@ -447,7 +447,7 @@
           }
           return b;
         };
-        const btn = buildBtn(user.photoURL || null);
+        const btn = buildBtn(localStorage.getItem('note_av_' + user.uid) || null);
         if (existing) existing.replaceWith(btn); else navActions.appendChild(btn);
         // Attach chat listener once
         if (!chatListenerAttached) {

@@ -373,7 +373,8 @@
     // Load user data from DB
     const userSnap = await db.ref('users/' + user.uid).once('value');
     const userData = userSnap.val() || {};
-    const photoURL = userData.photoURL || user.photoURL || null;
+    const photoURL = userData.photoURL || localStorage.getItem('note_av_' + user.uid) || null;
+    if (photoURL) localStorage.setItem('note_av_' + user.uid, photoURL);
     const userNumber = await ensureUserNumber(user.uid);
     const name = user.displayName || user.email.split('@')[0];
     const joinDate = user.metadata.creationTime
@@ -434,10 +435,10 @@
 
         try {
           const user = auth.currentUser;
-          // Save to Firebase Auth (so all pages see it via user.photoURL)
-          await user.updateProfile({ photoURL: dataURL });
-          // Also store in Firebase DB as backup
+          // Store in Firebase DB
           await db.ref('users/' + user.uid).update({ photoURL: dataURL });
+          // Cache in localStorage so all pages can read it instantly
+          localStorage.setItem('note_av_' + user.uid, dataURL);
           // Update display
           document.getElementById('avatarCircle').innerHTML = `<img src="${dataURL}" alt=""/>`;
           setNavUser(user, dataURL);
