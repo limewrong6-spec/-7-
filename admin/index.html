@@ -85,16 +85,27 @@
     .sessions-list::-webkit-scrollbar { width: 3px; }
     .sessions-list::-webkit-scrollbar-thumb { background: rgba(232,25,44,0.2); border-radius: 2px; }
     .session-item {
-      padding: 12px; border-radius: 12px; cursor: pointer;
+      padding: 10px 12px; border-radius: 12px; cursor: pointer;
       transition: background 0.15s; margin-bottom: 4px;
-      border: 1px solid transparent;
+      border: 1px solid transparent; display: flex; align-items: center; gap: 10px;
     }
     .session-item:hover { background: rgba(232,25,44,0.08); }
     .session-item.active { background: rgba(232,25,44,0.12); border-color: rgba(232,25,44,0.2); }
-    .session-id { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 3px; }
-    .session-preview { font-size: 12px; color: rgba(255,255,255,0.4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .session-time { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 3px; }
-    .unread-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #e8192c; margin-right: 5px; box-shadow: 0 0 6px rgba(232,25,44,0.6); }
+    .session-avatar {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #e8192c, #6b0010);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 800; overflow: hidden;
+      box-shadow: 0 0 8px rgba(232,25,44,0.3);
+    }
+    .session-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .session-info { flex: 1; min-width: 0; }
+    .session-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
+    .session-email { font-size: 11px; color: rgba(255,255,255,0.35); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+    .session-preview { font-size: 11px; color: rgba(255,255,255,0.4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+    .session-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .session-time { font-size: 10px; color: rgba(255,255,255,0.25); }
+    .unread-dot { width: 8px; height: 8px; border-radius: 50%; background: #e8192c; box-shadow: 0 0 6px rgba(232,25,44,0.7); }
     .no-sessions { padding: 24px 16px; font-size: 13px; color: rgba(255,255,255,0.3); text-align: center; }
 
     .chat-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
@@ -104,11 +115,13 @@
       display: flex; align-items: center; gap: 12px; flex-shrink: 0;
     }
     .chat-top-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, #333, #111);
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8192c, #6b0010);
       display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 700; flex-shrink: 0;
+      font-size: 16px; font-weight: 800; flex-shrink: 0;
+      overflow: hidden; box-shadow: 0 0 12px rgba(232,25,44,0.35);
     }
+    .chat-top-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
     .chat-top-name { font-size: 14px; font-weight: 700; }
     .chat-top-id { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 1px; }
 
@@ -269,6 +282,24 @@
 
     let activeSession = null;
     const sessions = {};
+    const userPhotos = {}; // uid → photoURL cache
+
+    async function getUserPhoto(uid) {
+      if (userPhotos[uid] !== undefined) return userPhotos[uid];
+      try {
+        const snap = await db.ref('users/' + uid + '/photoURL').once('value');
+        userPhotos[uid] = snap.val() || null;
+      } catch(e) { userPhotos[uid] = null; }
+      return userPhotos[uid];
+    }
+
+    function avatarHtml(photoURL, name, size) {
+      const initial = (name || '?')[0].toUpperCase();
+      if (photoURL) {
+        return `<img src="${photoURL}" alt="" />`;
+      }
+      return initial;
+    }
 
     function initAdmin() {
       db.ref('chats').on('child_added', snap => {
@@ -278,9 +309,6 @@
       db.ref('chats').on('child_changed', snap => {
         sessions[snap.key] = snap.val().info || {};
         renderSessions();
-        if (activeSession === snap.key) {
-          // refresh unread badge only
-        }
       });
     }
 
@@ -291,16 +319,38 @@
       list.innerHTML = '';
       keys.forEach(sid => {
         const info = sessions[sid];
-        const div  = document.createElement('div');
+        const name  = info.displayName || info.email || sid.slice(-8);
+        const email = info.email || '';
+        const time  = info.lastTime ? new Date(info.lastTime).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
+        const uid   = sid.startsWith('uid_') ? sid.slice(4) : null;
+
+        const div = document.createElement('div');
         div.className = 'session-item' + (activeSession===sid?' active':'');
-        const shortId = sid.replace('session_','').split('_').pop() || sid.slice(-6);
-        const time = info.lastTime ? new Date(info.lastTime).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
+
+        // Build with initial first, then replace with photo async
+        const initial = (name)[0].toUpperCase();
         div.innerHTML = `
-          <div class="session-id">${info.unread?'<span class="unread-dot"></span>':''}User #${shortId}</div>
-          <div class="session-preview">${escHtml(info.lastMsg||'...')}</div>
-          <div class="session-time">${time}</div>`;
+          <div class="session-avatar" id="sav_${sid.replace(/[^a-z0-9]/gi,'_')}">${initial}</div>
+          <div class="session-info">
+            <div class="session-name">${escHtml(name.length>16?name.slice(0,16)+'…':name)}</div>
+            <div class="session-email">${escHtml(email)}</div>
+            <div class="session-preview">${escHtml(info.lastMsg||'No messages yet')}</div>
+          </div>
+          <div class="session-meta">
+            <div class="session-time">${time}</div>
+            ${info.unread ? '<div class="unread-dot"></div>' : ''}
+          </div>`;
         div.onclick = () => openSession(sid);
         list.appendChild(div);
+
+        // Load photo async
+        if (uid) {
+          getUserPhoto(uid).then(photo => {
+            if (!photo) return;
+            const el = document.getElementById('sav_' + sid.replace(/[^a-z0-9]/gi,'_'));
+            if (el) el.innerHTML = `<img src="${photo}" alt=""/>`;
+          });
+        }
       });
     }
 
@@ -309,14 +359,19 @@
       renderSessions();
       db.ref('chats/'+sid+'/info/unread').set(false);
 
-      const shortId = sid.replace('session_','').split('_').pop() || sid.slice(-6);
+      const info  = sessions[sid] || {};
+      const name  = info.displayName || info.email || 'User';
+      const email = info.email || sid;
+      const uid   = sid.startsWith('uid_') ? sid.slice(4) : null;
+      const initial = name[0].toUpperCase();
+
       const chatArea = document.getElementById('chatArea');
       chatArea.innerHTML = `
         <div class="chat-top">
-          <div class="chat-top-avatar">U</div>
+          <div class="chat-top-avatar" id="chatTopAvatar">${initial}</div>
           <div>
-            <div class="chat-top-name">User #${shortId}</div>
-            <div class="chat-top-id">${sid}</div>
+            <div class="chat-top-name">${escHtml(name)}</div>
+            <div class="chat-top-id">${escHtml(email)}</div>
           </div>
         </div>
         <div class="chat-msgs" id="adminMsgs"></div>
@@ -326,6 +381,14 @@
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8L2 2l3 6-3 6 12-6z"/></svg>
           </button>
         </div>`;
+
+      // Load top avatar photo async
+      if (uid) {
+        getUserPhoto(uid).then(photo => {
+          const el = document.getElementById('chatTopAvatar');
+          if (el && photo) el.innerHTML = `<img src="${photo}" alt=""/>`;
+        });
+      }
 
       const replyInput = document.getElementById('replyInput');
       document.getElementById('replySend').addEventListener('click', sendReply);
@@ -337,19 +400,25 @@
       });
 
       const msgsEl = document.getElementById('adminMsgs');
-      // Clear and re-listen
       db.ref('chats/'+sid+'/messages').off();
       db.ref('chats/'+sid+'/messages').on('child_added', snap => {
         const d = snap.val();
         const isAdmin = d.from === 'admin';
         const msg = document.createElement('div');
         msg.className = 'msg ' + (isAdmin ? 'from-admin' : 'from-user');
-        const avatarStyle = isAdmin ? 'style="background:linear-gradient(135deg,#e8192c,#6b0010)"' : '';
-        const avatarLetter = isAdmin ? 'A' : 'U';
         if (isAdmin) {
-          msg.innerHTML = `<div class="msg-avatar" ${avatarStyle}>${avatarLetter}</div><div><div class="msg-bubble">${escHtml(d.text)}</div><div class="msg-time">${d.time||''}</div></div>`;
+          msg.innerHTML = `<div class="msg-avatar" style="background:linear-gradient(135deg,#e8192c,#6b0010)">A</div><div><div class="msg-bubble">${escHtml(d.text)}</div><div class="msg-time">${d.time||''}</div></div>`;
         } else {
-          msg.innerHTML = `<div class="msg-avatar">${avatarLetter}</div><div><div class="msg-bubble">${escHtml(d.text)}</div><div class="msg-time">${d.time||''}</div></div>`;
+          // User avatar
+          const uInitial = name[0].toUpperCase();
+          const avatarId = 'mavatar_' + Date.now();
+          msg.innerHTML = `<div class="msg-avatar" id="${avatarId}" style="background:linear-gradient(135deg,#e8192c,#6b0010)">${uInitial}</div><div><div class="msg-bubble">${escHtml(d.text)}</div><div class="msg-time">${d.time||''}</div></div>`;
+          if (uid) {
+            getUserPhoto(uid).then(photo => {
+              const el = document.getElementById(avatarId);
+              if (el && photo) el.innerHTML = `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"/>`;
+            });
+          }
         }
         msgsEl.appendChild(msg);
         msgsEl.scrollTop = msgsEl.scrollHeight;
