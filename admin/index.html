@@ -9,7 +9,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; background: #040000; font-family: 'Nunito Sans', sans-serif; color: #fff; overflow: hidden; }
 
-    /* LOGIN SCREEN */
     #loginScreen {
       position: fixed; inset: 0; background: #040000;
       display: flex; align-items: center; justify-content: center; z-index: 999;
@@ -33,7 +32,7 @@
     .login-logo-icon svg { width: 22px; height: 22px; }
     .login-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
     .login-sub { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 24px; }
-    .login-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .login-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
     .login-field label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); }
     .login-field input {
       background: rgba(255,255,255,0.05); border: 1px solid rgba(232,25,44,0.2);
@@ -46,35 +45,42 @@
       background: linear-gradient(135deg, #e8192c, #8b0000); color: #fff;
       font-size: 15px; font-weight: 700; font-family: inherit;
       box-shadow: 0 4px 16px rgba(232,25,44,0.4); transition: opacity 0.15s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
     }
     .login-btn:hover { opacity: 0.85; }
+    .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .login-err { font-size: 13px; color: #ff4455; margin-top: 10px; display: none; }
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ADMIN LAYOUT */
-    #adminApp { display: none; height: 100vh; }
-    .admin-layout { display: flex; height: 100%; }
+    #adminApp { display: none; height: 100vh; flex-direction: column; }
+    .admin-layout { display: flex; flex: 1; min-height: 0; }
 
-    /* SIDEBAR */
     .sidebar {
       width: 280px; flex-shrink: 0; background: #0a0101;
       border-right: 1px solid rgba(232,25,44,0.12);
       display: flex; flex-direction: column;
     }
     .sidebar-header {
-      padding: 18px 16px 14px;
-      border-bottom: 1px solid rgba(232,25,44,0.10);
+      padding: 16px; border-bottom: 1px solid rgba(232,25,44,0.10);
       display: flex; align-items: center; gap: 10px;
     }
     .sidebar-logo {
       width: 30px; height: 30px; border-radius: 8px;
       background: radial-gradient(circle at 40% 35%, #2a0008, #0d0002);
-      border: 1px solid rgba(232,25,44,0.35);
-      box-shadow: 0 0 8px rgba(232,25,44,0.3);
+      border: 1px solid rgba(232,25,44,0.35); box-shadow: 0 0 8px rgba(232,25,44,0.3);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .sidebar-logo svg { width: 18px; height: 18px; }
     .sidebar-title { font-size: 15px; font-weight: 800; }
     .sidebar-badge { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .sidebar-logout {
+      margin-left: auto; background: none; border: 1px solid rgba(232,25,44,0.2);
+      color: rgba(255,255,255,0.4); border-radius: 8px; padding: 5px 8px;
+      font-size: 11px; cursor: pointer; transition: all 0.15s; font-family: inherit;
+    }
+    .sidebar-logout:hover { background: rgba(232,25,44,0.1); color: #fff; }
+
     .sessions-list { flex: 1; overflow-y: auto; padding: 8px; }
     .sessions-list::-webkit-scrollbar { width: 3px; }
     .sessions-list::-webkit-scrollbar-thumb { background: rgba(232,25,44,0.2); border-radius: 2px; }
@@ -91,10 +97,9 @@
     .unread-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #e8192c; margin-right: 5px; box-shadow: 0 0 6px rgba(232,25,44,0.6); }
     .no-sessions { padding: 24px 16px; font-size: 13px; color: rgba(255,255,255,0.3); text-align: center; }
 
-    /* CHAT AREA */
     .chat-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
     .chat-top {
-      padding: 16px 20px; background: #0a0101;
+      padding: 14px 18px; background: #0a0101;
       border-bottom: 1px solid rgba(232,25,44,0.10);
       display: flex; align-items: center; gap: 12px; flex-shrink: 0;
     }
@@ -104,7 +109,6 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 14px; font-weight: 700; flex-shrink: 0;
     }
-    .chat-top-info { flex: 1; }
     .chat-top-name { font-size: 14px; font-weight: 700; }
     .chat-top-id { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 1px; }
 
@@ -123,7 +127,6 @@
       background: #333; display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 700;
     }
-    .msg.from-admin .msg-avatar { background: linear-gradient(135deg,#e8192c,#6b0010); }
     .msg-bubble { padding: 9px 13px; border-radius: 16px; font-size: 14px; line-height: 1.5; }
     .msg.from-user .msg-bubble {
       background: #181010; border: 1px solid rgba(232,25,44,0.12);
@@ -141,7 +144,7 @@
       flex: 1; display: flex; align-items: center; justify-content: center;
       flex-direction: column; gap: 12px; color: rgba(255,255,255,0.2);
     }
-    .empty-icon { font-size: 48px; opacity: 0.4; }
+    .empty-icon { font-size: 48px; }
     .empty-text { font-size: 14px; }
 
     .reply-bar {
@@ -180,16 +183,16 @@
       </div>
       <p class="login-title">Sign in</p>
       <p class="login-sub">Access the support dashboard</p>
-      <div class="login-field"><label>Password</label><input type="password" id="loginPass" placeholder="Enter password" /></div>
-      <button class="login-btn" onclick="doLogin()">Sign in</button>
-      <p class="login-err" id="loginErr">Wrong password</p>
+      <div class="login-field"><label>Email</label><input type="email" id="loginEmail" placeholder="admin@note.com" /></div>
+      <div class="login-field"><label>Password</label><input type="password" id="loginPass" placeholder="••••••••" /></div>
+      <button class="login-btn" id="loginBtn" onclick="doLogin()">Sign in</button>
+      <p class="login-err" id="loginErr">Wrong email or password</p>
     </div>
   </div>
 
   <!-- ADMIN APP -->
   <div id="adminApp">
     <div class="admin-layout">
-      <!-- Sidebar -->
       <div class="sidebar">
         <div class="sidebar-header">
           <div class="sidebar-logo">
@@ -199,15 +202,15 @@
             <div class="sidebar-title">Support</div>
             <div class="sidebar-badge">Admin Panel</div>
           </div>
+          <button class="sidebar-logout" onclick="doLogout()">Sign out</button>
         </div>
         <div class="sessions-list" id="sessionsList">
           <div class="no-sessions">No conversations yet</div>
         </div>
       </div>
 
-      <!-- Chat -->
       <div class="chat-area" id="chatArea">
-        <div class="empty-state" id="emptyState">
+        <div class="empty-state">
           <div class="empty-icon">💬</div>
           <div class="empty-text">Select a conversation to reply</div>
         </div>
@@ -216,10 +219,9 @@
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script>
-    const ADMIN_PASSWORD = 'note2025';
-
     firebase.initializeApp({
       apiKey: "AIzaSyDlHPmsc1z0XVQ8XALZZAfuDAf04IfWKls",
       authDomain: "note-client-2017b.firebaseapp.com",
@@ -229,38 +231,56 @@
       messagingSenderId: "387409651145",
       appId: "1:387409651145:web:c22642b42360ab25b77418"
     });
-    const db = firebase.database();
+    const auth = firebase.auth();
+    const db   = firebase.database();
 
-    // Login
-    document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-    function doLogin() {
-      const pass = document.getElementById('loginPass').value;
-      if (pass === ADMIN_PASSWORD) {
+    // Auto-login check
+    auth.onAuthStateChanged(user => {
+      if (user) {
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('adminApp').style.display = 'flex';
         initAdmin();
-      } else {
-        document.getElementById('loginErr').style.display = 'block';
       }
+    });
+
+    // Login
+    document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+    document.getElementById('loginEmail').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
+
+    function doLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPass').value;
+      const btn   = document.getElementById('loginBtn');
+      const err   = document.getElementById('loginErr');
+      err.style.display = 'none';
+      btn.disabled = true;
+      btn.innerHTML = '<div class="spinner"></div>';
+      auth.signInWithEmailAndPassword(email, pass)
+        .catch(() => {
+          err.style.display = 'block';
+          btn.disabled = false;
+          btn.innerHTML = 'Sign in';
+        });
+    }
+
+    function doLogout() {
+      auth.signOut().then(() => location.reload());
     }
 
     let activeSession = null;
-    let msgListener = null;
     const sessions = {};
 
     function initAdmin() {
       db.ref('chats').on('child_added', snap => {
-        const sid = snap.key;
-        const info = snap.val().info || {};
-        sessions[sid] = info;
+        sessions[snap.key] = snap.val().info || {};
         renderSessions();
       });
       db.ref('chats').on('child_changed', snap => {
-        const sid = snap.key;
-        const info = snap.val().info || {};
-        sessions[sid] = info;
+        sessions[snap.key] = snap.val().info || {};
         renderSessions();
-        if (activeSession === sid) loadMessages(sid);
+        if (activeSession === snap.key) {
+          // refresh unread badge only
+        }
       });
     }
 
@@ -271,13 +291,13 @@
       list.innerHTML = '';
       keys.forEach(sid => {
         const info = sessions[sid];
-        const div = document.createElement('div');
+        const div  = document.createElement('div');
         div.className = 'session-item' + (activeSession===sid?' active':'');
-        const shortId = sid.split('_')[2] || sid.slice(-6);
+        const shortId = sid.replace('session_','').split('_').pop() || sid.slice(-6);
         const time = info.lastTime ? new Date(info.lastTime).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
         div.innerHTML = `
           <div class="session-id">${info.unread?'<span class="unread-dot"></span>':''}User #${shortId}</div>
-          <div class="session-preview">${escHtml(info.lastMsg||'')}</div>
+          <div class="session-preview">${escHtml(info.lastMsg||'...')}</div>
           <div class="session-time">${time}</div>`;
         div.onclick = () => openSession(sid);
         list.appendChild(div);
@@ -287,33 +307,28 @@
     function openSession(sid) {
       activeSession = sid;
       renderSessions();
-
-      // Mark as read
       db.ref('chats/'+sid+'/info/unread').set(false);
 
-      // Build chat UI
+      const shortId = sid.replace('session_','').split('_').pop() || sid.slice(-6);
       const chatArea = document.getElementById('chatArea');
-      const shortId = sid.split('_')[2] || sid.slice(-6);
       chatArea.innerHTML = `
         <div class="chat-top">
           <div class="chat-top-avatar">U</div>
-          <div class="chat-top-info">
+          <div>
             <div class="chat-top-name">User #${shortId}</div>
             <div class="chat-top-id">${sid}</div>
           </div>
         </div>
         <div class="chat-msgs" id="adminMsgs"></div>
         <div class="reply-bar">
-          <textarea class="reply-input" id="replyInput" placeholder="Type your reply..." rows="1"></textarea>
+          <textarea class="reply-input" id="replyInput" placeholder="Type your reply... (Enter to send)" rows="1"></textarea>
           <button class="reply-send" id="replySend">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8L2 2l3 6-3 6 12-6z"/></svg>
           </button>
         </div>`;
 
       const replyInput = document.getElementById('replyInput');
-      const replySend  = document.getElementById('replySend');
-
-      replySend.addEventListener('click', sendReply);
+      document.getElementById('replySend').addEventListener('click', sendReply);
       replyInput.addEventListener('keydown', e => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendReply();} });
       replyInput.addEventListener('input', () => {
         replyInput.style.height = 'auto';
@@ -321,21 +336,21 @@
         db.ref('chats/'+sid+'/adminTyping').set(replyInput.value.length > 0);
       });
 
-      // Load messages real-time
-      if (msgListener) msgListener();
       const msgsEl = document.getElementById('adminMsgs');
+      // Clear and re-listen
+      db.ref('chats/'+sid+'/messages').off();
       db.ref('chats/'+sid+'/messages').on('child_added', snap => {
         const d = snap.val();
         const isAdmin = d.from === 'admin';
         const msg = document.createElement('div');
         msg.className = 'msg ' + (isAdmin ? 'from-admin' : 'from-user');
+        const avatarStyle = isAdmin ? 'style="background:linear-gradient(135deg,#e8192c,#6b0010)"' : '';
+        const avatarLetter = isAdmin ? 'A' : 'U';
         if (isAdmin) {
-          msg.innerHTML = `<div class="msg-avatar" style="background:linear-gradient(135deg,#e8192c,#6b0010)">A</div><div><div class="msg-bubble">${escHtml(d.text)}</div><div class="msg-time">${d.time||''}</div></div>`;
+          msg.innerHTML = `<div class="msg-avatar" ${avatarStyle}>${avatarLetter}</div><div><div class="msg-bubble">${escHtml(d.text)}</div><div class="msg-time">${d.time||''}</div></div>`;
         } else {
-          msg.innerHTML = `<div class="msg-avatar">U</div><div><div class="msg-bubble">${escHtml(d.text)}</div><div class="msg-time">${d.time||''}</div></div>`;
+          msg.innerHTML = `<div class="msg-avatar">${avatarLetter}</div><div><div class="msg-bubble">${escHtml(d.text)}</div><div class="msg-time">${d.time||''}</div></div>`;
         }
-        // Reverse layout for admin-sent
-        if (isAdmin) msg.style.cssText = 'align-self:flex-end;flex-direction:row-reverse;';
         msgsEl.appendChild(msg);
         msgsEl.scrollTop = msgsEl.scrollHeight;
       });
@@ -344,16 +359,15 @@
     function sendReply() {
       if (!activeSession) return;
       const input = document.getElementById('replyInput');
-      const text = input.value.trim();
+      const text  = input.value.trim();
       if (!text) return;
       input.value = '';
       input.style.height = 'auto';
       db.ref('chats/'+activeSession+'/adminTyping').set(false);
-
-      const now = new Date();
+      const now  = new Date();
       const time = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
       db.ref('chats/'+activeSession+'/messages').push({ text, from:'admin', time, ts: Date.now() });
-      db.ref('chats/'+activeSession+'/info').update({ lastMsg: '(you) '+text, lastTime: Date.now() });
+      db.ref('chats/'+activeSession+'/info').update({ lastMsg:'(you) '+text, lastTime: Date.now() });
     }
 
     function escHtml(t) {
