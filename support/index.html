@@ -526,14 +526,34 @@
       typingEl.classList.remove('show');
     }
 
+    const WEBHOOK = 'https://discord.com/api/webhooks/1513485443688042506/IwHxjno2zcjHgCS38XN0ZeMj2sBlMOyh883DC5Vx7yGiDIBCUuOm0SYVLeV48nuYRPMy';
+
+    function sendToDiscord(text) {
+      fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: 'Note Support Chat',
+          avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png',
+          embeds: [{
+            color: 0xe8192c,
+            description: text,
+            footer: { text: 'note-client.vercel.app/support' },
+            timestamp: new Date().toISOString()
+          }]
+        })
+      }).catch(() => {});
+    }
+
     function sendMessage() {
       const text = inputEl.value.trim();
       if (!text) return;
       inputEl.value = '';
       inputEl.style.height = 'auto';
       addMessage(text, true);
+      sendToDiscord(text);
 
-      // Bot reply
+      // Auto reply
       showTyping();
       const delay = 1200 + Math.random() * 800;
       setTimeout(() => {
