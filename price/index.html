@@ -485,9 +485,10 @@
     </div>
   </div>
 
-  <!-- Firebase Auth -->
+  <!-- Firebase Auth + DB -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script>
     if (!firebase.apps.length) {
       firebase.initializeApp({
@@ -501,20 +502,36 @@
       });
     }
     const _auth = firebase.auth();
+    const _db   = firebase.database();
     let _isSignup = false;
 
-    _auth.onAuthStateChanged(user => {
+    function _buildNavBtn(name, photoURL) {
+      const btn = document.createElement('a');
+      btn.href = '/profile';
+      btn.className = 'btn-user';
+      if (photoURL) {
+        btn.innerHTML = `<div class="user-initial" style="overflow:hidden;"><img src="${photoURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>${name}`;
+      } else {
+        btn.innerHTML = `<div class="user-initial">${name[0].toUpperCase()}</div>${name}`;
+      }
+      return btn;
+    }
+
+    _auth.onAuthStateChanged(async user => {
       const navActions = document.querySelector('.nav-actions');
       const existing = navActions.querySelector('.btn-signin, .btn-user');
       if (user) {
         closeModal();
         const name = user.displayName || user.email.split('@')[0];
-        const btn = document.createElement('a');
-        btn.href = '#';
-        btn.className = 'btn-user';
-        btn.innerHTML = `<div class="user-initial">${name[0].toUpperCase()}</div>${name}`;
-        btn.href = '/profile';
-        if (existing) existing.replaceWith(btn);
+        const snap = await _db.ref('users/' + user.uid + '/photoURL').once('value');
+        const photoURL = snap.val() || null;
+        const btn = _buildNavBtn(name, photoURL);
+        if (existing) existing.replaceWith(btn); else navActions.appendChild(btn);
+        _db.ref('users/' + user.uid + '/photoURL').on('value', s => {
+          const p = s.val() || null;
+          const cur = navActions.querySelector('.btn-user');
+          if (cur) cur.replaceWith(_buildNavBtn(name, p));
+        });
       } else {
         if (existing && existing.classList.contains('btn-user')) {
           const btn = document.createElement('a');
