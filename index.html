@@ -1105,7 +1105,7 @@
         btn.href = '#';
         btn.className = 'btn-user';
         btn.innerHTML = `<div class="user-initial">${name[0].toUpperCase()}</div>${name}`;
-        btn.onclick = (e) => { e.preventDefault(); _auth.signOut(); };
+        btn.href = '/profile';
         if (existing) existing.replaceWith(btn);
       } else {
         if (existing && existing.classList.contains('btn-user')) {

@@ -440,7 +440,7 @@
         btn.href = '#';
         btn.className = 'btn-user';
         btn.innerHTML = `<div class="user-initial">${name[0].toUpperCase()}</div>${name}`;
-        btn.onclick = (e) => { e.preventDefault(); auth.signOut(); };
+        btn.href = '/profile';
         if (existing) existing.replaceWith(btn);
         // Attach chat listener once
         if (!chatListenerAttached) {

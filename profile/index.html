@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Note — Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --accent: #e8192c; }
+    html, body {
+      min-height: 100%; background: #040000;
+      font-family: 'Nunito Sans', 'Segoe UI', system-ui, sans-serif; color: #fff;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      z-index: 100; display: flex; align-items: center; padding: 5px 6px;
+      background: rgba(8,2,2,0.88); border: 1px solid rgba(232,25,44,0.20);
+      border-radius: 50px; backdrop-filter: blur(24px); white-space: nowrap;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04); gap: 0;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Josefin Sans', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.04em;
+      text-decoration: none; padding: 3px 12px 3px 4px;
+      background: linear-gradient(180deg, #fff 0%, #ff8899 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-logo-icon {
+      width: 34px; height: 34px;
+      background: radial-gradient(circle at 40% 35%, #2a0008 0%, #0d0002 100%);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; border: 1px solid rgba(232,25,44,0.35);
+      box-shadow: 0 0 12px rgba(232,25,44,0.5), 0 0 32px rgba(232,25,44,0.2);
+      position: relative; overflow: hidden;
+    }
+    .nav-logo-icon::after {
+      content: ''; position: absolute; top: -8px; left: 50%;
+      transform: translateX(-50%); width: 20px; height: 20px;
+      background: radial-gradient(circle, rgba(232,25,44,0.6), transparent 70%); pointer-events: none;
+    }
+    .nav-logo-icon svg { width: 22px; height: 22px; position: relative; z-index: 1; }
+    .nav-sep { width: 1px; height: 16px; background: rgba(232,25,44,0.20); margin: 0 4px; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; list-style: none; gap: 1px; }
+    .nav-links a {
+      display: flex; align-items: center; gap: 5px; padding: 6px 11px; border-radius: 50px;
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.60); text-decoration: none;
+      transition: background 0.15s, color 0.15s; line-height: 1;
+    }
+    .nav-links a:hover { background: rgba(232,25,44,0.12); color: #fff; }
+    .nav-links a.active { background: rgba(232,25,44,0.16); color: #fff; font-weight: 600; }
+    .nav-links a .nav-icon { width: 14px; height: 14px; opacity: 0.80; flex-shrink: 0; }
+    .nav-actions { display: flex; align-items: center; gap: 5px; margin-left: 2px; }
+    .theme-toggle-pill {
+      display: flex; align-items: center; background: rgba(232,25,44,0.08);
+      border: 1px solid rgba(232,25,44,0.16); border-radius: 50px; padding: 3px 4px; gap: 1px; cursor: pointer;
+    }
+    .tog-icon {
+      width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: rgba(255,255,255,0.35); transition: background 0.18s, color 0.18s; user-select: none;
+    }
+    .tog-icon.active { background: rgba(232,25,44,0.28); color: #fff; }
+    .btn-user {
+      display: flex; align-items: center; gap: 7px;
+      padding: 5px 13px 5px 5px; border-radius: 50px;
+      background: rgba(232,25,44,0.12); border: 1px solid rgba(232,25,44,0.22);
+      cursor: pointer; color: #fff; font-size: 13px; font-weight: 600;
+      transition: background 0.15s; text-decoration: none; line-height: 1;
+    }
+    .btn-user:hover { background: rgba(232,25,44,0.22); }
+    .user-initial-nav {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8192c, #6b0010);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+    }
+    .btn-signin {
+      display: flex; align-items: center; gap: 6px; padding: 6px 14px 6px 11px; border-radius: 50px;
+      background: #e8192c; color: #fff; font-size: 13px; font-weight: 600;
+      border: 1px solid rgba(255,80,80,0.3); cursor: pointer; text-decoration: none;
+      transition: background 0.15s; line-height: 1; box-shadow: 0 2px 12px rgba(232,25,44,0.4);
+    }
+    .btn-signin:hover { background: #c5101f; }
+    .signin-icon { width: 15px; height: 15px; opacity: 0.80; flex-shrink: 0; }
+
+    /* PAGE */
+    .profile-page {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 100px 24px 60px;
+    }
+
+    /* AVATAR */
+    .profile-avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8192c, #6b0010);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; font-weight: 800;
+      box-shadow: 0 0 40px rgba(232,25,44,0.4), 0 0 80px rgba(232,25,44,0.15);
+      margin-bottom: 20px; position: relative; flex-shrink: 0;
+    }
+    .profile-avatar-ring {
+      position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid rgba(232,25,44,0.35);
+      animation: ring-pulse 3s ease-in-out infinite;
+    }
+    @keyframes ring-pulse { 0%,100%{opacity:0.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.04)} }
+
+    .profile-name-display {
+      font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px;
+    }
+    .profile-email-display {
+      font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 40px;
+    }
+
+    /* CARD */
+    .profile-card {
+      width: 100%; max-width: 480px;
+      background: linear-gradient(145deg, #0f0202, #090101);
+      border: 1px solid rgba(232,25,44,0.18);
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.5);
+    }
+    .profile-card::before {
+      content: ''; display: block; height: 2px;
+      background: linear-gradient(90deg, transparent, #e8192c, transparent);
+    }
+    .card-section {
+      padding: 24px 28px;
+      border-bottom: 1px solid rgba(232,25,44,0.10);
+    }
+    .card-section:last-child { border-bottom: none; }
+    .card-section-title {
+      font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px;
+    }
+
+    /* FORM */
+    .form-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+    .form-field:last-of-type { margin-bottom: 0; }
+    .form-field label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; text-transform: uppercase; }
+    .form-field input {
+      padding: 11px 14px; border-radius: 12px;
+      border: 1px solid rgba(232,25,44,0.18); background: rgba(255,255,255,0.04);
+      color: #fff; font-size: 14px; font-family: inherit; outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-field input:focus { border-color: rgba(232,25,44,0.5); background: rgba(232,25,44,0.04); }
+    .form-field input:disabled { color: rgba(255,255,255,0.3); cursor: not-allowed; }
+    .form-field input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .save-row { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+    .btn-save {
+      padding: 10px 22px; border-radius: 12px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, #e8192c, #9b0010); color: #fff;
+      font-size: 13px; font-weight: 700; font-family: inherit;
+      box-shadow: 0 4px 14px rgba(232,25,44,0.35); transition: opacity 0.15s, transform 0.15s;
+    }
+    .btn-save:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .save-msg { font-size: 13px; color: #4ade80; display: none; }
+    .save-msg.err { color: #ff6677; }
+
+    /* DANGER ZONE */
+    .btn-signout {
+      display: flex; align-items: center; gap: 8px;
+      padding: 11px 20px; border-radius: 12px; border: 1px solid rgba(232,25,44,0.25);
+      background: transparent; color: rgba(255,255,255,0.6); cursor: pointer;
+      font-size: 13px; font-weight: 600; font-family: inherit;
+      transition: background 0.15s, color 0.15s; width: 100%;
+    }
+    .btn-signout:hover { background: rgba(232,25,44,0.12); color: #fff; }
+
+    /* LOADING SCREEN */
+    .loading-screen {
+      position: fixed; inset: 0; background: #040000;
+      display: flex; align-items: center; justify-content: center; z-index: 999;
+    }
+    .loading-spinner {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 3px solid rgba(232,25,44,0.2);
+      border-top-color: #e8192c;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @keyframes navSlideDown { from{opacity:0;transform:translateX(-50%) translateY(-20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+    nav { animation: navSlideDown 0.55s cubic-bezier(.22,1,.36,1) both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
+    .anim { opacity: 0; }
+    .anim.visible { animation: fadeUp 0.5s cubic-bezier(.22,1,.36,1) both; }
+
+    footer {
+      background: #040000; border-top: 1px solid rgba(232,25,44,0.10);
+      padding: 24px; margin-top: 40px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;
+    }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.2); }
+  </style>
+</head>
+<body>
+
+  <!-- Loading screen (while Firebase checks auth) -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 20 22" fill="none"><defs><linearGradient id="ng" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ff8899"/></linearGradient></defs><text x="10" y="17" text-anchor="middle" font-size="20" fill="url(#ng)" font-family="Georgia,'Times New Roman',serif">𝄞</text></svg>
+      </div>
+      Note
+    </a>
+    <div class="nav-sep"></div>
+    <ul class="nav-links">
+      <li><a href="/"><svg class="nav-icon" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1.5L1.5 6v6.5h3.75V9.5h3.5v3h3.75V6L7 1.5z"/></svg>Home</a></li>
+      <li><a href="/price"><svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3.5" width="11" height="8" rx="1.5"/><path d="M4.5 3.5V2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1"/><line x1="1.5" y1="6.5" x2="12.5" y2="6.5"/></svg>Pricing</a></li>
+      <li><a href="#" style="opacity:0.35;pointer-events:none;cursor:default;"><svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="1.5" width="9" height="11" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7.5" y2="10"/></svg>Privacy Policy</a></li>
+      <li><a href="/support"><svg class="nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 2.5h10a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5H8l-3 2v-2H2a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/></svg>Support</a></li>
+    </ul>
+    <div class="nav-sep"></div>
+    <div class="nav-actions" id="navActions">
+      <div class="theme-toggle-pill" id="themeToggle">
+        <div class="tog-icon" id="togSun">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><circle cx="6.5" cy="6.5" r="2.5"/><line x1="6.5" y1="0.5" x2="6.5" y2="2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="6.5" y1="11" x2="6.5" y2="12.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="0.5" y1="6.5" x2="2" y2="6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="11" y1="6.5" x2="12.5" y2="6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="tog-icon active" id="togMoon">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M10.5 7.5A5 5 0 0 1 4.5 1.5a5 5 0 1 0 6 6z"/></svg>
+        </div>
+      </div>
+      <!-- nav auth button injected by JS -->
+    </div>
+  </nav>
+
+  <main class="profile-page" id="profilePage" style="display:none;">
+    <div class="profile-avatar anim" id="profileAvatarEl">
+      <div class="profile-avatar-ring"></div>
+      <span id="avatarInitial">?</span>
+    </div>
+    <div class="profile-name-display anim" id="profileNameDisplay">Loading...</div>
+    <div class="profile-email-display anim" id="profileEmailDisplay"></div>
+
+    <div class="profile-card anim">
+
+      <!-- Account info -->
+      <div class="card-section">
+        <div class="card-section-title">Account info</div>
+        <div class="form-field">
+          <label>Username</label>
+          <input type="text" id="inputName" placeholder="Your username" />
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" id="inputEmail" disabled />
+        </div>
+        <div class="save-row">
+          <button class="btn-save" id="btnSaveName">Save changes</button>
+          <span class="save-msg" id="saveMsgName"></span>
+        </div>
+      </div>
+
+      <!-- Change password -->
+      <div class="card-section">
+        <div class="card-section-title">Change password</div>
+        <div class="form-field">
+          <label>New password</label>
+          <input type="password" id="inputNewPass" placeholder="At least 6 characters" />
+        </div>
+        <div class="form-field">
+          <label>Confirm password</label>
+          <input type="password" id="inputConfirmPass" placeholder="Repeat password" />
+        </div>
+        <div class="save-row">
+          <button class="btn-save" id="btnSavePass">Update password</button>
+          <span class="save-msg" id="saveMsgPass"></span>
+        </div>
+      </div>
+
+      <!-- Sign out -->
+      <div class="card-section">
+        <div class="card-section-title">Session</div>
+        <button class="btn-signout" id="btnSignOut">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 3H13a1 1 0 011 1v8a1 1 0 01-1 1H10"/><path d="M6 11L3 8l3-3"/><line x1="3" y1="8" x2="10" y2="8"/>
+          </svg>
+          Sign out
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer id="pageFooter" style="display:none;">
+    <p>© 2026 Note. All rights reserved.</p>
+  </footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyDlHPmsc1z0XVQ8XALZZAfuDAf04IfWKls",
+      authDomain: "note-client-2017b.firebaseapp.com",
+      databaseURL: "https://note-client-2017b-default-rtdb.firebaseio.com",
+      projectId: "note-client-2017b",
+      storageBucket: "note-client-2017b.firebasestorage.app",
+      messagingSenderId: "387409651145",
+      appId: "1:387409651145:web:c22642b42360ab25b77418"
+    });
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+      document.getElementById('loadingScreen').style.display = 'none';
+
+      const navActions = document.getElementById('navActions');
+      // Remove old button if any
+      navActions.querySelectorAll('.btn-signin, .btn-user').forEach(el => el.remove());
+
+      if (!user) {
+        // Not logged in → redirect to home
+        window.location.href = '/';
+        return;
+      }
+
+      // Show page
+      document.getElementById('profilePage').style.display = 'flex';
+      document.getElementById('pageFooter').style.display = 'flex';
+
+      const name = user.displayName || user.email.split('@')[0];
+      const initial = name[0].toUpperCase();
+
+      // Nav button (active, links back to profile)
+      const btn = document.createElement('a');
+      btn.href = '/profile';
+      btn.className = 'btn-user';
+      btn.innerHTML = `<div class="user-initial-nav">${initial}</div>${name}`;
+      navActions.appendChild(btn);
+
+      // Fill avatar + header
+      document.getElementById('avatarInitial').textContent = initial;
+      document.getElementById('profileNameDisplay').textContent = name;
+      document.getElementById('profileEmailDisplay').textContent = user.email;
+      document.getElementById('inputName').value = user.displayName || '';
+      document.getElementById('inputEmail').value = user.email;
+
+      // Animations
+      document.querySelectorAll('.anim').forEach((el, i) => {
+        el.style.animationDelay = (i * 0.08) + 's';
+        el.classList.add('visible');
+      });
+    });
+
+    // Save username
+    document.getElementById('btnSaveName').addEventListener('click', async () => {
+      const name = document.getElementById('inputName').value.trim();
+      const msg  = document.getElementById('saveMsgName');
+      const btn  = document.getElementById('btnSaveName');
+      if (!name) { showMsg(msg, 'Enter a username.', true); return; }
+      btn.disabled = true; btn.textContent = 'Saving...';
+      try {
+        await auth.currentUser.updateProfile({ displayName: name });
+        document.getElementById('profileNameDisplay').textContent = name;
+        document.getElementById('avatarInitial').textContent = name[0].toUpperCase();
+        document.querySelector('.user-initial-nav').textContent = name[0].toUpperCase();
+        document.querySelector('.btn-user').childNodes[1].textContent = name;
+        showMsg(msg, 'Saved!', false);
+      } catch(e) { showMsg(msg, 'Error. Try again.', true); }
+      btn.disabled = false; btn.textContent = 'Save changes';
+    });
+
+    // Change password
+    document.getElementById('btnSavePass').addEventListener('click', async () => {
+      const np  = document.getElementById('inputNewPass').value;
+      const cp  = document.getElementById('inputConfirmPass').value;
+      const msg = document.getElementById('saveMsgPass');
+      const btn = document.getElementById('btnSavePass');
+      if (!np || !cp) { showMsg(msg, 'Fill both fields.', true); return; }
+      if (np !== cp)  { showMsg(msg, "Passwords don't match.", true); return; }
+      if (np.length < 6) { showMsg(msg, 'At least 6 characters.', true); return; }
+      btn.disabled = true; btn.textContent = 'Updating...';
+      try {
+        await auth.currentUser.updatePassword(np);
+        document.getElementById('inputNewPass').value = '';
+        document.getElementById('inputConfirmPass').value = '';
+        showMsg(msg, 'Password updated!', false);
+      } catch(e) {
+        const msgs = {
+          'auth/requires-recent-login': 'Please sign out and sign back in first.',
+          'auth/weak-password': 'Password must be at least 6 characters.',
+        };
+        showMsg(msg, msgs[e.code] || 'Error. Try again.', true);
+      }
+      btn.disabled = false; btn.textContent = 'Update password';
+    });
+
+    // Sign out
+    document.getElementById('btnSignOut').addEventListener('click', async () => {
+      await auth.signOut();
+      window.location.href = '/';
+    });
+
+    function showMsg(el, text, isErr) {
+      el.textContent = text;
+      el.className = 'save-msg' + (isErr ? ' err' : '');
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 3500);
+    }
+
+    // Theme toggle
+    const pill = document.getElementById('themeToggle');
+    function setTheme(dark) {
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      document.getElementById('togSun').classList.toggle('active', !dark);
+      document.getElementById('togMoon').classList.toggle('active', dark);
+    }
+    pill.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') !== 'dark'));
+    setTheme(true);
+  </script>
+
+  <script>
+    (function() {
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'will-change:transform;position:relative;';
+      while (document.body.firstChild) wrap.appendChild(document.body.firstChild);
+      document.body.appendChild(wrap);
+      const navbar = wrap.querySelector('nav');
+      if (navbar) document.body.insertBefore(navbar, wrap);
+      const loading = wrap.querySelector('#loadingScreen');
+      if (loading) document.body.appendChild(loading);
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
+      let cur = 0, dst = 0;
+      const EASE = 0.045;
+      const maxScroll = () => wrap.scrollHeight - window.innerHeight;
+      window.addEventListener('wheel', e => { dst = Math.min(Math.max(dst + e.deltaY, 0), maxScroll()); }, { passive: true });
+      let ty = 0;
+      window.addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
+      window.addEventListener('touchmove', e => { dst = Math.min(Math.max(dst+(ty-e.touches[0].clientY)*1.5,0),maxScroll()); ty=e.touches[0].clientY; }, { passive: true });
+      (function loop() {
+        cur += (dst-cur)*EASE; if(Math.abs(dst-cur)<0.5)cur=dst;
+        wrap.style.transform=`translateY(${-cur}px)`; requestAnimationFrame(loop);
+      })();
+    })();
+  </script>
+</body>
+</html>
