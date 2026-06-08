@@ -377,6 +377,14 @@
     if (photoURL) localStorage.setItem('note_av_' + user.uid, photoURL);
     const userNumber = await ensureUserNumber(user.uid);
     const name = user.displayName || user.email.split('@')[0];
+
+    // Backfill username index so login-by-username works
+    if (user.displayName) {
+      const unSnap = await db.ref('usernames/' + user.displayName.toLowerCase()).once('value');
+      if (!unSnap.exists()) {
+        await db.ref('usernames/' + user.displayName.toLowerCase()).set({ email: user.email, uid: user.uid });
+      }
+    }
     const joinDate = user.metadata.creationTime
       ? new Date(user.metadata.creationTime).toLocaleDateString('en-US', {month:'short', year:'numeric'})
       : '—';
